@@ -19332,6 +19332,31 @@ module.exports = function(module) {
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+var select = function select() {
+  var selectHeader = document.querySelectorAll('.select__header');
+  var selectItem = document.querySelectorAll('.select__item');
+  selectHeader.forEach(function (item) {
+    item.addEventListener('click', selectToggle);
+  });
+  selectItem.forEach(function (item) {
+    item.addEventListener('click', selectChoose);
+  });
+
+  function selectToggle() {
+    this.parentElement.classList.toggle('is-active');
+  }
+
+  function selectChoose() {
+    var text = this.innerText,
+        select = this.closest('.select'),
+        currentText = select.querySelector('.select__current');
+    currentText.innerText = text;
+    select.classList.remove('is-active');
+  }
+};
+
+select();
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
