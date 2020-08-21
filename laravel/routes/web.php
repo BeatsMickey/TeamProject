@@ -14,5 +14,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
+});
+
+Route::get('/calendar', function () {
+    return view('calendar');
+});
+
+Route::get('/alreadyDoneExercises', function () {
+    return view('alreadyDoneExercises');
+});
+
+Route::get('/exercise', function () {
+    return view('exercise');
 });
