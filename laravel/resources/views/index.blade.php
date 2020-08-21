@@ -17,7 +17,7 @@
                     <p>Добиваться поставленных целей</p>
                 </div>
 
-                <a href="/calendar">НАЧАТЬ</a>
+                <a href="{{ $url }}">НАЧАТЬ</a>
             </div>
 
             <div class="hr"></div>
