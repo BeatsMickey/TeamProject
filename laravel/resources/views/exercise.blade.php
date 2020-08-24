@@ -39,7 +39,7 @@
 {{--                    </div>--}}
 
                     <div>
-                        <div class="bg-success btn category selected-btn" id="all">
+                        <div class="bg-success btn category selected-category" id="all">
                             Все категории
                         </div>
                         @foreach($categories as $category)

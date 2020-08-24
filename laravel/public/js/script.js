@@ -35,6 +35,17 @@ let elements = document.getElementsByClassName("category");
 
 let selectCategory = function() {
     let activeCategory = this.getAttribute("id");
+
+    for (let i = 0; i < elements.length; i++) {
+        let el = elements[i];
+        let categoryID = el.getAttribute('id');
+        if (categoryID === activeCategory) {
+            el.classList.add('selected-category');
+        } else {
+            el.classList.remove('selected-category');
+        }
+    }
+
     // alert(activeCategory);
     let options = document.getElementById('choose-exercises');
     options.selectedIndex = "-1";
