@@ -37,10 +37,22 @@
 {{--                            <div class="select__item">Value 5</div>--}}
 {{--                        </div>--}}
 {{--                    </div>--}}
-                    <select class="content_form" name="exercises_id">
-                        @foreach($exercises as $value)
-                            <option value="{{ $value->id }}">
-                                {{ $value->name }}</option>
+
+                    <div>
+                        <div class="bg-success btn category selected-category" id="all">
+                            Все категории
+                        </div>
+                        @foreach($categories as $category)
+                            <div class="bg-success btn category" id="{{ $category->id }}">{{ $category->name }}</div>
+                        @endforeach
+                    </div>
+
+
+                    <select class="content_form mt-2" id="choose-exercises" name="exercises_id">
+                        @foreach($allExercises as $value)
+                            <option class="exercise" value="{{ $value->id }}" data-category="{{ $value->category_id }}">
+                                {{ $value->name }}
+                            </option>
                         @endforeach
                     </select><br>
 

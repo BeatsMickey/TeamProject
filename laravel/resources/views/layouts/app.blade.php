@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
 
     <!-- CSRF Token -->
@@ -13,6 +14,7 @@
     <title>@yield('title')</title>
 </head>
 <body>
+    <div id="app">
     @section('header')
         <section class="section_marginBottom">
             <div class="section__container">
@@ -44,6 +46,11 @@
         @endguest
     @show
     @yield('content')
+
+
+
+    </div>
     <script src="{{ asset('./js/app.js') }}"></script>
+    <script src="/js/script.js"></script>
 </body>
 </html>
