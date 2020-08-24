@@ -33,22 +33,28 @@ select();
 
 let elements = document.getElementsByClassName("category");
 
-var myFunction = function() {
-    let attribute = this.getAttribute("id");
-    alert(attribute);
+let selectCategory = function() {
+    let activeCategory = this.getAttribute("id");
+    // alert(activeCategory);
+    let options = document.getElementById('choose-exercises');
+    options.selectedIndex = "-1";
+    console.log(options.selectedIndex);
+
+    let exercises = document.getElementsByClassName("exercise");
+    for (let i = 0; i < exercises.length; i++) {
+        let el = exercises[i];
+        let categoryID = el.getAttribute('data-category');
+        if (categoryID === activeCategory || activeCategory === "all") {
+            el.classList.remove('d-none');
+        } else {
+            el.classList.add('d-none');
+        }
+    }
 };
 
 for (let i = 0; i < elements.length; i++) {
-    elements[i].addEventListener('click', myFunction, false);
+    elements[i].addEventListener('click', selectCategory, false);
 }
 
 
-console.log(document.getElementsByClassName("category"));
 
-
-function selectCategory() {
-    console.log(111);
-    // document.getElementsByClassName("category").innerHTML = "Hello World";
-    // console.log(document.getElementsByClassName("category"));
-}
-selectCategory();
