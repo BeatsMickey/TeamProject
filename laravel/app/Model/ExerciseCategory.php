@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ExerciseCategory extends Model
 {
-    public function getAllExerciseCategories() {
-
+    public static function getAll() {
+        return ExerciseCategory::query()->get();
     }
 }
