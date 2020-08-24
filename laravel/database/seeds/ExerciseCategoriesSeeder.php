@@ -12,7 +12,7 @@ class ExerciseCategoriesSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('exercise_categories')->insert($this->getData());
+        DB::table('categories_exercises')->insert($this->getData());
     }
 
     private function getData() {
