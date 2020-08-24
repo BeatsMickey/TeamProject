@@ -13,6 +13,7 @@
     <title>@yield('title')</title>
 </head>
 <body>
+    <div id="app">
     @section('header')
         <section class="section_marginBottom">
             <div class="section__container">
@@ -44,6 +45,7 @@
         @endguest
     @show
     @yield('content')
+    </div>
     <script src="{{ asset('./js/app.js') }}"></script>
 </body>
 </html>
