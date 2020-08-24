@@ -18,7 +18,7 @@ class CreateRelationsExerciseCategoryTable extends Migration
             $table->unsignedBigInteger('category_id');
 
             $table->foreign('exercise_id')->references('id')->on('exercises');
-            $table->foreign('category_id')->references('id')->on('exercise_categories');
+            $table->foreign('category_id')->references('id')->on('categories_exercises');
         });
     }
 
