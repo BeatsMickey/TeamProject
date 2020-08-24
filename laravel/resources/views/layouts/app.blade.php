@@ -15,7 +15,6 @@
 </head>
 <body>
     <div id="app">
-        <example-component></example-component>
     @section('header')
         <section class="section_marginBottom">
             <div class="section__container">
