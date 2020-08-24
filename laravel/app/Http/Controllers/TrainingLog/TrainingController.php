@@ -5,7 +5,7 @@ namespace App\Http\Controllers\TrainingLog;
 use App\Http\Controllers\Controller;
 use App\Model\Calendar;
 use App\Model\CalendarExercises;
-use App\Model\ExerciseCategory;
+use App\Model\CategoriesExercises;
 use App\Model\Exercises;
 use App\MyApp;
 use Illuminate\Http\Request;
@@ -13,7 +13,8 @@ use Illuminate\Support\Facades\DB;
 
 class TrainingController extends Controller
 {
-    public function index(Request $request) {
+    public function index(Request $request)
+    {
 
         $session_id = $request->session()->getId();
 
@@ -31,17 +32,18 @@ class TrainingController extends Controller
         return view('calendar', ['calendar' => $calendar, 'months' => $months, 'month' => $month]);
     }
 
-    public function viewDay(Request $request, $month, $day, $today) {
+    public function viewDay(Request $request, $month, $day, $today)
+    {
 
-        if($today) {
+        if ($today) {
             $routename = 'exercise';
         } else {
             $routename = 'alreadyDoneExercises';
         }
 
-        $categories = ExerciseCategory::getAll();
+        $categories = CategoriesExercises::getAll();
 
-        $exercises = Exercises::getAllExercises();
+        $allExercises = Exercises::getAllExercises();
 
         $session_id = $request->session()->getId();
 
@@ -52,15 +54,18 @@ class TrainingController extends Controller
         $months = MyApp::MONTHSNAME;
 
         return view($routename, [
-            'month' => $months[$month],
-            'day' => $day,
-            'calendar_exercises' => $calendar_exercises,
-            'categories' => $categories,
-            'exercises' => $exercises]);
+                'month' => $months[$month],
+                'day' => $day,
+                'calendar_exercises' => $calendar_exercises,
+                'categories' => $categories,
+                'allExercises' => $allExercises,
+            ]
+        );
     }
 
 
-    public function addExercises(Request $request, $day, $month, $today) {
+    public function addExercises(Request $request, $day, $month, $today)
+    {
 
         $session_id = $request->session()->getId();
 
@@ -76,7 +81,8 @@ class TrainingController extends Controller
         return redirect()->route('trainingLog.view_day', ['month' => array_search($month, $months), 'day' => $day, 'today' => $today]);
     }
 
-    public function delExercises(Request $request, $day, $month, $id, $today) {
+    public function delExercises(Request $request, $day, $month, $id, $today)
+    {
 
         $exercise = CalendarExercises::find($id);
 
@@ -86,7 +92,6 @@ class TrainingController extends Controller
 
         return redirect()->route('trainingLog.view_day', ['month' => array_search($month, $months), 'day' => $day, 'today' => $today]);
     }
-
 
 
 }
