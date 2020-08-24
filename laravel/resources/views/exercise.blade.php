@@ -39,16 +39,20 @@
 {{--                    </div>--}}
 
                     <div>
-                        <div class="d-inline bg-success btn category" id="all">Все категории</div>
+                        <div class="d-inline bg-success btn category selected-btn" id="all"
+                            onclick="selectCategory()"
+                        >
+                            Все категории
+                        </div>
                         @foreach($categories as $category)
-                            <div class="d-inline bg-success btn category" id="$category->id">{{ $category->name }}</div>
+                            <div class="d-inline bg-success btn category" id="{{ $category->id }}">{{ $category->name }}</div>
                         @endforeach
                     </div>
 
 
                     <select class="content_form mt-2" name="exercises_id">
                         @foreach($allExercises as $value)
-                            <option value="{{ $value->id }}" data-category="{{ $value->category_id }} ">
+                            <option value="{{ $value->id }}" data-category="{{ $value->category_id }}">
                                 {{ $value->name }}
                             </option>
                         @endforeach

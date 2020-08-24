@@ -25,5 +25,30 @@ let select = function () {
 
 };
 
-
 select();
+
+// Составление списка упраженений по заданной категории
+
+// document.getElementsByClassName("category").addEventListener("click", selectCategory);
+
+let elements = document.getElementsByClassName("category");
+
+var myFunction = function() {
+    let attribute = this.getAttribute("id");
+    alert(attribute);
+};
+
+for (let i = 0; i < elements.length; i++) {
+    elements[i].addEventListener('click', myFunction, false);
+}
+
+
+console.log(document.getElementsByClassName("category"));
+
+
+function selectCategory() {
+    console.log(111);
+    // document.getElementsByClassName("category").innerHTML = "Hello World";
+    // console.log(document.getElementsByClassName("category"));
+}
+selectCategory();
