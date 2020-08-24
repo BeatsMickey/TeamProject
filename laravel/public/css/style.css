@@ -323,3 +323,7 @@ body {
   position: absolute;
   left: 59%;
 }
+
+.selected-btn {
+    font-size: 22px;
+}
