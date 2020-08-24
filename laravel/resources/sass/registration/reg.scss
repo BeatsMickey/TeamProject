@@ -1,0 +1,11 @@
+.reg {
+    display: grid;
+    row-gap: 20px;
+    ul {
+        color: $error;
+    }
+}
+
+.reg__header {
+    padding-bottom: 10px;
+}

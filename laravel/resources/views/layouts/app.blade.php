@@ -13,6 +13,7 @@
     <title>@yield('title')</title>
 </head>
 <body>
+    <div id="app">
     @section('header')
         <section class="section_marginBottom">
             <div class="section__container">
@@ -24,26 +25,29 @@
                 <div class="hr"></div>
             </div>
         </section>
-        @guest
-            <li><a class="menu_link" href="{{ route('login') }}">Войти</a></li>
-            @if (Route::has('register'))
-                <li><a class="menu_link" href="{{ route('register') }}">Зарегестрироваться</a></li>
-            @endif
-        @else
-            <li>
-                <a class="menu_link" href="{{ route('logout') }}"
-                   onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                    Выйти
-                </a>
+        <ul class="section__container menu">
+            @guest
+                <li><a class="menu__link" href="{{ route('login') }}">Войти</a></li>
+                @if (Route::has('register'))
+                    <li><a class="menu__link" href="{{ route('register') }}">Зарегестрироваться</a></li>
+                @endif
+            @else
+                <li>
+                    <a class="menu__link" href="{{ route('logout') }}"
+                       onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                        Выйти
+                    </a>
 
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                    @csrf
-                </form>
-            </li>
-        @endguest
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                </li>
+            @endguest
+        </ul>
     @show
     @yield('content')
+
+    </div>
     <script src="{{ asset('./js/app.js') }}"></script>
 </body>
 </html>

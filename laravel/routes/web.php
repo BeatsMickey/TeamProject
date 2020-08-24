@@ -26,7 +26,9 @@ Route::group([
     Route::get('/today/del_exercises/{day}/{month}/{id}/{today}', 'TrainingController@delExercises')->name('del_exercises');
 });
 
-
+Route::get('/profile', function () {
+    return "Тут будет профиль рользователя.";
+})->name('profile');
 
 Auth::routes();
 
