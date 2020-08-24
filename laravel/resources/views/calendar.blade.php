@@ -9,7 +9,7 @@
     <section class="section_marginBottom3">
         <div class="section__container">
             <div class="section__container__text section__container__text_marginLeft">
-                <form method="get" action="{{ route('trainingLog.calendar', ['month' => date('n', time())]) }}">
+                <form method="get" action="{{ route('trainingLog.calendar') }}">
                         <select class="content_form" name="month">
                             @foreach($months as $key=>$value)
                                 <option value="{{ $key }}"
@@ -70,24 +70,27 @@
                     @forelse($calendar as $key => $value)
                         <a
                             href=
-                                    @if($value->is_active == 'not_active')
+                                    @if($value['is_active'] === 'not_active' || $value['is_active'] === 'none')
                                         "#"
-                                    @elseif($value->is_active == 'today')
-                                        "{{ route('trainingLog.today', ['month' => $month, 'day' => $key]) }}"
+                                    @elseif($value['is_active'] === 'today')
+                                        "{{ route('trainingLog.view_day', ['month' => $month, 'day' => $key, 'today' => 1]) }}"
                                     @else
-                                        "{{ route('trainingLog.view', ['month' => $month, 'day' => $key, 'calendar_id' => $value->calendar_id]) }}"
+                                        "{{ route('trainingLog.view_day', ['month' => $month, 'day' => $key, 'today' => 0]) }}"
                                     @endif
 
                             class= "
-                                    @if($value->weekend)
+                                    @if($value['weekend'] === true)
                                         weekend
                                     @endif
-                                    @if($value->is_active == 'not_active')
+                                    @if($value['is_active'] === 'not_active')
                                         notActive
-                                    @elseif($value->is_active == 'today')
+                                    @elseif($value['is_active'] === 'today')
                                         today
                                     @endif
                                     "
+                            @if($value['is_active'] === 'none')
+                                style="opacity:0"
+                            @endif
 
                         ><h6>{{ $key }}</h6></a>
                     @empty

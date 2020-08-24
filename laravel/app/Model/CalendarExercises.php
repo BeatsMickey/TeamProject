@@ -13,4 +13,12 @@ class CalendarExercises extends Model
         'repetitions'
     ];
 
+    public static function getCalendarExercisesByCalendarId(int $calendar_id) {
+        return CalendarExercises::query()
+            ->select('calendar_exercises.id', 'name', 'repetitions', 'weight')
+            ->where(['calendar_id' => $calendar_id])
+            ->join('exercises', 'exercises.id', '=', 'exercises_id')
+            ->get();
+    }
+
 }

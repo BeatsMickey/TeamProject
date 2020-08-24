@@ -1,31 +1,32 @@
+/**
+ * First we will load all of this project's JavaScript dependencies which
+ * includes Vue and other libraries. It is a great starting point when
+ * building robust, powerful web applications using Vue and Laravel.
+ */
+
 require('./bootstrap');
 
-let select = function () {
-    let selectHeader = document.querySelectorAll('.select__header');
-    let selectItem = document.querySelectorAll('.select__item');
+window.Vue = require('vue');
 
-    selectHeader.forEach(item => {
-        item.addEventListener('click', selectToggle)
-    });
+/**
+ * The following block of code may be used to automatically register your
+ * Vue components. It will recursively scan this directory for the Vue
+ * components and automatically register them with their "basename".
+ *
+ * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
+ */
 
-    selectItem.forEach(item => {
-        item.addEventListener('click', selectChoose)
-    });
+// const files = require.context('./', true, /\.vue$/i)
+// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-    function selectToggle() {
-        this.parentElement.classList.toggle('is-active');
-    }
+Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
-    function selectChoose() {
-        let text = this.innerText,
-            select = this.closest('.select'),
-            currentText = select.querySelector('.select__current');
-        currentText.innerText = text;
-        select.classList.remove('is-active');
+/**
+ * Next, we will create a fresh Vue application instance and attach it to
+ * the page. Then, you may begin adding components to this application
+ * or customize the JavaScript scaffolding to fit your unique needs.
+ */
 
-    }
-
-};
-
-
-select();
+const app = new Vue({
+    el: '#app',
+});
