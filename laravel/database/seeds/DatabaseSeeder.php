@@ -16,5 +16,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ExerciseCategoriesRelationsSeeder::class);
         $this->call(UsersSeeder::class);
         $this->call(SetsSeeder::class);
+        $this->call(ExerciseSetsRelationsSeeder::class);
     }
 }
