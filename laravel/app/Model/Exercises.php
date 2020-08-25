@@ -14,4 +14,5 @@ class Exercises extends Model
                 'relations_exercise-category.exercise_id')
             ->get();
     }
+
 }

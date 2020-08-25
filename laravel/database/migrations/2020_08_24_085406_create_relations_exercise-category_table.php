@@ -29,6 +29,6 @@ class CreateRelationsExerciseCategoryTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('relations_exercise-category');
     }
 }

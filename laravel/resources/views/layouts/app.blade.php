@@ -18,37 +18,45 @@
         <section class="section_marginBottom">
             <div class="section__container">
                 <div class="section__container__text">
-                    <h6>Workout table</h6>
+                    <a href="/"><h6>Workout table</h6></a>
                     <p>онлайн дневник для тренировок</p>
                 </div>
+                <ul class="section__container menu">
+                    @if($admin)
+                        <li><a class="menu__link" href="#">Редактирование данных</a></li>
+                    @else
 
+                    @endif
+
+                    @guest
+                        <li><a class="menu__link" href="{{ route('login') }}">Войти</a></li>
+                        @if (Route::has('register'))
+                            <li><a class="menu__link" href="{{ route('register') }}">Зарегестрироваться</a></li>
+                        @endif
+                    @else
+                        <li><a class="menu__link" href="#">Мои упражнения</a></li>
+                        <li><a class="menu__link" href="{{ route('personal.area') }}">Личный кабинет</a></li>
+                        <li>
+                            <a class="menu__link" href="{{ route('logout') }}"
+                               onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                                Выйти
+                            </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </li>
+                    @endguest
+                </ul>
                 <div class="hr"></div>
             </div>
         </section>
-        <ul class="section__container menu">
-            @guest
-                <li><a class="menu__link" href="{{ route('login') }}">Войти</a></li>
-                @if (Route::has('register'))
-                    <li><a class="menu__link" href="{{ route('register') }}">Зарегестрироваться</a></li>
-                @endif
-            @else
-                <li>
-                    <a class="menu__link" href="{{ route('logout') }}"
-                       onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-                        Выйти
-                    </a>
 
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
-                </li>
-            @endguest
-        </ul>
     @show
     @yield('content')
 
     </div>
-    <script src="{{ asset('./js/app.js') }}"></script>
-    <script src="/js/script.js"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
+{{--    <script src="{{ asset('js/script.js') }}"></script>--}}
 </body>
 </html>

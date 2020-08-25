@@ -16,9 +16,9 @@ class ExerciseCategoriesSeeder extends Seeder
     }
 
     private function getData() {
-        $data = [['name' => 'Категория 1'],
-            ['name' => 'Категория 2'],
-            ['name' => 'Категория 3'],
+        $data = [['name' => 'Грудь'],
+            ['name' => 'Ноги'],
+            ['name' => 'Спина'],
         ];
 
         return $data;

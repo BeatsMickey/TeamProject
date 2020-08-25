@@ -13,8 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'HomeController@index')->name('homeindex');
+Route::get('/', 'HomeController@index')->name('home');
 
+/*
+ * Роуты к тренировочному дневнику
+ */
 Route::group([
     'prefix' => 'traininglog',
     'namespace' => 'TrainingLog',
@@ -26,10 +29,35 @@ Route::group([
     Route::get('/today/del_exercises/{day}/{month}/{id}/{today}', 'TrainingController@delExercises')->name('del_exercises');
 });
 
-Route::get('/profile', function () {
-    return "Тут будет профиль рользователя.";
-})->name('profile');
+/*
+ * Роуты к админке
+ */
+Route::group([
+    'prefix' => 'admin/',
+    'namespace' => 'Admin',
+    'as' => 'admin.',
+    'middleware' => 'access.admin'],
+    function () {
+
+    });
+
+/*
+ * Роуты к личному кабинету
+ */
+Route::group([
+    'prefix' => 'personal/',
+    'namespace' => 'PersonalArea',
+    'as' => 'personal.',
+    'middleware' => 'auth.check'],
+    function () {
+        Route::get('/area', 'PersonalArea@index')->name('area');
+    });
+
+/*
+ * Роуты к моим упражнениям
+ */
+
+
 
 Auth::routes();
 
-//Route::get('/home', 'HomeController@index')->name('home');

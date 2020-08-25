@@ -6,7 +6,7 @@
     <registration
         csrf="{{ csrf_token() }}"
         url="{{ route('register') }}"
-        redirect="{{ route('profile') }}">
+        redirect="{{ route('home') }}">
     </registration>
 </div>
 @endsection
