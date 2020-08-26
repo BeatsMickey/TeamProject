@@ -12,22 +12,22 @@ class ExerciseSetsRelationsSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('relations_exercise-set')->insert($this->getData());
+        DB::table('exercises_sets')->insert($this->getData());
     }
 
     private function getData() {
         $data = [
-            ['exercise_id' => '1', 'set_id' => 1],
-            ['exercise_id' => '2', 'set_id' => 2],
-            ['exercise_id' => '3', 'set_id' => 3],
-            ['exercise_id' => '4', 'set_id' => 1],
-            ['exercise_id' => '5', 'set_id' => 2],
-            ['exercise_id' => '6', 'set_id' => 3],
-            ['exercise_id' => '7', 'set_id' => 1],
-            ['exercise_id' => '7', 'set_id' => 2],
-            ['exercise_id' => '8', 'set_id' => 3],
-            ['exercise_id' => '9', 'set_id' => 3],
-            ['exercise_id' => '9', 'set_id' => 2],
+            ['exercises_id' => '1', 'sets_id' => 1],
+            ['exercises_id' => '2', 'sets_id' => 2],
+            ['exercises_id' => '3', 'sets_id' => 3],
+            ['exercises_id' => '4', 'sets_id' => 1],
+            ['exercises_id' => '5', 'sets_id' => 2],
+            ['exercises_id' => '6', 'sets_id' => 3],
+            ['exercises_id' => '7', 'sets_id' => 1],
+            ['exercises_id' => '7', 'sets_id' => 2],
+            ['exercises_id' => '8', 'sets_id' => 3],
+            ['exercises_id' => '9', 'sets_id' => 3],
+            ['exercises_id' => '9', 'sets_id' => 2],
         ];
 
         return $data;

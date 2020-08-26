@@ -15,4 +15,8 @@ class Exercises extends Model
             ->get();
     }
 
+    public function sets()
+    {
+        return $this->belongsToMany('App\Model\Sets');
+    }
 }

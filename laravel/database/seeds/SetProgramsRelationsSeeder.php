@@ -12,25 +12,25 @@ class SetProgramsRelationsSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('relations_set-program')->insert($this->getData());
+        DB::table('programs_sets')->insert($this->getData());
     }
 
     private function getData() {
         $data = [
-            ['set_id' => '1', 'program_id' => 1, 'day_of_program' => 1],
-            ['set_id' => '2', 'program_id' => 1, 'day_of_program' => 2],
-            ['set_id' => '1', 'program_id' => 1, 'day_of_program' => 3],
-            ['set_id' => '2', 'program_id' => 1, 'day_of_program' => 4],
-            ['set_id' => '1', 'program_id' => 1, 'day_of_program' => 5],
+            ['sets_id' => '1', 'programs_id' => 1, 'day_of_program' => 1],
+            ['sets_id' => '2', 'programs_id' => 1, 'day_of_program' => 2],
+            ['sets_id' => '1', 'programs_id' => 1, 'day_of_program' => 3],
+            ['sets_id' => '2', 'programs_id' => 1, 'day_of_program' => 4],
+            ['sets_id' => '1', 'programs_id' => 1, 'day_of_program' => 5],
 
-            ['set_id' => '3', 'program_id' => 2, 'day_of_program' => 1],
-            ['set_id' => '1', 'program_id' => 2, 'day_of_program' => 2],
-            ['set_id' => '3', 'program_id' => 2, 'day_of_program' => 3],
-            ['set_id' => '1', 'program_id' => 2, 'day_of_program' => 4],
+            ['sets_id' => '3', 'programs_id' => 2, 'day_of_program' => 1],
+            ['sets_id' => '1', 'programs_id' => 2, 'day_of_program' => 2],
+            ['sets_id' => '3', 'programs_id' => 2, 'day_of_program' => 3],
+            ['sets_id' => '1', 'programs_id' => 2, 'day_of_program' => 4],
 
-            ['set_id' => '2', 'program_id' => 3, 'day_of_program' => 1],
-            ['set_id' => '1', 'program_id' => 3, 'day_of_program' => 2],
-            ['set_id' => '2', 'program_id' => 3, 'day_of_program' => 3],
+            ['sets_id' => '2', 'programs_id' => 3, 'day_of_program' => 1],
+            ['sets_id' => '1', 'programs_id' => 3, 'day_of_program' => 2],
+            ['sets_id' => '2', 'programs_id' => 3, 'day_of_program' => 3],
         ];
 
         return $data;
