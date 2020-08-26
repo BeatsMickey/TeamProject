@@ -62,8 +62,8 @@ Route::group([
     'as' => 'program.',
     'middleware' => 'auth.check'],
     function () {
-        Route::get('/program', 'ProgramController@index')->name('index');
-        Route::get('/program/{id}', 'ProgramController@show')->name('show');
+        Route::get('/all', 'ProgramController@index')->name('index');
+        Route::get('/show/{id}', 'ProgramController@show')->name('show');
     });
 
 

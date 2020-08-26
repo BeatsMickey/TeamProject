@@ -19,15 +19,13 @@ class ProgramController extends Controller
     }
 
     public function show($id) {
-//        $program = Programs::query()->where('id', $id)->first();
-        $program = Programs::find(1);
-
-        $set = Sets::find(1);
-        dd($set->exercises);
-//        dd($program->sets);
+        $program = Programs::query()->where('id', $id)->first();
+//        $program = Programs::find(1)->get();
+        $sets = Programs::find($id)->sets()->orderBy('day_of_program')->get();
 
         return view('program.one', [
             'program' => $program,
+            'sets' => $sets,
         ]);
     }
 }
