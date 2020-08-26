@@ -12,9 +12,17 @@ class ProgramController extends Controller
     public function index() {
         $sets = Sets::getAll();
         $programs = Programs::getAll();
-        return view('program', [
+        return view('program.index', [
             'sets' => $sets,
             'programs' => $programs
+        ]);
+    }
+
+    public function show($id) {
+        $program = Programs::query()->where('id', $id)->first();
+
+        return view('program.one', [
+            'program' => $program,
         ]);
     }
 }
