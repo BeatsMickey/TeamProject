@@ -56,7 +56,14 @@ Route::group([
 /*
  * Роуты к моим упражнениям
  */
-
+Route::group([
+    'prefix' => 'program/',
+    'namespace' => 'Program',
+    'as' => 'program.',
+    'middleware' => 'auth.check'],
+    function () {
+        Route::get('/program', 'ProgramController@index')->name('index');
+    });
 
 
 Auth::routes();

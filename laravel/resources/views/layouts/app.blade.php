@@ -34,7 +34,7 @@
                             <li><a class="menu__link" href="{{ route('register') }}">Зарегестрироваться</a></li>
                         @endif
                     @else
-                        <li><a class="menu__link" href="#">Мои упражнения</a></li>
+                        <li><a class="menu__link" href="{{ route('program.index') }}">Мои упражнения</a></li>
                         <li><a class="menu__link" href="{{ route('personal.area') }}">Личный кабинет</a></li>
                         <li>
                             <a class="menu__link" href="{{ route('logout') }}"
