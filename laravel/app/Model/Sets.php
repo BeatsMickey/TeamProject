@@ -21,7 +21,7 @@ class Sets extends Model
 
     public function exercises()
     {
-        return $this->belongsToMany('App\Model\Exercises');
+        return $this->belongsToMany('App\Model\Exercises')->withPivot('weight', 'repetitions');
     }
 
 }

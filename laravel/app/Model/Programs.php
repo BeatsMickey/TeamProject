@@ -26,6 +26,6 @@ class Programs extends Model
 
     public function sets()
     {
-        return $this->belongsToMany('App\Model\Sets');
+        return $this->belongsToMany('App\Model\Sets')->withPivot('day_of_program');
     }
 }

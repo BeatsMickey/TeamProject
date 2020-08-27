@@ -16,7 +16,10 @@ class CreateExercisesSetsTable extends Migration
         Schema::create('exercises_sets', function (Blueprint $table) {
             $table->unsignedBigInteger('exercises_id');
             $table->unsignedBigInteger('sets_id');
+            $table->smallInteger('weight');
+            $table->smallInteger('repetitions');
 
+            $table->primary(['exercises_id', 'sets_id']);
             $table->foreign('exercises_id')->references('id')->on('exercises');
             $table->foreign('sets_id')->references('id')->on('sets');
         });
