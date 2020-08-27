@@ -56,7 +56,16 @@ Route::group([
 /*
  * Роуты к моим упражнениям
  */
-
+Route::group([
+    'prefix' => 'program/',
+    'namespace' => 'Program',
+    'as' => 'program.',
+    'middleware' => 'auth.check'],
+    function () {
+        Route::get('/all', 'ProgramController@index')->name('index');
+        Route::get('/show/{id}', 'ProgramController@show')->name('show');
+        Route::get('/choose/{id}', 'ProgramController@chooseProgram')->name('choose');
+    });
 
 
 Auth::routes();
