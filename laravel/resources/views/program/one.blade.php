@@ -5,6 +5,6 @@
         <p>{{ $exercise->name }}: вес {{ $exercise->pivot->weight }} кг, {{ $exercise->pivot->repetitions }} повторений</p>
     @endforeach
 @endforeach
-
+<a href="{{ route('program.choose', $program->id) }}">Выбрать эту программу</a>
 
 

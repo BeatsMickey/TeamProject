@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Program;
 use App\Http\Controllers\Controller;
 use App\Model\Programs;
 use App\Model\Sets;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProgramController extends Controller
 {
@@ -30,7 +32,14 @@ class ProgramController extends Controller
         return view('program.one', [
             'program' => $program,
             'sets' => $sets,
-//            'exercises' => $exercises
         ]);
+    }
+
+    public function chooseProgram($id) {
+        $user = Auth::user();
+        $user->programs_id = $id;
+        $user->save();
+
+        return redirect()->route('program.index')->with('message', "Программа успешно выбрана");
     }
 }

@@ -1,3 +1,6 @@
+@if(session('message'))
+    <h3>{{ session('message') }}</h3>
+@endif
 <h2>Старница программы занятий</h2>
 {{--@dump($sets)--}}
 {{--@dump($programs[0])--}}

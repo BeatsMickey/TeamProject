@@ -28,4 +28,8 @@ class Programs extends Model
     {
         return $this->belongsToMany('App\Model\Sets')->withPivot('day_of_program');
     }
+
+    public function users() {
+        return $this->hasMany('App\Model\Users');
+    }
 }
