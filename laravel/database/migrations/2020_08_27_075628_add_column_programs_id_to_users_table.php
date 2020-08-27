@@ -28,7 +28,8 @@ class AddColumnProgramsIdToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            //
+            $table->dropForeign('users_programs_id_foreign');
+            $table->dropColumn('programs_id');
         });
     }
 }
