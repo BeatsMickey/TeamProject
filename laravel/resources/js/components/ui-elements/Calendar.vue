@@ -2,24 +2,34 @@
     <section class="calendar">
         <div class="calendar__box">
             <div class="calendar__chooseMonth">
-                <div class="calendar__Month calendar__Month_prev" @click="currentDate.month -= 1"><</div>
+                <div class="calendar__Month-btn" @click="currentDate.month -= 1"><</div>
                 <div class="calendar__currentMonth">{{ month[currentDate.month] }}</div>
-                <div class="calendar__Month calendar__Month_next" @click="currentDate.month += 1">></div>
+                <div class="calendar__Month-btn" @click="currentDate.month += 1">></div>
             </div>
             <div class="calendar__weekdays">
                 <div class="calendar__weekday" v-for="(weekday, index) in weekdays" :key="index">{{ weekday }}</div>
             </div>
             <div class="calendar__days">
                 <div class="calendar__day calendar__day_inactive"
-                     v-for="(n, index) in (firstMonthDay - 1)" :key="'prev' + index">{{ (prevMonthDays + 1) -
-                    firstMonthDay + n }}
+                     :class="{ calendar__day_weekend: checkPastMonthWeekend( (prevMonthDays + 1) - firstMonthDay + n) }"
+                     v-for="(n, index) in (firstMonthDay - 1)"
+                     :key="'prev' + index">{{ (prevMonthDays + 1) - firstMonthDay + n }}
                 </div>
-                <!-- сделать нормальную строку -->
-                <div class="calendar__day" :class="{ calendar__day_active: n === currentDate.date }"
-                     v-for="(n, index) in currentMonthsDays" :key="'day' + index"><a class="calendar__link" :href="'view_day/' + (currentDate.month+1) + '/' + n + '/1'">{{ n }}</a>
+                <div class="calendar__day"
+                     :class="{ calendar__day_active: n === currentDate.date, calendar__day_weekend: checkCurrentMonthWeekend(n) }"
+                     v-for="(n, index) in currentMonthsDays"
+                     :key="'day' + index">
+                    <div v-if="n === currentDate.date">
+                        <a class="calendar__link" :href="'view_day/' + (currentDate.month+1) + '/' + n + '/1'">{{ n }}</a>
+                    </div>
+                    <div v-else>
+                        <a href="#">{{ n }}</a>
+                    </div>
                 </div>
                 <div class="calendar__day calendar__day_inactive"
-                     v-for="(n, index) in (43 - (currentMonthsDays + firstMonthDay))" :key="'next' + index">{{ n }}
+                     :class="{ calendar__day_weekend: checkFutureMonthWeekend(n) }"
+                     v-for="(n, index) in (43 - (currentMonthsDays + firstMonthDay))"
+                     :key="'next' + index">{{ n }}
                 </div>
             </div>
         </div>
@@ -57,6 +67,13 @@
             },
             currentMonthsDays() {
                 return new Date(this.currentDate.year, this.currentDate.month + 1, 0).getDate();
+            },
+            increaseMonth() {
+
+                this.currentDate.month -= 1
+            },
+            decreaseMonth() {
+
             }
         },
         methods: {
@@ -65,6 +82,18 @@
                 this.currentDate.date = today.getDate();
                 this.currentDate.month = today.getMonth();
                 this.currentDate.year = today.getFullYear();
+            },
+            checkCurrentMonthWeekend(day) {
+                let checkedDay = new Date(this.currentDate.year, this.currentDate.month, day).getDay();
+                if (checkedDay === 0 || checkedDay === 6) return true;
+            },
+            checkFutureMonthWeekend(day) {
+                let checkedDay = new Date(this.currentDate.year, this.currentDate.month + 1, day).getDay();
+                if (checkedDay === 0 || checkedDay === 6) return true;
+            },
+            checkPastMonthWeekend(day) {
+                let checkedDay = new Date(this.currentDate.year, this.currentDate.month - 1, day).getDay();
+                if (checkedDay === 0 || checkedDay === 6) return true;
             }
         },
         created() {
@@ -87,7 +116,7 @@
         margin-bottom: 10px;
     }
 
-    .calendar__Month {
+    .calendar__Month-btn {
         cursor: pointer;
     }
 
@@ -119,6 +148,10 @@
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+
+    .calendar__day_weekend {
+        background-color: pink;
     }
 
     .calendar__day_active {
