@@ -2,9 +2,13 @@
     <section class="calendar">
         <div class="calendar__box">
             <div class="calendar__chooseMonth">
-                <div class="calendar__Month-btn" @click="currentDate.month -= 1"><</div>
+                <div class="calendar__Month-btn" @click="decreaseMonth()">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill-rule="evenodd" d="M15.28 5.22a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 000 1.06l6.25 6.25a.75.75 0 101.06-1.06L9.56 12l5.72-5.72a.75.75 0 000-1.06z"></path></svg>
+                </div>
                 <div class="calendar__currentMonth">{{ month[currentDate.month] }}</div>
-                <div class="calendar__Month-btn" @click="currentDate.month += 1">></div>
+                <div class="calendar__Month-btn" @click="increaseMonth()">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill-rule="evenodd" d="M8.72 18.78a.75.75 0 001.06 0l6.25-6.25a.75.75 0 000-1.06L9.78 5.22a.75.75 0 00-1.06 1.06L14.44 12l-5.72 5.72a.75.75 0 000 1.06z"></path></svg>
+                </div>
             </div>
             <div class="calendar__weekdays">
                 <div class="calendar__weekday" v-for="(weekday, index) in weekdays" :key="index">{{ weekday }}</div>
@@ -67,13 +71,6 @@
             },
             currentMonthsDays() {
                 return new Date(this.currentDate.year, this.currentDate.month + 1, 0).getDate();
-            },
-            increaseMonth() {
-
-                this.currentDate.month -= 1
-            },
-            decreaseMonth() {
-
             }
         },
         methods: {
@@ -82,6 +79,18 @@
                 this.currentDate.date = today.getDate();
                 this.currentDate.month = today.getMonth();
                 this.currentDate.year = today.getFullYear();
+            },
+            increaseMonth() {
+                if (this.currentDate.month === 11) {
+                    this.currentDate.year += 1;
+                    this.currentDate.month = 0;
+                } else this.currentDate.month += 1;
+            },
+            decreaseMonth() {
+                if (this.currentDate.month === 0) {
+                    this.currentDate.year -= 1;
+                    this.currentDate.month = 11
+                } else this.currentDate.month -= 1;
             },
             checkCurrentMonthWeekend(day) {
                 let checkedDay = new Date(this.currentDate.year, this.currentDate.month, day).getDay();
