@@ -14,9 +14,13 @@ class ProgramController extends Controller
     public function index() {
         $sets = Sets::getAll();
         $programs = Programs::getAll();
+
+        $current_program = Programs::query()->where('id', Auth::user()->programs_id)->first();
+
         return view('program.index', [
             'sets' => $sets,
-            'programs' => $programs
+            'programs' => $programs,
+            'current_program' => $current_program,
         ]);
     }
 
@@ -41,5 +45,12 @@ class ProgramController extends Controller
         $user->save();
 
         return redirect()->route('program.index')->with('message', "Программа успешно выбрана");
+    }
+
+    public function resetProgram() {
+        $user = Auth::user();
+        $user->programs_id = null;
+        $user->save();
+        return redirect()->route('program.index')->with('message', "Параметры программы сброшены");
     }
 }

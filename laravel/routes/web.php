@@ -65,6 +65,7 @@ Route::group([
         Route::get('/all', 'ProgramController@index')->name('index');
         Route::get('/show/{id}', 'ProgramController@show')->name('show');
         Route::get('/choose/{id}', 'ProgramController@chooseProgram')->name('choose');
+        Route::get('/reset', 'ProgramController@resetProgram')->name('reset');
     });
 
 
