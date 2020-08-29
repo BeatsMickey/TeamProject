@@ -327,3 +327,7 @@ body {
 .selected-category {
     font-size: 22px;
 }
+
+.program_day {
+    border: rebeccapurple 1px solid;
+}

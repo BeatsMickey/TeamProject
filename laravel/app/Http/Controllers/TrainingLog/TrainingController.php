@@ -7,8 +7,10 @@ use App\Model\Calendar;
 use App\Model\CalendarExercises;
 use App\Model\CategoriesExercises;
 use App\Model\Exercises;
+use App\Model\Programs;
 use App\MyApp;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class TrainingController extends Controller
@@ -29,7 +31,13 @@ class TrainingController extends Controller
 
         $months = MyApp::MONTHSNAME;
 
-        return view('calendar', ['calendar' => $calendar, 'months' => $months, 'month' => $month]);
+        return view('calendar', [
+            'calendar' => $calendar,
+            'months' => $months,
+            'month' => $month,
+//            'program' => $program,
+//            'sets =>' => $sets
+        ]);
     }
 
     public function viewDay(Request $request, $month, $day, $today)

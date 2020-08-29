@@ -26,7 +26,6 @@ class ProgramController extends Controller
 
     public function show($id) {
         $program = Programs::query()->where('id', $id)->first();
-
         $sets = $program->sets()->orderBy('day_of_program')->get();
 
         foreach ($sets as $set) {

@@ -4,6 +4,8 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 
 class Calendar extends Model
 {
@@ -50,6 +52,22 @@ class Calendar extends Model
     }
 
     private static function prepareCalendar(Collection $calendarDb, int $month) {
+        // Закреплённая за пользователем программа упражнений
+        $program = Programs::find(Auth::user()->programs_id);
+
+
+        // Составляем список дней недели, которые входят в программу
+        if($program) {
+            $sets = $program->sets()->orderBy('day_of_program')->get();
+            $sets = Arr::dot($sets);
+            $days_of_program = [];
+            foreach ($sets as $set) {
+                $day_number = $set->pivot['day_of_program'];
+                $days_of_program[$day_number] = $day_number;
+            }
+        }
+
+
 
         // к-во дней в требующемся месяце
         $days = cal_days_in_month(CAL_GREGORIAN, $month, date('Y', time()));
@@ -88,12 +106,23 @@ class Calendar extends Model
             }
 
             // отметка выходных дней
-            $weekend = date('w', mktime(0, 0, 0, $month, $day, $year));
-            if( $weekend == 0 || $weekend == 6 ) {
+            $weekday = date('N', mktime(0, 0, 0, $month, $day, $year));
+            $calendar[$day]['weekday'] = $weekday;
+
+            if( $weekday == 6 || $weekday == 7 ) {
                 $calendar[$day]['weekend'] = true;
             } else {
                 $calendar[$day]['weekend'] = false;
             };
+
+            // отметка дней, на которые приходятся занятия по текущей программе
+            if($program) {
+                if(Arr::exists($days_of_program, $weekday)) {
+                    $calendar[$day]['program_day'] = true;
+                } else {
+                    $calendar[$day]['program_day'] = false;
+                }
+            }
 
             // отметка дней с тренировками
             foreach ($calendarDb as $value){
@@ -108,12 +137,24 @@ class Calendar extends Model
             $day++;
         }
 
+
         // отметка сегодняшнего дня, если он имеется
         $today = date('d', time());
+
         $monthnow = date('n', time());
+
         if($month == $monthnow) {
             $calendar[$today]['is_active'] = 'today';
         }
+
+        foreach ($calendar as $key => $value) {
+            if($month <= $monthnow || ($key > $today && $month == $monthnow)) {
+                $calendar[$key]['day_passed'] = true;
+            } else {
+                $calendar[$key]['day_passed'] = false;
+            }
+        }
+
         return $calendar;
     }
 
