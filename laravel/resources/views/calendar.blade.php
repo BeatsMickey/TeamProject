@@ -66,7 +66,6 @@
                     </div>
                 </div>
 
-{{--                @dump($calendar)--}}
 
                 <div class="section__container__calendar__numbers">
                     @forelse($calendar as $key => $value)
@@ -75,9 +74,11 @@
                                     @if($value['is_active'] === 'not_active' || $value['is_active'] === 'none')
                                         "#"
                                     @elseif($value['is_active'] === 'today')
-                                        "{{ route('trainingLog.view_day', ['month' => $month, 'day' => $key, 'today' => 1]) }}"
+                                        "{{ route('trainingLog.view_day', ['month' => $month, 'day' => $key, 'today' => 1,
+                                    'weekday' => $value['weekday']]) }}"
                                     @else
-                                        "{{ route('trainingLog.view_day', ['month' => $month, 'day' => $key, 'today' => 0]) }}"
+                                        "{{ route('trainingLog.view_day', ['month' => $month, 'day' => $key, 'today' => 0,
+                                    'weekday' => $value['weekday']]) }}"
                                     @endif
 
                             class= "

@@ -10,6 +10,7 @@ use App\Model\Exercises;
 use App\Model\Programs;
 use App\MyApp;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -42,9 +43,12 @@ class TrainingController extends Controller
 
     public function viewDay(Request $request, $month, $day, $today)
     {
-
         if ($today) {
             $routename = 'exercise';
+            $weekday = $_GET['weekday'];
+            $program = Programs::find(Auth::user()->programs_id);
+            $today_set = ($program->sets()->where('day_of_program', '=', 1)->get())[0];
+            $today_exercises = $today_set->exercises()->get();
         } else {
             $routename = 'alreadyDoneExercises';
         }
@@ -67,6 +71,9 @@ class TrainingController extends Controller
                 'calendar_exercises' => $calendar_exercises,
                 'categories' => $categories,
                 'allExercises' => $allExercises,
+                'program' => $program,
+                'today_exercises' => $today_exercises,
+                'weekday' => $weekday
             ]
         );
     }
@@ -74,8 +81,9 @@ class TrainingController extends Controller
 
     public function addExercises(Request $request, $day, $month, $today)
     {
-
-        $session_id = $request->session()->getId();
+        $weekday = $_GET['weekday'];
+//        $session_id = $request->session()->getId();
+        $session_id = session()->getId();
 
         $calendar_id = Calendar::getCalendarIdBySessionAndDay($session_id, $day);
 
@@ -86,19 +94,29 @@ class TrainingController extends Controller
 
         $months = MyApp::MONTHSNAME;
 
-        return redirect()->route('trainingLog.view_day', ['month' => array_search($month, $months), 'day' => $day, 'today' => $today]);
+        return redirect()->route('trainingLog.view_day', [
+            'month' => array_search($month, $months),
+            'day' => $day,
+            'today' => $today,
+            'weekday' => $weekday
+        ]);
     }
 
     public function delExercises(Request $request, $day, $month, $id, $today)
     {
-
+        $weekday = $_GET['weekday'];
         $exercise = CalendarExercises::find($id);
 
         $exercise->delete();
 
         $months = MyApp::MONTHSNAME;
 
-        return redirect()->route('trainingLog.view_day', ['month' => array_search($month, $months), 'day' => $day, 'today' => $today]);
+        return redirect()->route('trainingLog.view_day', [
+            'month' => array_search($month, $months),
+            'day' => $day,
+            'today' => $today,
+            'weekday' => $weekday
+        ]);
     }
 
 
