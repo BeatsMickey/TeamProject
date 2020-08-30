@@ -69,7 +69,7 @@
         <section class="section_marginBottom4">
             <div class="section__container">
                 <h6>УПРАЖНЕНИЯ ПРОГРАММЫ</h6>
-                @foreach($today_exercises as $exercise)
+                @forelse($today_exercises as $exercise)
                     <form
                         action="{{ route('trainingLog.add_exercises', ['day' => $day, 'month' => $month, 'today' => 1, 'weekday' => $weekday]) }}"
                         method="post">
@@ -80,7 +80,9 @@
                         <input type="text" name="repetitions" placeholder="Количество подходов"><br>
                         <input type="submit" value="ДОБАВИТЬ">
                     </form>
-                @endforeach
+                @empty
+                    <h6>День отдыха</h6>
+                @endforelse
             </div>
         </section>
     @endif
