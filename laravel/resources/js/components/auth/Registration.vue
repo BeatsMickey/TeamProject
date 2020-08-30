@@ -12,6 +12,7 @@
 
 <script>
     export default {
+        name: "registration",
         mounted() {
             console.log(this.redirect);
         },

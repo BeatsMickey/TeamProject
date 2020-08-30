@@ -13,4 +13,8 @@ class Users extends Model
         'is_admin'
     ];
 
+    public static function getAllUsers(int $numberPerPage) {
+        return Users::query()->paginate($numberPerPage);
+    }
+
 }

@@ -62,9 +62,11 @@ class TrainingController extends Controller
             $routename = 'alreadyDoneExercises';
         }
 
-        $categories = CategoriesExercises::getAll();
+        $categories = CategoriesExercises::All();
 
         $allExercises = Exercises::getAllExercises();
+
+        dd($allExercises);
 
         $session_id = $request->session()->getId();
 
