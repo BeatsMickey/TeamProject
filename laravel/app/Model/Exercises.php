@@ -15,6 +15,16 @@ class Exercises extends Model
             ->get();
     }
 
+    public static function getExercisesByCategoriesId($id, $numberPerPage) {
+        return Exercises::query()
+            ->rightJoin('relations_exercise-category',
+                'exercises.id',
+                '=',
+                'relations_exercise-category.exercise_id')
+            ->where('category_id', '=', $id)
+            ->paginate($numberPerPage);
+    }
+
     public function sets()
     {
         return $this->belongsToMany('App\Model\Sets');

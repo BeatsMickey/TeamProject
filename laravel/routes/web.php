@@ -13,7 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::get('/', 'HomeController@index')->name('home');
+
+/*
+ * Роуты к авторизации
+ */
+Auth::routes();
 
 /*
  * Роуты к тренировочному дневнику
@@ -30,6 +36,19 @@ Route::group([
 });
 
 /*
+ * Роуты упражнениям
+ */
+Route::group([
+    'prefix' => 'exercises',
+    'namespace' => 'Exercises',
+    'as' => 'exercises.'
+], function (){
+    Route::get('/', 'ExercisesController@index')->name('index');
+    Route::get('/categories/{id}', 'ExercisesController@categories')->name('categories');
+    Route::get('/exercises_card/{id}', 'ExercisesController@card')->name('card');
+});
+
+/*
  * Роуты к админке
  */
 Route::group([
@@ -38,6 +57,39 @@ Route::group([
     'as' => 'admin.',
     'middleware' => 'access.admin'],
     function () {
+        /*
+         * Редактирование пользователей
+         */
+        Route::view('/', 'admin.admin_menu')->name('main');
+        Route::group([
+            'prefix' => 'users',
+            'as' => 'users.',
+        ], function () {
+            Route::get('/all', 'AdminUsersController@index')->name('all');
+            Route::get('/update/{id}', 'AdminUsersController@update')->name('update');
+            Route::post('/save/{id}', 'AdminUsersController@save')->name('save');
+        });
+
+        /*
+         * Редактирование упражнений
+         */
+        Route::group([
+            'prefix' => 'exercises',
+            'as' => 'exercises.',
+        ], function () {
+            Route::get('/all', 'AdminExercisesController@index')->name('all');
+        });
+
+        /*
+         * Редактирование программ
+         */
+        Route::group([
+            'prefix' => 'program',
+            'as' => 'program.',
+        ], function () {
+            Route::get('/all', 'AdminProgramController@index')->name('all');
+        });
+
 
     });
 
@@ -51,6 +103,7 @@ Route::group([
     'middleware' => 'auth.check'],
     function () {
         Route::get('/area', 'PersonalArea@index')->name('area');
+        Route::post('/change', 'PersonalArea@change')->name('change');
     });
 
 /*
@@ -68,5 +121,5 @@ Route::group([
     });
 
 
-Auth::routes();
+
 

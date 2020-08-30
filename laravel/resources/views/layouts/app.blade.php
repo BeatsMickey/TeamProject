@@ -23,9 +23,9 @@
                 </div>
                 <ul class="section__container menu">
                     @if($admin)
-                        <li><a class="menu__link" href="#">Редактирование данных</a></li>
+                        <li><a class="menu__link" href="{{ route('admin.main') }}">Редактирование данных</a></li>
                     @else
-
+                        <li><a class="menu__link" href="{{ route('exercises.index') }}">База упражнений</a></li>
                     @endif
 
                     @guest

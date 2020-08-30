@@ -15,7 +15,6 @@ class AddColumnProgramsIdToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->unsignedBigInteger('programs_id')->nullable();
-
             $table->foreign('programs_id')->references('id')->on('programs');
         });
     }
