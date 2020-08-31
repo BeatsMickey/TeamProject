@@ -10,6 +10,12 @@ class Programs extends Model
         'name',
     ];
 
+    public static function rules() {
+        return [
+            'name' => ['required', 'min:6', 'max:100'],
+        ];
+    }
+
     public static function getAll() {
         return Programs::query()->get();
     }

@@ -28,4 +28,8 @@
             </p>
         @endforeach
     </div>
+    <div class="hr"></div>
+    <div><a href="{{ route('program.create') }}">Создать новую программу</a></div>
+
+
 @endsection
