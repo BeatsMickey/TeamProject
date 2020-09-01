@@ -22,7 +22,6 @@
                         </select>
                         <button>выбрать</button>
                 </form>
-
 {{--                <h6>Август--}}
 {{--                    <div class="arrow">--}}
 {{--                        <svg width="12" height="6" viewBox="0 0 12 6" fill="none" xmlns="http://www.w3.org/2000/svg">--}}
@@ -69,6 +68,7 @@
 
                 <div class="section__container__calendar__numbers">
                     @forelse($calendar as $key => $value)
+{{--                        @dd($calendar, $value)--}}
                         <a
                             href=
                                     @if($value['is_active'] === 'not_active' || $value['is_active'] === 'none')

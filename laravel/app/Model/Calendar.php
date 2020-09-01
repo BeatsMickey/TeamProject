@@ -67,6 +67,7 @@ class Calendar extends Model
             }
         }
 
+//        dd($days_of_program);
 
 
         // к-во дней в требующемся месяце
@@ -98,17 +99,19 @@ class Calendar extends Model
         $calendar = [];
         for($i = 1, $day = 1; $i <= $days + $prevMonthLastDay; $i++) {
 
+            $weekday = date('N', mktime(0, 0, 0, $month, $day, $year));
+
             // первые ячейки будут пропущены, что бы рендерить календарь с нужного места
             if ($i <= $prevMonthLastDay) {
                 $calendar["$i+"]['is_active'] = 'none';
                 $calendar["$i+"]['weekend'] = 'false';
+                $calendar["$i+"]['weekday'] = $weekday;
                 continue;
             }
 
-            // отметка выходных дней
-            $weekday = date('N', mktime(0, 0, 0, $month, $day, $year));
-            $calendar[$day]['weekday'] = $weekday;
+                $calendar[$day]['weekday'] = $weekday;
 
+            // отметка выходных дней
             if( $weekday == 6 || $weekday == 7 ) {
                 $calendar[$day]['weekend'] = true;
             } else {
@@ -144,17 +147,20 @@ class Calendar extends Model
         $monthnow = date('n', time());
 
         if($month == $monthnow) {
-            $calendar[$today]['is_active'] = 'today';
+            $calendar[intval($today)]['is_active'] = 'today';
         }
 
         foreach ($calendar as $key => $value) {
-            if($month <= $monthnow || ($key > $today && $month == $monthnow)) {
+            if($month < $monthnow || ($key < $today && $month == $monthnow)) {
+//                dump($key, $today, $key<$today);
+//                dump($monthnow, $key, $today, $month);
+//                echo('<br>');
                 $calendar[$key]['day_passed'] = true;
             } else {
                 $calendar[$key]['day_passed'] = false;
             }
         }
-
+//        dd($calendar);
         return $calendar;
     }
 
