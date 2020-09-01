@@ -52,4 +52,68 @@ class ProgramController extends Controller
         $user->save();
         return redirect()->route('program.index')->with('message', "Параметры программы сброшены");
     }
+
+    public function createForm(Request $request) {
+        $sets = Sets::getAll();
+
+
+        if ($request->method() === "POST") {
+
+//            if($request->input('day_1'))
+//                dump(1111);
+//                dump($request->input('day_1'));
+//
+//            if($request->input('day_2'))
+//                dump(2222);
+//                dump($request->input('day_2'));
+//
+//            if($request->input('day_3'))
+//                dump(3333);
+//                dump($request->input('day_4'));
+//
+//            if($request->input('day_4'))
+//                dump(4444);
+//                dump($request->input('day_4'));
+//
+//            if($request->input('day_5'))
+//                dump(5555);
+//                dump($request->input('day_5'));
+
+            $program = new Programs();
+            $set_id = 3;
+            $day_of_program = '3';
+            $request->validate(Programs::rules());
+
+            $program->fill(['name' => $request->input('name')]);
+            $program->save();
+
+            for($day_of_program = 1; $day_of_program <=5; $day_of_program++) {
+                if($request->input('day_' . $day_of_program)) {
+                    $set_id = $request->input('day_' . $day_of_program);
+                    $program->sets()->attach($set_id, ['day_of_program' => $day_of_program]);
+                }
+            }
+//            $program->sets()->attach($set_id, ['day_of_program' => $day_of_program]);
+//            $program->sets()->attach($set_id, ['day_of_program' => $day_of_program]);
+
+            return redirect()->route('program.index')->with('message', 'Программа успешно добавлена.');
+        }
+
+        return view('program.create', [
+            'sets' => $sets
+        ]);
+
+    }
+
+
+//    public function update(Request $request, Category $category) {
+//        $this->validateAndSaveChanges($request, $category);
+//        return redirect()->route('admin.category.index')->with('success', 'Категория успешно отредактирована');
+//    }
+//
+//    public function destroy(Category $category) {
+//        $category->news()->delete();
+//        $category->delete();
+//        return redirect()->route('admin.category.index')->with('success', 'Категория успешно удалена.');
+//    }
 }

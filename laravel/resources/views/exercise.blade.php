@@ -73,9 +73,9 @@
                     <form
                         action="{{ route('trainingLog.add_exercises', ['day' => $day, 'month' => $month, 'today' => 1, 'weekday' => $weekday]) }}"
                         method="post">
+                        @csrf
                         <p>{{ $exercise->name }}</p>
                         <input type="text" name="exercises_id" value="{{ $exercise->id }}" hidden>
-                        @csrf
                         <input type="text" name="weight" placeholder="Масса снаряда"><br>
                         <input type="text" name="repetitions" placeholder="Количество подходов"><br>
                         <input type="submit" value="ДОБАВИТЬ">
