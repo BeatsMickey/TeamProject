@@ -43,8 +43,8 @@ Route::group([
     'namespace' => 'Exercises',
     'as' => 'exercises.'
 ], function (){
-    Route::get('/', 'ExercisesController@index')->name('index');
-    Route::get('/categories/{id}', 'ExercisesController@categories')->name('categories');
+    Route::get('/categories', 'ExercisesController@index')->name('index');
+    Route::get('/exercises/{id}', 'ExercisesController@categories')->name('categories');
     Route::get('/exercises_card/{id}', 'ExercisesController@card')->name('card');
 });
 
@@ -77,7 +77,15 @@ Route::group([
             'prefix' => 'exercises',
             'as' => 'exercises.',
         ], function () {
-            Route::get('/all', 'AdminExercisesController@index')->name('all');
+            Route::get('/categories', 'AdminExercisesController@index')->name('index');
+            Route::post('/categories/change/{id}', 'AdminExercisesController@changeActiveCategories')->name('change.categories');
+            Route::post('/categories/add', 'AdminExercisesController@addCategories')->name('add.categories');
+            Route::get('/exercises/{id}', 'AdminExercisesController@exercises')->name('exercises');
+            Route::post('/exercises/delete/{id}/{category_id}', 'AdminExercisesController@delExercises')->name('del.exercises');
+            Route::get('/exercises_card', 'AdminExercisesController@exerciseCard')->name('card');
+            Route::get('/exercises_card_update/{id}', 'AdminExercisesController@updateCard')->name('update.card');
+            Route::post('/exercises/card/change/save/{id}', 'AdminExercisesController@saveCardExercises')->name('save.card');
+            Route::post('/exercises/card/change_categories/save/{id}', 'AdminExercisesController@saveCategoryForExercise')->name('save.category.exercise');
         });
 
         /*

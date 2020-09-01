@@ -23,7 +23,7 @@
                     <button>выбрать</button>
                 </form>
 
-<<<<<<< HEAD
+
 {{--                <h6>Август--}}
 {{--                    <div class="arrow">--}}
 {{--                        <svg width="12" height="6" viewBox="0 0 12 6" fill="none" xmlns="http://www.w3.org/2000/svg">--}}
@@ -32,31 +32,27 @@
 {{--                        </svg>--}}
 {{--                    </div>--}}
 {{--                </h6>--}}
-=======
-                <h6>Август
+
+{{--                <h6>Август--}}
 
 
-                    <div class="arrow">
+{{--                    <div class="arrow">--}}
 
 
-                        <svg width="12" height="6" viewBox="0 0 12 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+{{--                        <svg width="12" height="6" viewBox="0 0 12 6" fill="none" xmlns="http://www.w3.org/2000/svg">--}}
 
 
-                            <path d="M1 0.5L6 5.5L11 0.5" stroke="black" stroke-linecap="round"
+{{--                            <path d="M1 0.5L6 5.5L11 0.5" stroke="black" stroke-linecap="round"--}}
 
 
-                                  stroke-linejoin="round"/>
+{{--                                  stroke-linejoin="round"/>--}}
 
+{{--                        </svg>--}}
 
-                        </svg>
+{{--                    </div>--}}
 
+{{--                </h6>--}}
 
-                    </div>
-
-
-                </h6>
-
->>>>>>> master
             </div>
 
             <div class="hr"></div>
@@ -92,23 +88,21 @@
                     </div>
                 </div>
 
-
                 <div class="section__container__calendar__numbers">
                     @forelse($calendar as $key => $value)
                         <a
-                            href=
-<<<<<<< HEAD
+                            href = "
                                     @if($value['is_active'] === 'not_active' || $value['is_active'] === 'none')
-                                        "#"
+                                        #
                                     @elseif($value['is_active'] === 'today')
-                                        "{{ route('trainingLog.view_day', ['month' => $month, 'day' => $key, 'today' => 1,
-                                    'weekday' => $value['weekday']]) }}"
+                                        {{ route('trainingLog.view_day', ['month' => $month, 'day' => $key, 'today' => 1,
+                                    'weekday' => $value['weekday']]) }}
                                     @else
-                                        "{{ route('trainingLog.view_day', ['month' => $month, 'day' => $key, 'today' => 0,
-                                    'weekday' => $value['weekday']]) }}"
+                                        {{ route('trainingLog.view_day', ['month' => $month, 'day' => $key, 'today' => 0,
+                                    'weekday' => $value['weekday']]) }}
                                     @endif
-
-                            class= "
+                                    "
+                            class = "
                                     @if($value['weekend'] === true)
                                         weekend
                                     @endif
@@ -123,32 +117,9 @@
                                         program_day
                                     @endif
                                     "
-                            @if($value['is_active'] === 'none')
-                                style="opacity:0"
-                            @endif
-=======
-                            @if($value['is_active'] === 'not_active' || $value['is_active'] === 'none')
-                                "#"
-                        @elseif($value['is_active'] === 'today')
-                            "{{ route('trainingLog.view_day', ['month' => $month, 'day' => $key, 'today' => 1]) }}"
-                        @else
-                            "{{ route('trainingLog.view_day', ['month' => $month, 'day' => $key, 'today' => 0]) }}"
-                        @endif
-
-                        class= "
-                        @if($value['weekend'] === true)
-                            weekend
-                        @endif
-                        @if($value['is_active'] === 'not_active')
-                            notActive
-                        @elseif($value['is_active'] === 'today')
-                            today
-                        @endif
-                        "
-                        @if($value['is_active'] === 'none')
-                            style="opacity:0"
-                        @endif
->>>>>>> master
+                                    @if($value['is_active'] === 'none')
+                                        style="opacity:0"
+                                    @endif
 
                         ><h6>{{ $key }}</h6></a>
                     @empty
