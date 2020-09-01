@@ -29,7 +29,6 @@ class TrainingController extends Controller
         }
 
         $calendar = Calendar::getCalendarBySessionIdAndMonth($session_id, $month);
-
         $months = MyApp::MONTHSNAME;
 
         return view('calendar', [
@@ -62,11 +61,9 @@ class TrainingController extends Controller
             $routename = 'alreadyDoneExercises';
         }
 
-        $categories = CategoriesExercises::All();
+        $categories = CategoriesExercises::getAll();
 
         $allExercises = Exercises::getAllExercises();
-
-        dd($allExercises);
 
         $session_id = $request->session()->getId();
 
