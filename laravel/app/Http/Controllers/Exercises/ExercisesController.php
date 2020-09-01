@@ -10,12 +10,12 @@ use Illuminate\Http\Request;
 class ExercisesController extends Controller
 {
     public function index() {
-        $categories = CategoriesExercises::all();
+        $categories = CategoriesExercises::getCategoriesActive(5);
         return view('exercises.categories', ['categories' => $categories]);
     }
 
     public function categories($id) {
-        $exercises = Exercises::getExercisesByCategoriesId($id, 5);
+        $exercises = Exercises::getExercisesByCategoriesIdActive($id, 5);
         $category = CategoriesExercises::find($id);
         return view('exercises.exercises_by_category', ['exercises' => $exercises, 'category' => $category]);
     }

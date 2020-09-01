@@ -66,7 +66,6 @@ class TrainingController extends Controller
 
         $allExercises = Exercises::getAllExercises();
 
-        dd($allExercises);
 
         $session_id = $request->session()->getId();
 
