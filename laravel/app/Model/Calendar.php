@@ -110,7 +110,9 @@ class Calendar extends Model
                 continue;
             }
 
-                $calendar[$day]['weekday'] = $weekday;
+
+
+
 
             // отметка выходных дней
             if( $weekday == 6 || $weekday == 7 ) {

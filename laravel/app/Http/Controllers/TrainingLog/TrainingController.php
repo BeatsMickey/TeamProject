@@ -61,7 +61,7 @@ class TrainingController extends Controller
             $routename = 'alreadyDoneExercises';
         }
 
-        $categories = CategoriesExercises::All();
+        $categories = CategoriesExercises::getAll();
 
         $allExercises = Exercises::getAllExercises();
 

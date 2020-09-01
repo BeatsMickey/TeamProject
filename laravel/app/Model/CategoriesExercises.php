@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class CategoriesExercises extends Model
 {
+
+
     protected $fillable = [
         'name',
         'is_active'

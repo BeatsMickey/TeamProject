@@ -23,7 +23,6 @@
                     <button>выбрать</button>
                 </form>
 
-
             </div>
 
             <div class="hr"></div>
@@ -61,36 +60,39 @@
 
                 <div class="section__container__calendar__numbers">
                     @forelse($calendar as $key => $value)
+                        {{--                        @dd($calendar, $value)--}}
                         <a
-                            href = "
-                                    @if($value['is_active'] === 'not_active' || $value['is_active'] === 'none')
-                                        #
-                                    @elseif($value['is_active'] === 'today')
-                                        {{ route('trainingLog.view_day', ['month' => $month, 'day' => $key, 'today' => 1,
-                                    'weekday' => $value['weekday']]) }}
-                                    @else
-                                        {{ route('trainingLog.view_day', ['month' => $month, 'day' => $key, 'today' => 0,
-                                    'weekday' => $value['weekday']]) }}
-                                    @endif
-                                    "
-                            class = "
-                                    @if($value['weekend'] === true)
-                                        weekend
-                                    @endif
-                                    @if($value['is_active'] === 'not_active')
-                                        notActive
-                                    @elseif($value['is_active'] === 'today')
-                                        today
-                                    @endif
 
-                                    @if(array_key_exists('program_day', $value)
-                                        && $value['program_day'] && !$value['day_passed'])
-                                        program_day
-                                    @endif
-                                    "
-                                    @if($value['is_active'] === 'none')
-                                        style="opacity:0"
-                                    @endif
+                            href=
+                            @if($value['is_active'] === 'not_active' || $value['is_active'] === 'none')
+                                "#"
+                        @elseif($value['is_active'] === 'today')
+                            "{{ route('trainingLog.view_day', ['month' => $month, 'day' => $key, 'today' => 1,
+                            'weekday' => $value['weekday']]) }}"
+                        @else
+                            "{{ route('trainingLog.view_day', ['month' => $month, 'day' => $key, 'today' => 0,
+                            'weekday' => $value['weekday']]) }}"
+                        @endif
+
+                        class= "
+                        @if($value['weekend'] === true)
+                            weekend
+                        @endif
+                        @if($value['is_active'] === 'not_active')
+                            notActive
+                        @elseif($value['is_active'] === 'today')
+                            today
+                        @endif
+
+                        @if(array_key_exists('program_day', $value)
+                            && $value['program_day'] && !$value['day_passed'])
+                            program_day
+                        @endif
+                        "
+                        @if($value['is_active'] === 'none')
+                            style="opacity:0"
+                        @endif
+
 
                         ><h6>{{ $key }}</h6></a>
                     @empty
@@ -102,8 +104,4 @@
         </div>
     </section>
 @endsection
-
-
-
-
 
