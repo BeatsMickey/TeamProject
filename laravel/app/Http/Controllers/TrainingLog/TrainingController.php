@@ -29,7 +29,6 @@ class TrainingController extends Controller
         }
 
         $calendar = Calendar::getCalendarBySessionIdAndMonth($session_id, $month);
-
         $months = MyApp::MONTHSNAME;
 
         return view('calendar', [

@@ -23,7 +23,7 @@
             <input type="text" name="name" placeholder="Название программы">
         </div>
 
-        @for ($i = 1; $i <= 5; $i++)
+        @for ($i = 1; $i <= 7; $i++)
             <div>
                 <label for="day_one">Набор упражнений для {{ $i }}-го дня тренировки</label>
                 <select name="day_{{ $i }}" id="day_one">
