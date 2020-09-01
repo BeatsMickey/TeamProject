@@ -26,7 +26,6 @@
                 <p>Категорий нет</p>
             @endif
 
-                {{ route('admin.exercises.save.category.exercise', ['id' => $exercise->id]) }}
 
             <form id="add" action="
                 @if($exercise->id)
