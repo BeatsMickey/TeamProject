@@ -18,6 +18,7 @@
                     action="{{ route('trainingLog.add_exercises', ['day' => $day, 'month' => $month, 'today' => 1, 'weekday' => $weekday]) }}"
                     method="post">
                     @csrf
+
                     {{--                    <div class="select">--}}
                     {{--                        <div class="select__header">--}}
                     {{--                            <span class="select__current">Выберите упражнение</span>--}}
@@ -39,6 +40,7 @@
                     {{--                        </div>--}}
                     {{--                    </div>--}}
 
+
                     <div>
                         <div class="bg-success btn category selected-category" id="all">
                             Все категории
@@ -47,7 +49,6 @@
                             <div class="bg-success btn category" id="{{ $category->id }}">{{ $category->name }}</div>
                         @endforeach
                     </div>
-
 
                     <select class="content_form mt-2" id="choose-exercises" name="exercises_id">
                         @foreach($allExercises as $value)
@@ -118,12 +119,14 @@
                                 </svg>
                             </a>
                         </div>
+
                         {{--                        <button>--}}
                         {{--                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">--}}
                         {{--                                <path d="M24 8L8 24" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>--}}
                         {{--                                <path d="M8 8L24 24" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>--}}
                         {{--                            </svg>--}}
                         {{--                        </button>--}}
+
                     @empty
                         <h6>Нет упражнений</h6>
                     @endforelse

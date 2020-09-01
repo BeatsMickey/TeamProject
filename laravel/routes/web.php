@@ -13,7 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::get('/', 'HomeController@index')->name('home');
+
+/*
+ * Роуты к авторизации
+ */
+Auth::routes();
 
 /*
  * Роуты к тренировочному дневнику
@@ -30,6 +36,19 @@ Route::group([
 });
 
 /*
+ * Роуты упражнениям
+ */
+Route::group([
+    'prefix' => 'exercises',
+    'namespace' => 'Exercises',
+    'as' => 'exercises.'
+], function (){
+    Route::get('/categories', 'ExercisesController@index')->name('index');
+    Route::get('/exercises/{id}', 'ExercisesController@categories')->name('categories');
+    Route::get('/exercises_card/{id}', 'ExercisesController@card')->name('card');
+});
+
+/*
  * Роуты к админке
  */
 Route::group([
@@ -38,6 +57,47 @@ Route::group([
     'as' => 'admin.',
     'middleware' => 'access.admin'],
     function () {
+        /*
+         * Редактирование пользователей
+         */
+        Route::view('/', 'admin.admin_menu')->name('main');
+        Route::group([
+            'prefix' => 'users',
+            'as' => 'users.',
+        ], function () {
+            Route::get('/all', 'AdminUsersController@index')->name('all');
+            Route::get('/update/{id}', 'AdminUsersController@update')->name('update');
+            Route::post('/save/{id}', 'AdminUsersController@save')->name('save');
+        });
+
+        /*
+         * Редактирование упражнений
+         */
+        Route::group([
+            'prefix' => 'exercises',
+            'as' => 'exercises.',
+        ], function () {
+            Route::get('/categories', 'AdminExercisesController@index')->name('index');
+            Route::post('/categories/change/{id}', 'AdminExercisesController@changeActiveCategories')->name('change.categories');
+            Route::post('/categories/add', 'AdminExercisesController@addCategories')->name('add.categories');
+            Route::get('/exercises/{id}', 'AdminExercisesController@exercises')->name('exercises');
+            Route::post('/exercises/delete/{id}/{category_id}', 'AdminExercisesController@delExercises')->name('del.exercises');
+            Route::get('/exercises_card', 'AdminExercisesController@exerciseCard')->name('card');
+            Route::get('/exercises_card_update/{id}', 'AdminExercisesController@updateCard')->name('update.card');
+            Route::post('/exercises/card/change/save/{id}', 'AdminExercisesController@saveCardExercises')->name('save.card');
+            Route::post('/exercises/card/change_categories/save/{id}', 'AdminExercisesController@saveCategoryForExercise')->name('save.category.exercise');
+        });
+
+        /*
+         * Редактирование программ
+         */
+        Route::group([
+            'prefix' => 'program',
+            'as' => 'program.',
+        ], function () {
+            Route::get('/all', 'AdminProgramController@index')->name('all');
+        });
+
 
     });
 
@@ -51,6 +111,7 @@ Route::group([
     'middleware' => 'auth.check'],
     function () {
         Route::get('/area', 'PersonalArea@index')->name('area');
+        Route::post('/change', 'PersonalArea@change')->name('change');
     });
 
 /*
@@ -70,5 +131,5 @@ Route::group([
     });
 
 
-Auth::routes();
+
 

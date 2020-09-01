@@ -10,26 +10,20 @@
         <div class="section__container">
             <div class="section__container__text section__container__text_marginLeft">
                 <form method="get" action="{{ route('trainingLog.calendar') }}">
-                        <select class="content_form" name="month">
-                            @foreach($months as $key=>$value)
-                                <option value="{{ $key }}"
+                    <select class="content_form" name="month">
+                        @foreach($months as $key=>$value)
+                            <option value="{{ $key }}"
                                     @if($key == $month)
-                                        selected
-                                    @endif
-                                >
-                                    {{ $value }}</option>
-                            @endforeach
-                        </select>
-                        <button>выбрать</button>
+                                    selected
+                                @endif
+                            >
+                                {{ $value }}</option>
+                        @endforeach
+                    </select>
+                    <button>выбрать</button>
                 </form>
-{{--                <h6>Август--}}
-{{--                    <div class="arrow">--}}
-{{--                        <svg width="12" height="6" viewBox="0 0 12 6" fill="none" xmlns="http://www.w3.org/2000/svg">--}}
-{{--                            <path d="M1 0.5L6 5.5L11 0.5" stroke="black" stroke-linecap="round"--}}
-{{--                                  stroke-linejoin="round"/>--}}
-{{--                        </svg>--}}
-{{--                    </div>--}}
-{{--                </h6>--}}
+
+
             </div>
 
             <div class="hr"></div>
@@ -65,23 +59,21 @@
                     </div>
                 </div>
 
-
                 <div class="section__container__calendar__numbers">
                     @forelse($calendar as $key => $value)
-{{--                        @dd($calendar, $value)--}}
                         <a
-                            href=
+                            href = "
                                     @if($value['is_active'] === 'not_active' || $value['is_active'] === 'none')
-                                        "#"
+                                        #
                                     @elseif($value['is_active'] === 'today')
-                                        "{{ route('trainingLog.view_day', ['month' => $month, 'day' => $key, 'today' => 1,
-                                    'weekday' => $value['weekday']]) }}"
+                                        {{ route('trainingLog.view_day', ['month' => $month, 'day' => $key, 'today' => 1,
+                                    'weekday' => $value['weekday']]) }}
                                     @else
-                                        "{{ route('trainingLog.view_day', ['month' => $month, 'day' => $key, 'today' => 0,
-                                    'weekday' => $value['weekday']]) }}"
+                                        {{ route('trainingLog.view_day', ['month' => $month, 'day' => $key, 'today' => 0,
+                                    'weekday' => $value['weekday']]) }}
                                     @endif
-
-                            class= "
+                                    "
+                            class = "
                                     @if($value['weekend'] === true)
                                         weekend
                                     @endif
@@ -96,9 +88,9 @@
                                         program_day
                                     @endif
                                     "
-                            @if($value['is_active'] === 'none')
-                                style="opacity:0"
-                            @endif
+                                    @if($value['is_active'] === 'none')
+                                        style="opacity:0"
+                                    @endif
 
                         ><h6>{{ $key }}</h6></a>
                     @empty
@@ -110,4 +102,8 @@
         </div>
     </section>
 @endsection
+
+
+
+
 
