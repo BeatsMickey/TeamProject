@@ -18,7 +18,7 @@
                     action="{{ route('trainingLog.add_exercises', ['day' => $day, 'month' => $month, 'today' => 1, 'weekday' => $weekday]) }}"
                     method="post">
                     @csrf
-<<<<<<< HEAD
+
                     {{--                    <div class="select">--}}
                     {{--                        <div class="select__header">--}}
                     {{--                            <span class="select__current">Выберите упражнение</span>--}}
@@ -40,8 +40,7 @@
                     {{--                        </div>--}}
                     {{--                    </div>--}}
 
-=======
->>>>>>> master
+
                     <div>
                         <div class="bg-success btn category selected-category" id="all">
                             Все категории
@@ -120,15 +119,14 @@
                                 </svg>
                             </a>
                         </div>
-<<<<<<< HEAD
+
                         {{--                        <button>--}}
                         {{--                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">--}}
                         {{--                                <path d="M24 8L8 24" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>--}}
                         {{--                                <path d="M8 8L24 24" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>--}}
                         {{--                            </svg>--}}
                         {{--                        </button>--}}
-=======
->>>>>>> master
+
                     @empty
                         <h6>Нет упражнений</h6>
                     @endforelse

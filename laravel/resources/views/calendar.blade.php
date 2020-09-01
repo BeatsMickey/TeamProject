@@ -22,14 +22,7 @@
                     </select>
                     <button>выбрать</button>
                 </form>
-                {{--                <h6>Август--}}
-                {{--                    <div class="arrow">--}}
-                {{--                        <svg width="12" height="6" viewBox="0 0 12 6" fill="none" xmlns="http://www.w3.org/2000/svg">--}}
-                {{--                            <path d="M1 0.5L6 5.5L11 0.5" stroke="black" stroke-linecap="round"--}}
-                {{--                                  stroke-linejoin="round"/>--}}
-                {{--                        </svg>--}}
-                {{--                    </div>--}}
-                {{--                </h6>--}}
+
             </div>
 
             <div class="hr"></div>
@@ -65,11 +58,11 @@
                     </div>
                 </div>
 
-
                 <div class="section__container__calendar__numbers">
                     @forelse($calendar as $key => $value)
                         {{--                        @dd($calendar, $value)--}}
                         <a
+
                             href=
                             @if($value['is_active'] === 'not_active' || $value['is_active'] === 'none')
                                 "#"
@@ -99,6 +92,7 @@
                         @if($value['is_active'] === 'none')
                             style="opacity:0"
                         @endif
+
 
                         ><h6>{{ $key }}</h6></a>
                     @empty

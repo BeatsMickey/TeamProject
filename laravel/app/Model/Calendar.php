@@ -56,6 +56,7 @@ class Calendar extends Model
         $program = Programs::find(Auth::user()->programs_id);
 
 
+
         // Составляем список дней недели, которые входят в программу
         if($program) {
             $sets = $program->sets()->orderBy('day_of_program')->get();
@@ -109,7 +110,9 @@ class Calendar extends Model
                 continue;
             }
 
-            $calendar[$day]['weekday'] = $weekday;
+
+
+
 
             // отметка выходных дней
             if( $weekday == 6 || $weekday == 7 ) {
