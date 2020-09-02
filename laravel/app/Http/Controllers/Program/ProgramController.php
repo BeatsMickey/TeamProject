@@ -96,10 +96,19 @@ class ProgramController extends Controller
     }
 
 
-    public function update(Request $request, Programs $program) {
-        $sets = Sets::getAll();
-        dd($program);
+    public function update(Request $request, $id, Programs $program) {
+        $program = Programs::find($id);
+        $sets = $program->sets()->orderBy('day_of_program')->get();
+
         if ($request->method() === "POST") {
+            //Проверка: если все дни программы пустые - выдать ошибку
+            $days_filled_with_training = 0;
+            for($day_of_program = 1; $day_of_program <=7; $day_of_program++) {
+                if($request->input('day_' . $day_of_program)) {
+                    $days_filled_with_training++;
+                }
+            }
+
             $request->validate(Programs::rules());
             $program->fill(['name' => $request->input('name')]);
             $program->save();
@@ -111,11 +120,14 @@ class ProgramController extends Controller
                 }
             }
 
-            return redirect()->route('program.index')->with('message', 'Программа успешно добавлена.');
+            return redirect()->route('program.index')->with('message', 'Программа успешно изменена.');
 
         }
+
+//        dd(1);
         return view('program.update', [
-            'sets' => $sets
+            'program' => $program,
+            'sets' => $sets,
         ]);
 //        $this->validateAndSaveChanges($request, $program);
 //        return redirect()->route('admin.category.index')->with('success', 'Категория успешно отредактирована');
