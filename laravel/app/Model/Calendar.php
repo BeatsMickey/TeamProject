@@ -53,7 +53,11 @@ class Calendar extends Model
 
     private static function prepareCalendar(Collection $calendarDb, int $month) {
         // Закреплённая за пользователем программа упражнений
-        $program = Programs::find(Auth::user()->programs_id);
+        if (Auth::user()) {
+            $program = Programs::find(Auth::user()->programs_id);
+        } else {
+            $program = null;
+        }
 
 
         // Составляем список дней недели, которые входят в программу
