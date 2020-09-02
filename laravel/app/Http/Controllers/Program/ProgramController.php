@@ -56,8 +56,22 @@ class ProgramController extends Controller
     public function create(Request $request) {
         $sets = Sets::getAll();
 
-
         if ($request->method() === "POST") {
+
+            //Проверка: если все дни программы пустые - выдать ошибку
+            $days_filled_with_training = 0;
+            for($day_of_program = 1; $day_of_program <=7; $day_of_program++) {
+                if($request->input('day_' . $day_of_program)) {
+                    $days_filled_with_training++;
+                }
+            }
+
+            if(!$days_filled_with_training) {
+                return view('program.create', [
+                    'sets' => $sets,
+                ])->withErrors(['token' => 'Ошибка: все дни программы пустые']);
+            }
+
 
             $program = new Programs();
             $request->validate(Programs::rules());
@@ -71,8 +85,6 @@ class ProgramController extends Controller
                     $program->sets()->attach($set_id, ['day_of_program' => $day_of_program]);
                 }
             }
-//            $program->sets()->attach($set_id, ['day_of_program' => $day_of_program]);
-//            $program->sets()->attach($set_id, ['day_of_program' => $day_of_program]);
 
             return redirect()->route('program.index')->with('message', 'Программа успешно добавлена.');
         }
@@ -84,11 +96,31 @@ class ProgramController extends Controller
     }
 
 
-//    public function update(Request $request, Category $category) {
-//        $this->validateAndSaveChanges($request, $category);
+    public function update(Request $request, Programs $program) {
+        $sets = Sets::getAll();
+        dd($program);
+        if ($request->method() === "POST") {
+            $request->validate(Programs::rules());
+            $program->fill(['name' => $request->input('name')]);
+            $program->save();
+
+            for($day_of_program = 1; $day_of_program <=7; $day_of_program++) {
+                if($request->input('day_' . $day_of_program)) {
+                    $set_id = $request->input('day_' . $day_of_program);
+                    $program->sets()->attach($set_id, ['day_of_program' => $day_of_program]);
+                }
+            }
+
+            return redirect()->route('program.index')->with('message', 'Программа успешно добавлена.');
+
+        }
+        return view('program.update', [
+            'sets' => $sets
+        ]);
+//        $this->validateAndSaveChanges($request, $program);
 //        return redirect()->route('admin.category.index')->with('success', 'Категория успешно отредактирована');
-//    }
-//
+    }
+
 //    public function destroy(Category $category) {
 //        $category->news()->delete();
 //        $category->delete();
