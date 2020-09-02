@@ -3,11 +3,12 @@
         <div class="calendar__box">
             <div class="calendar__chooseMonth">
                 <div class="calendar__Month-btn" @click="decreaseMonth()">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill-rule="evenodd" d="M15.28 5.22a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 000 1.06l6.25 6.25a.75.75 0 101.06-1.06L9.56 12l5.72-5.72a.75.75 0 000-1.06z"></path></svg>
+                    <div class="arrow left"></div>
                 </div>
-                <div class="calendar__currentMonth">{{ month[currentDate.month] }}</div>
+                <div class="calendar__currentMonth"><h2 class="calendar__heading">{{
+                    month[currentDate.month].toUpperCase() }}</h2></div>
                 <div class="calendar__Month-btn" @click="increaseMonth()">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill-rule="evenodd" d="M8.72 18.78a.75.75 0 001.06 0l6.25-6.25a.75.75 0 000-1.06L9.78 5.22a.75.75 0 00-1.06 1.06L14.44 12l-5.72 5.72a.75.75 0 000 1.06z"></path></svg>
+                    <div class="arrow right"></div>
                 </div>
             </div>
             <div class="calendar__weekdays">
@@ -15,59 +16,68 @@
             </div>
             <div class="calendar__days">
                 <div class="calendar__day calendar__day_inactive"
-                     :class="{ calendar__day_weekend: checkPastMonthWeekend( (prevMonthDays + 1) - firstMonthDay + n) }"
                      v-for="(n, index) in (firstMonthDay - 1)"
-                     :key="'prev' + index">{{ (prevMonthDays + 1) - firstMonthDay + n }}
+                     :key="'prev' + index"><a class="calendar__link calendar__link_inactive" href="#"><span>{{ (prevMonthDays
+                    + 1) - firstMonthDay + n }}</span></a>
                 </div>
                 <div class="calendar__day"
-                     :class="{ calendar__day_active: n === currentDate.date, calendar__day_weekend: checkCurrentMonthWeekend(n) }"
                      v-for="(n, index) in currentMonthsDays"
+                     :class="{ calendar__day_active: checkActualDate(n), calendar__day_weekend: checkCurrentMonthWeekend(n), calendar__day_programDay: checkProgramData(n) }"
                      :key="'day' + index">
-                    <div v-if="n === currentDate.date">
-                        <a class="calendar__link" :href="'view_day/' + (currentDate.month+1) + '/' + n + '/1'">{{ n }}</a>
+                    <div v-if="checkActualDate(n)">
+                        <a class="calendar__link" :class="{ calendar__link_weekend: checkCurrentMonthWeekend(n) }"
+                           :href="prepareLink(n)"><span>{{ n }}</span></a>
                     </div>
                     <div v-else>
-                        <a href="#">{{ n }}</a>
+                        <a class="calendar__link" :class="{ calendar__link_weekend: checkCurrentMonthWeekend(n) }"
+                           href="#"><span>{{ n }}</span></a>
                     </div>
                 </div>
                 <div class="calendar__day calendar__day_inactive"
-                     :class="{ calendar__day_weekend: checkFutureMonthWeekend(n) }"
                      v-for="(n, index) in (43 - (currentMonthsDays + firstMonthDay))"
-                     :key="'next' + index">{{ n }}
+                     :key="'next' + index"><a class="calendar__link calendar__link_inactive" href="#"><span>{{ n }}</span></a>
                 </div>
             </div>
         </div>
+      <!-- <div v-for="(day, index) in urldata" :key="index">{{ day }} = {{ index }}</div>
+        <div>{{ programDays }}</div>-->
+        <!-- <div>{{currentDate}}</div>
+        <div>{{urldata}}</div>-->
     </section>
 </template>
 
 <script>
     export default {
         name: "Calendar",
+        props: ['urldata'],
         data: function () {
             return {
-                weekdays: ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'],
+                weekdays: ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'],
                 month: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
                 currentDate: {
                     date: 0,
                     month: 0,
                     year: 0
-                }
-
+                },
+                serverDate: {
+                    date: 0,
+                    month: 0,
+                    year: 0,
+                    weekday: 0
+                },
+                programDays: []
             }
         },
         computed: {
             prevMonthDays() {
                 let year = this.currentDate.month === 0 ? this.currentDate.year - 1 : this.currentDate.year;
-                let month = this.currentDate.month === 0 ? 11 : this.currentDate.month;
+                let month = this.currentDate.month === 0 ? 12 : this.currentDate.month;
                 return new Date(year, month, 0).getDate();
             },
             firstMonthDay() {
                 let firstDay = new Date(this.currentDate.year, this.currentDate.month, 1).getDay();
                 if (firstDay === 0) firstDay = 7;
                 return firstDay;
-            },
-            currentDay() {
-                return new Date(this.currentDate.year, this.currentDate.month, this.currentDate.date - 1).getDay();
             },
             currentMonthsDays() {
                 return new Date(this.currentDate.year, this.currentDate.month + 1, 0).getDate();
@@ -96,14 +106,44 @@
                 let checkedDay = new Date(this.currentDate.year, this.currentDate.month, day).getDay();
                 if (checkedDay === 0 || checkedDay === 6) return true;
             },
-            checkFutureMonthWeekend(day) {
-                let checkedDay = new Date(this.currentDate.year, this.currentDate.month + 1, day).getDay();
-                if (checkedDay === 0 || checkedDay === 6) return true;
+            /* checkFutureMonthWeekend(day) {
+                 let checkedDay = new Date(this.currentDate.year, this.currentDate.month + 1, day).getDay();
+                 if (checkedDay === 0 || checkedDay === 6) return true;
+             },
+             checkPastMonthWeekend(day) {
+                 let checkedDay = new Date(this.currentDate.year, this.currentDate.month - 1, day).getDay();
+                 if (checkedDay === 0 || checkedDay === 6) return true;
+             },*/
+            checkProgramData(n) {
+                let month = new Date().getMonth();
+                if (this.programDays.includes(n) && this.serverDate.month === month && this.currentDate.month === this.serverDate.month) return true;
             },
-            checkPastMonthWeekend(day) {
-                let checkedDay = new Date(this.currentDate.year, this.currentDate.month - 1, day).getDay();
-                if (checkedDay === 0 || checkedDay === 6) return true;
+            checkActualDate(n) {
+                let month = new Date().getMonth();
+                if (n === this.serverDate.date && this.serverDate.month === month && this.currentDate.month === this.serverDate.month) return true;
+            },
+            prepareLink(n) {
+                let link = 'view_day/' + (this.serverDate.month + 1) + '/' + n + '/1?weekday=' + this.serverDate.weekday;
+                return link;
+            },
+            parseIncomingData() {
+                let arrDays = Object.entries(this.urldata);
+                for (let day of arrDays) {
+                    if (day[1].is_active === 'today') {
+                        this.serverDate.date = +day[0];
+                        this.serverDate.month = new Date().getMonth();
+                        this.serverDate.year = new Date().getFullYear();
+                        this.serverDate.weekday = day[1].weekday;
+                    }
+                    if (day[1].program_day === true) {
+                        this.programDays.push(+day[0])
+                    }
+                }
+
             }
+        },
+        beforeMount() {
+            this.parseIncomingData();
         },
         created() {
             this.getCurrentDate();
@@ -113,64 +153,154 @@
 
 <style scoped>
     .calendar__box {
-        width: 728px;
+        width: 658px;
         display: flex;
         flex-direction: column;
     }
 
     .calendar__chooseMonth {
         display: flex;
-        justify-content: center;
+        justify-content: right;
         align-items: center;
-        margin-bottom: 10px;
+        margin-bottom: 48px;
     }
 
     .calendar__Month-btn {
         cursor: pointer;
+        padding-bottom: 10px;
+        padding-top: 10px;
+    }
+
+    .arrow {
+        width: 28px;
+        height: 28px;
+        border: solid #1C1C1C;
+        border-width: 0 8px 8px 0;
+    }
+
+    .calendar__Month-btn:hover .arrow, .calendar__Month-btn:hover .arrow {
+        border: solid #7543F8;
+        border-width: 0 8px 8px 0;
+    }
+
+    .right {
+        transform: rotate(-45deg);
+        -webkit-transform: rotate(-45deg);
+    }
+
+    .left {
+        transform: rotate(135deg);
+        -webkit-transform: rotate(135deg);
     }
 
     .calendar__currentMonth {
         display: flex;
         justify-content: center;
-        font-size: 24px;
-        width: 100px;
+        width: 260px;
         margin: 0 15px 0 15px;
+    }
+
+    .calendar__heading {
+        font-style: italic;
+        font-weight: 800;
+        font-size: 48px;
+        line-height: 62px;
+        letter-spacing: 1px;
+        color: #1C1C1C;
     }
 
     .calendar__weekdays, .calendar__days {
         display: grid;
-        grid-template-columns: repeat(7, 100px);
-        grid-gap: 4px;
+        grid-template-columns: repeat(7, 90px);
+        grid-gap: 6px;
         text-align: center;
     }
 
     .calendar__weekdays {
-        border-bottom: 1px solid red;
-        padding: 0 0 10px 0;
-        margin: 0 0 10px 0;
+        margin: 0 0 32px 0;
+    }
+
+    .calendar__weekday {
+        font-style: italic;
+        font-weight: normal;
+        font-size: 32px;
+        line-height: 41px;
+        text-align: center;
+        letter-spacing: 1px;
+        color: #1C1C1C;
     }
 
     .calendar__day {
-        height: 40px;
-        background-color: #EFEFEF;
-        color: black;
         display: flex;
         justify-content: center;
         align-items: center;
+        height: 72px;
+        margin: 9px;
+        background-color: #ffffff;
+        border: 3px solid #1C1C1C;
+        border-radius: 50%;
+        box-sizing: border-box;
+    }
+
+    .calendar__link {
+        display: block;
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        font-style: italic;
+        font-weight: normal;
+        font-size: 32px;
+        line-height: 41px;
+        letter-spacing: 1px;
+        color: #1C1C1C;
+
+    }
+
+    .calendar__link span {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 5px;
     }
 
     .calendar__day_weekend {
-        background-color: pink;
+        background: #FC6485;
+    }
+
+    .calendar__link_weekend {
+        color: #ffffff;
     }
 
     .calendar__day_active {
-        background-color: white;
-        outline: 1px solid red;
+        height: 90px;
+        width: 90px;
+        margin: 0;
+        border: 4px solid #1C1C1C;
+    }
+
+    .calendar__day_programDay {
+        background: #BAF500;
+    }
+
+    .calendar__link_programDay {
+        color: #1C1C1C;
     }
 
     .calendar__day_inactive {
-        color: gray;
-        opacity: 0.4;
+        border: 3px solid #CCCCCC;
+        background: #CCCCCC;
     }
 
+    .calendar__link_inactive {
+        color: #EEEEEE;
+    }
+
+    .calendar__day:hover {
+        background: #7543F8;
+    }
+
+    .calendar__day:hover .calendar__link {
+        color: #ffffff;
+    }
 </style>
