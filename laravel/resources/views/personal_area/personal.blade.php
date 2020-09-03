@@ -6,7 +6,7 @@
 @endsection
 
 @section('content')
-    <div class="section__container">
+    <div class="section__container section__container_personalArea">
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
