@@ -16,6 +16,7 @@ class CategoriesExercises extends Model
     public static function getCategoriesActive(int $numberPerPage, bool $is_active = true)
     {
         return CategoriesExercises::query()
+            ->select('id', 'name', 'is_active')
             ->where('is_active', '=', $is_active)
             ->paginate($numberPerPage);
     }
