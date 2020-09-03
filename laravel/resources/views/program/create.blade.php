@@ -25,8 +25,8 @@
 
         @for ($i = 1; $i <= 7; $i++)
             <div>
-                <label for="day_one">Набор упражнений для {{ $i }}-го дня тренировки</label>
-                <select name="day_{{ $i }}" id="day_one">
+                <label for="day_{{ $i }}">Набор упражнений для {{ $i }}-го дня тренировки</label>
+                <select name="day_{{ $i }}" id="day_{{ $i }}">
                     <option value=""></option>
                     @foreach($sets as $key => $set)
                         <option value="{{ $set->id }}">{{ $set->name }}</option>

@@ -12,13 +12,13 @@ use Illuminate\Support\Facades\Auth;
 class ProgramController extends Controller
 {
     public function index() {
-        $sets = Sets::getAll();
+//        $sets = Sets::getAll();
         $programs = Programs::getAll();
 
         $current_program = Programs::query()->where('id', Auth::user()->programs_id)->first();
 
         return view('program.index', [
-            'sets' => $sets,
+//            'sets' => $sets,
             'programs' => $programs,
             'current_program' => $current_program,
         ]);
@@ -104,7 +104,6 @@ class ProgramController extends Controller
         foreach ($program_sets_unsorted as $set) {
             $program_sets[$set->pivot['day_of_program']] = $set;
         }
-//        dd($program_sets);
 
         if ($request->method() === "POST") {
             //Проверка: если все дни программы пустые - выдать ошибку

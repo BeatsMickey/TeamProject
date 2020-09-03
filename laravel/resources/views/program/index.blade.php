@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Мои упражнения')
+@section('title', 'Программы упражнений')
 
 @section('header')
     @parent
@@ -24,12 +24,13 @@
         <h3>Перечень программ</h3>
         @foreach($programs as $program)
             <p>
-                <a href="{{ route('program.show', $program['id']) }}">{{ $program['id'] }} {{ $program['name'] }}</a>
+                <a href="{{ route('program.show', $program['id']) }}">{{ $program['name'] }}</a>
             </p>
         @endforeach
     </div>
     <div class="hr"></div>
     <div><a href="{{ route('program.create') }}">Создать новую программу</a></div>
+    <div><a href="{{ route('set.index') }}">Перейти на страницу наборов упражнений</a></div>
 
 
 @endsection
