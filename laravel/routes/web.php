@@ -128,6 +128,7 @@ Route::group([
         Route::get('/choose/{id}', 'ProgramController@chooseProgram')->name('choose');
         Route::get('/reset', 'ProgramController@resetProgram')->name('reset');
         Route::match(['get','post'],'/create', 'ProgramController@create')->name('create');
+        Route::match(['get','post'],'/update/{id}', 'ProgramController@update')->name('update');
     });
 
 

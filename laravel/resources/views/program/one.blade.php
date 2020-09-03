@@ -14,6 +14,7 @@
         @endforeach
     @endforeach
     <a href="{{ route('program.choose', $program->id) }}">Выбрать эту программу</a>
+    <a href="{{ route('program.update', $program->id) }}">Изменить эту программу</a>
 @endsection
 
 

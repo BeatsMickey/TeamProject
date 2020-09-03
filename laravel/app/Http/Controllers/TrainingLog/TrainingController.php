@@ -18,8 +18,8 @@ class TrainingController extends Controller
 {
     public function index(Request $request)
     {
-
         $session_id = $request->session()->getId();
+
 
         // месяц берем либо из формы при выборе, либо сегодняшний
         if ($request->month) {

@@ -12,7 +12,7 @@ class Programs extends Model
 
     public static function rules() {
         return [
-            'name' => ['required', 'min:6', 'max:100'],
+            'name' => ['required', 'min:3', 'max:100'],
         ];
     }
 
