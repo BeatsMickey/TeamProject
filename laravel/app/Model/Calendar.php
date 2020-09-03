@@ -58,6 +58,7 @@ class Calendar extends Model
         } else {
             $program = null;
         }
+      
 
         // Составляем список дней недели, которые входят в программу
         if($program) {
