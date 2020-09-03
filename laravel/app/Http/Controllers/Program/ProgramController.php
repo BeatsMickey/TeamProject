@@ -96,9 +96,15 @@ class ProgramController extends Controller
     }
 
 
-    public function update(Request $request, $id, Programs $program) {
+    public function update(Request $request, $id) {
         $program = Programs::find($id);
-        $sets = $program->sets()->orderBy('day_of_program')->get();
+        $sets = Sets::getAll();
+        $program_sets_unsorted = $program->sets()->orderBy('day_of_program')->get();
+        $program_sets = [];
+        foreach ($program_sets_unsorted as $set) {
+            $program_sets[$set->pivot['day_of_program']] = $set;
+        }
+//        dd($program_sets);
 
         if ($request->method() === "POST") {
             //Проверка: если все дни программы пустые - выдать ошибку
@@ -116,7 +122,27 @@ class ProgramController extends Controller
             for($day_of_program = 1; $day_of_program <=7; $day_of_program++) {
                 if($request->input('day_' . $day_of_program)) {
                     $set_id = $request->input('day_' . $day_of_program);
-                    $program->sets()->attach($set_id, ['day_of_program' => $day_of_program]);
+                    $check_set_exists = isset($program_sets[$day_of_program]);
+
+                    if ($check_set_exists)
+                        $check_set_id_changed = !($program_sets[$day_of_program]->id == $set_id);
+
+                    if($check_set_exists && $check_set_id_changed) {
+                        $old_set_id = $program_sets[$day_of_program]->id;
+                        $program->sets()->newPivotStatementForId($old_set_id)->whereDayOfProgram($day_of_program)->delete();
+                        $program->sets()->attach($set_id, ['day_of_program' => $day_of_program]);
+                    }
+                    elseif(!($check_set_exists && !$check_set_id_changed)) {
+//                        dd($set_id, $program_sets[$day_of_program]->id);
+                        $program->sets()->attach($set_id, ['day_of_program' => $day_of_program]);
+                    }
+
+                } else {
+                    if(isset($program_sets[$day_of_program])) {
+                        $set_id = $program_sets[$day_of_program]->id;
+                        $program->sets()->newPivotStatementForId($set_id)->whereDayOfProgram($day_of_program)->delete();
+//                        $program->sets()->detach($set_id, ['day_of_program' => $day_of_program]);
+                    }
                 }
             }
 
@@ -124,13 +150,11 @@ class ProgramController extends Controller
 
         }
 
-//        dd(1);
         return view('program.update', [
             'program' => $program,
             'sets' => $sets,
+            'program_sets' => $program_sets,
         ]);
-//        $this->validateAndSaveChanges($request, $program);
-//        return redirect()->route('admin.category.index')->with('success', 'Категория успешно отредактирована');
     }
 
 //    public function destroy(Category $category) {

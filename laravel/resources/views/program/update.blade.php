@@ -4,7 +4,6 @@
 @section('header')
     @parent
 @endsection
-@dd(1)
 @section('content')
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -17,12 +16,11 @@
     @endif
 
     <h3>Создать новую программу</h3>
-    <form action="{{ route('program.update') }}" method="post">
+    <form action="{{ route('program.update', $program->id) }}" method="post">
         @csrf
         <div>
             <input type="text" name="name" value="{{ $program->name }}">
         </div>
-
         @for ($weekday = 1; $weekday <= 7; $weekday++)
             <div>
                 <label for="day_one">Набор упражнений для {{ $weekday }}-го дня тренировки</label>
@@ -30,7 +28,7 @@
                     <option value=""></option>
                     @foreach($sets as $key => $set)
                         <option value="{{ $set->id }}"
-                            @if($set->pivot->day_of_program === $weekday)
+                            @if(isset($program_sets[$weekday]->id) && $program_sets[$weekday]->id === $set->id)
                                 selected
                             @endif
                         >{{ $set->name }}</option>
