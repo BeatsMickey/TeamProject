@@ -58,7 +58,7 @@ class Calendar extends Model
         } else {
             $program = null;
         }
-
+      
 
         // Составляем список дней недели, которые входят в программу
         if($program) {
@@ -67,12 +67,22 @@ class Calendar extends Model
             $days_of_program = [];
             foreach ($sets as $set) {
                 $day_number = $set->pivot['day_of_program'];
+
                 $days_of_program[$day_number] = $day_number;
+
+
+//                foreach ($sets as $set) {
+//                    $day_number = $set->pivot['day_of_program'];
+//                    $days_of_program[$day_number] = $day_number;
+//
+//                    $today_exercises = [];
+//                    foreach ($set->exercises()->get() as $exercise) {
+//                        array_push($today_exercises, $exercise->name);
+//                    }
+//                }
+
             }
         }
-
-//        dd($days_of_program);
-
 
         // к-во дней в требующемся месяце
         $days = cal_days_in_month(CAL_GREGORIAN, $month, date('Y', time()));
@@ -108,26 +118,25 @@ class Calendar extends Model
             // первые ячейки будут пропущены, что бы рендерить календарь с нужного места
             if ($i <= $prevMonthLastDay) {
                 $calendar["$i+"]['is_active'] = 'none';
-                $calendar["$i+"]['weekend'] = 'false';
-                $calendar["$i+"]['weekday'] = $weekday;
                 continue;
             }
 
             $calendar[$day]['weekday'] = $weekday;
 
-            // отметка выходных дней
-            if( $weekday == 6 || $weekday == 7 ) {
-                $calendar[$day]['weekend'] = true;
-            } else {
-                $calendar[$day]['weekend'] = false;
-            };
-
             // отметка дней, на которые приходятся занятия по текущей программе
             if($program) {
+                foreach ($sets as $set) {
+                    if($set->pivot['day_of_program'] == $weekday) {
+                        $today_exercises = [];
+                        foreach ($set->exercises()->get() as $exercise) {
+                            array_push($today_exercises, $exercise->name);
+                        }
+                        $calendar[$day]['exercises'] = $today_exercises;
+                    }
+                }
+
                 if(Arr::exists($days_of_program, $weekday)) {
                     $calendar[$day]['program_day'] = true;
-                } else {
-                    $calendar[$day]['program_day'] = false;
                 }
             }
 
@@ -156,15 +165,12 @@ class Calendar extends Model
 
         foreach ($calendar as $key => $value) {
             if($month < $monthnow || ($key < $today && $month == $monthnow)) {
-//                dump($key, $today, $key<$today);
-//                dump($monthnow, $key, $today, $month);
-//                echo('<br>');
                 $calendar[$key]['day_passed'] = true;
             } else {
                 $calendar[$key]['day_passed'] = false;
             }
         }
-//        dd($calendar);
+
         return $calendar;
     }
 
