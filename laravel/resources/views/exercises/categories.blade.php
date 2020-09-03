@@ -6,14 +6,11 @@
 @endsection
 
 @section('content')
-        <div class="section__container">
-            <h2>Категории:</h2>
-            @forelse($categories as $category)
-                <div class="content_block">
-                    <a href="{{ route('exercises.categories', $category->id) }}">{{ $category->name }}</a>
-                </div>
-            @empty
-                <p>Информации нет</p>
-            @endforelse
-        </div>
+    <div class="section__container">
+        @if($categories)
+            <categories :urldata="{{json_encode($categories)}}"></categories>
+        @else
+            <p>Информации нет</p>
+        @endif
+    </div>
 @endsection

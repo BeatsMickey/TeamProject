@@ -47,8 +47,9 @@ class TrainingController extends Controller
             $weekday = $_GET['weekday'];
             $program = Programs::find(Auth::user()->programs_id);
 
-            if (isset($program))
+            if (isset($program)){
                 $sets = $program->sets()->where('day_of_program', '=', $weekday)->get();
+            }
 
             // Значение для тестового запуска работы программы на странице упражнения
 //            $sets = $program->sets()->where('day_of_program', '=', 1)->get();
