@@ -10,6 +10,12 @@ class Sets extends Model
         'name',
     ];
 
+    public static function rules() {
+        return [
+            'name' => ['required', 'min:3', 'max:100'],
+        ];
+    }
+
     public static function getAll() {
         return Sets::query()->get();
     }
@@ -21,7 +27,7 @@ class Sets extends Model
 
     public function exercises()
     {
-        return $this->belongsToMany('App\Model\Exercises')->withPivot('weight', 'repetitions');
+        return $this->belongsToMany('App\Model\Exercises');
     }
 
 }

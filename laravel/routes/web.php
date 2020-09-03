@@ -138,11 +138,11 @@ Route::group([
     'middleware' => 'auth.check'],
     function () {
         Route::get('/all', 'SetController@index')->name('index');
-        Route::get('/show/{id}', 'SetController@show')->name('show');
+//        Route::get('/show/{id}', 'SetController@show')->name('show');
 //        Route::get('/choose/{id}', 'ProgramController@chooseProgram')->name('choose');
 //        Route::get('/reset', 'ProgramController@resetProgram')->name('reset');
-//        Route::match(['get','post'],'/create', 'ProgramController@create')->name('create');
-//        Route::match(['get','post'],'/update/{id}', 'ProgramController@update')->name('update');
+        Route::match(['get','post'],'/create', 'SetController@create')->name('create');
+        Route::match(['get','post'],'/update/{id}', 'SetController@update')->name('update');
     });
 
 

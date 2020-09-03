@@ -104,7 +104,6 @@ class ProgramController extends Controller
         foreach ($program_sets_unsorted as $set) {
             $program_sets[$set->pivot['day_of_program']] = $set;
         }
-//        dd($program_sets);
 
         if ($request->method() === "POST") {
             //Проверка: если все дни программы пустые - выдать ошибку
