@@ -93,4 +93,9 @@ class SetController extends Controller
         $set->delete();
         return redirect()->route('set.index')->with('message', 'Набор упражнений успешно удален.');
     }
+
+    public function deleteExercise(Sets $set, $exercise_id) {
+        $set->exercises()->detach($exercise_id);
+        return redirect()->back();
+    }
 }

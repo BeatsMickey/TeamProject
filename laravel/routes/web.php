@@ -144,6 +144,7 @@ Route::group([
         Route::match(['get','post'],'/create', 'SetController@create')->name('create');
         Route::match(['get','post'],'/update/{id}', 'SetController@update')->name('update');
         Route::get('/destroy/{set}', 'SetController@destroy')->name('destroy');
+        Route::get('/delete_exercise/{set}/{exercise_id}', 'SetController@deleteExercise')->name('delete_exercise');
     });
 
 
