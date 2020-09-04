@@ -14,7 +14,7 @@
         <h3>Наборы упражнений</h3>
         @foreach($sets as $set)
             <div>
-                <h3><a href="{{ route('set.update', $set['id']) }}">{{ $set['name'] }}</a></h3>
+                <h3><a href="{{ route('set.update', $set['id']) }}">{{ $set['name'] }}</a><a href="{{ route('set.destroy', $set) }}"> (удалить)</a></h3>
                 <ul>
                     @foreach($set->exercises as $exercise)
                         <li>{{ $exercise->name }}</li>

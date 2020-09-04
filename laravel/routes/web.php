@@ -143,6 +143,7 @@ Route::group([
 //        Route::get('/reset', 'ProgramController@resetProgram')->name('reset');
         Route::match(['get','post'],'/create', 'SetController@create')->name('create');
         Route::match(['get','post'],'/update/{id}', 'SetController@update')->name('update');
+        Route::get('/destroy/{set}', 'SetController@destroy')->name('destroy');
     });
 
 
