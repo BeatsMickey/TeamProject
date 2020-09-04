@@ -9,7 +9,8 @@ use Illuminate\Http\Request;
 
 class SetController extends Controller
 {
-    public function getAllWithExercises() {
+    public function getAllWithExercises()
+    {
         $sets = Sets::getAll();
         foreach ($sets as $set) {
             $set->exercises = $set->exercises()->get();
@@ -18,7 +19,8 @@ class SetController extends Controller
         return $sets;
     }
 
-    public function index() {
+    public function index()
+    {
 
         $sets = $this->getAllWithExercises();
 
@@ -35,17 +37,17 @@ class SetController extends Controller
 //        ]);
 //    }
 
-    public function create(Request $request) {
+    public function create(Request $request)
+    {
         $exercises = Exercises::getAllExercises();
 
-        if($request->method() === "POST") {
+        if ($request->method() === "POST") {
             $set = new Sets();
             $exercises = [];
             $request->validate(Sets::rules());
 
             foreach ($request->input() as $key => $value) {
-                dump($key);
-                if($key == 'name') {
+                if ($key == 'name') {
                     $set->name = $value;
                 } elseif ($key !== "_token" && $value) {
                     array_push($exercises, $value);
@@ -63,24 +65,45 @@ class SetController extends Controller
         ]);
     }
 
-    public function update(Request $request, $id) {
+    public function update(Request $request, $id)
+    {
         $set = Sets::find($id);
-        $exercises = [];
+        $all_exercises = Exercises::getAllExercises();
+        $set_exercises = [];
         foreach ($set->exercises()->get() as $exercise) {
-            array_push($exercises, $exercise);
+            array_push($set_exercises, $exercise);
         }
 
-//        dd($exercises);
-        if($request->method() === "POST") {
-            if($request->input('name')) {
+//        dd($set_exercises);
+        if ($request->method() === "POST") {
+            if ($request->input('name')) {
                 $set->name = $request->input('name');
                 $set->save();
             }
+
+            if ($request->input('exercise_id')) {
+                $set->exercises()->attach($request->input('exercise_id'));
+            }
+
+            return redirect()->back();
         }
 
         return view('set.update', [
             'set' => $set,
-            'exercises' => $exercises
+            'set_exercises' => $set_exercises,
+            'all_exercises' => $all_exercises
         ]);
+    }
+
+    public function destroy(Sets $set)
+    {
+        $set->exercises()->detach();
+        $set->delete();
+        return redirect()->route('set.index')->with('message', 'Набор упражнений успешно удален.');
+    }
+
+    public function deleteExercise(Sets $set, $exercise_id) {
+        $set->exercises()->detach($exercise_id);
+        return redirect()->back();
     }
 }

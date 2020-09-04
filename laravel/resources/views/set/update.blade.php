@@ -6,14 +6,6 @@
 @endsection
 
 @section('content')
-{{--    <h3>{{ $set->name }}</h3>--}}
-{{--    @foreach($set->exercises as $exercise)--}}
-{{--            <p>{{ $exercise->name }}</p>--}}
-{{--    @endforeach--}}
-{{--    <a href="{{ route('sets.update', $set->id) }}">Изменить эту программу</a>--}}
-
-
-{{--    @dd(1)--}}
     <form action="{{ route('set.update', $set->id) }}" method="post">
         @csrf
         <div>
@@ -26,12 +18,25 @@
     </form>
     <h3> Список упражнений набора </h3>
         <ul>
-           @foreach($exercises as $exercise)
-               <li>{{ $exercise->name }} <a href="">[ X ]</a></li>
+           @foreach($set_exercises as $exercise)
+               <li>{{ $exercise->name }} <a href="{{ route('set.delete_exercise', [$set, $exercise->id]) }}">[ X ]</a></li>
            @endforeach
         </ul>
 
-
+    <h3>Добавить упражнение</h3>
+    <form action="{{ route('set.update', $set->id) }}" method="post">
+        @csrf
+        <div>
+            <label>
+                <select name="exercise_id" id="exercise_id">
+                    @foreach($all_exercises as $exercise)
+                        <option value="{{ $exercise->id }}">{{ $exercise->name }}</option>
+                    @endforeach
+                </select>
+            </label>
+        </div>
+        <button>Добавить упражнение</button>
+    </form>
 
 @endsection
 
