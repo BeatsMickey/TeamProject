@@ -51,9 +51,14 @@ class TrainingController extends Controller
         if ($today) {
             $routename = 'exercise';
             $weekday = $_GET['weekday'];
-            $program = Programs::find(Auth::user()->programs_id);
 
-            if (isset($program)){
+            if (Auth::user()) {
+                $program = Programs::find(Auth::user()->programs_id);
+            } else {
+                $program = false;
+            }
+
+            if ($program){
                 $sets = $program->sets()->where('day_of_program', '=', $weekday)->get();
             }
 
