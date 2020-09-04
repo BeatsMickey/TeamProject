@@ -20,6 +20,7 @@ Vue.component('input-vue', require('./components/ui-elements/InputVue.vue').defa
 Vue.component('modal', require('./components/ui-elements/Modal.vue').default);
 Vue.component('calendar', require('./components/ui-elements/Calendar.vue').default);
 Vue.component('categories', require('./components/ui-elements/Categories').default);
+Vue.component('exercise-categories', require('./components/ui-elements/ExerciseCategories').default);
 
 const app = new Vue({
     el: '#app',
