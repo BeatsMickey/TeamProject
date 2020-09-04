@@ -15,8 +15,8 @@
             <div class="hr"></div>
             <div class="section__container__form">
                 <form
-                    action="{{ route('trainingLog.add_exercises', ['day' => $day, 'month' => $month, 'today' => 1, 'weekday' => $weekday]) }}"
-                    method="post">
+                        action="{{ route('trainingLog.add_exercises', ['day' => $day, 'month' => $month, 'today' => 1, 'weekday' => $weekday]) }}"
+                        method="post">
                     @csrf
 
                     {{--                    <div class="select">--}}
@@ -72,8 +72,8 @@
                 <h6>УПРАЖНЕНИЯ ПРОГРАММЫ</h6>
                 @forelse($today_exercises as $exercise)
                     <form
-                        action="{{ route('trainingLog.add_exercises', ['day' => $day, 'month' => $month, 'today' => 1, 'weekday' => $weekday]) }}"
-                        method="post">
+                            action="{{ route('trainingLog.add_exercises', ['day' => $day, 'month' => $month, 'today' => 1, 'weekday' => $weekday]) }}"
+                            method="post">
                         @csrf
                         <p>{{ $exercise->name }}</p>
                         <input type="text" name="exercises_id" value="{{ $exercise->id }}" hidden>
@@ -97,19 +97,25 @@
             <div class="hr"></div>
 
             <div class="section__container__exercise">
-                <div class="section__container__exercise__headline">
-                    <h6>Упражнение</h6>
-                    <h6>Повторения</h6>
-                    <h6 class="marginRight">Масса</h6>
-                    <h6>Удалить</h6>
+                <div class="section__container__exercise__content">
+                    <div style="display: grid;
+    grid-gap: 5px;
+    grid-template-columns: 310px 90px 50px 65px;">
+                        <h6>Упражнение</h6>
+                        <h6>Повторения</h6>
+                        <h6>Масса</h6>
+                        <h6>Удалить</h6>
+                    </div>
                 </div>
 
                 <div class="section__container__exercise__content">
                     @forelse($calendar_exercises as $value)
-                        <div>
+                        <div style="display: grid;
+    grid-gap: 5px;
+    grid-template-columns: 310px 50px 50px 30px;">
                             <h6>{{ $value->name }}</h6>
-                            <h6 class="repetitions">{{ $value->repetitions }}</h6>
-                            <h6 class="weight">{{ $value->weight }}</h6>
+                            <h6>{{ $value->repetitions }}</h6>
+                            <h6>{{ $value->weight }}</h6>
 
                             <a href="{{ route('trainingLog.del_exercises', ['day' => $day, 'month' => $month, 'id' => $value->id, 'today' => 1, 'weekday' => $weekday]) }}">
                                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none"
