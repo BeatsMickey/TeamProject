@@ -237,7 +237,7 @@
         height: 72px;
         margin: 9px;
         background-color: #ffffff;
-        border: 3px solid #1C1C1C;
+        border: 3px solid #EEEEEE;
         border-radius: 50%;
         box-sizing: border-box;
     }
@@ -266,6 +266,7 @@
 
     .calendar__day_weekend {
         background: #FC6485;
+        border: 3px solid #FC6485;
     }
 
     .calendar__link_weekend {
@@ -276,11 +277,12 @@
         height: 90px;
         width: 90px;
         margin: 0;
-        border: 4px solid #1C1C1C;
+        border: 3px solid #1C1C1C;
     }
 
     .calendar__day_programDay {
         background: #BAF500;
+        border: 3px solid #BAF500;
     }
 
     .calendar__link_programDay {
@@ -288,16 +290,17 @@
     }
 
     .calendar__day_inactive {
-        border: 3px solid #CCCCCC;
-        background: #CCCCCC;
+        border: 3px solid #EEEEEE;
+        background: #EEEEEE;
     }
 
     .calendar__link_inactive {
-        color: #EEEEEE;
+        color: #CCCCCC;
     }
 
     .calendar__day:hover {
         background: #7543F8;
+        border: 3px solid #7543F8;
     }
 
     .calendar__day:hover .calendar__link {

@@ -2,7 +2,7 @@
     <section class="categories">
         <div class="categories_box">
             <div class="categories__header">
-                <p class="categories__heading">Категории:</p>
+                <p class="categories__heading">УПРАЖНЕНИЯ</p>
             </div>
             <div class="categories__content">
                 <div class="categories-card" v-for="(category, index) in exCategories" :key="index">

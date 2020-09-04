@@ -2,18 +2,18 @@
 @section('title', 'Упражнения категории')
 
 @section('header')
-@parent
+    @parent
 @endsection
 
 @section('content')
-<div class="section__container">
-    <h2>Упражнения категории {{ $category->name }}:</h2>
-    @forelse($exercises as $exercise)
-    <div class="content_block">
-        <a href="{{ route('exercises.card', $exercise->id) }}">{{ $exercise->name }}</a>
+    <div class="section__container">
+        @if($exercises)
+            <div class="content_block">
+                <exercise-categories :cat="{{ json_encode($category) }}"
+                                     :urldata="{{ json_encode($exercises) }}"></exercise-categories>
+            </div>
+        @else
+            <p>Информации нет</p>
+        @endif
     </div>
-    @empty
-    <p>Информации нет</p>
-    @endforelse
-</div>
 @endsection
