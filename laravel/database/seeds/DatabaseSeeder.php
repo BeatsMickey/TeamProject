@@ -20,5 +20,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ProgramSeeder::class);
         $this->call(SetProgramsRelationsSeeder::class);
         $this->call(UserDetailsSeeder::class);
+        $this->call(CalendarSeeder::class);
     }
 }
