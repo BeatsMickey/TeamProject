@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Auth;
 class Calendar extends Model
 {
     protected $fillable = [
-        'session_id'
+        'session_id',
+        'user_id'
     ];
     protected $table = 'calendar';
 
@@ -39,6 +40,30 @@ class Calendar extends Model
         return $calendar_id;
     }
 
+    public static function getCalendarIdByUserAndDay(int $user_id, int $day) {
+        $calendar = Calendar::query()
+            ->select('id')
+            ->whereDay('created_at', '=', $day)
+            ->where('user_id', '=', $user_id)
+            ->get();
+
+        if (isset($calendar['0'])) {
+            $calendar_id = $calendar['0']->id;
+        } else {
+            $calendar = new Calendar();
+            $calendar->fill(['user_id' => $user_id]);
+            $calendar->save();
+            $calendar_id = (Calendar::query()
+                ->select('id')
+                ->whereDay('created_at', '=', $day)
+                ->where('user_id', '=', $user_id)
+                ->get())['0']->id;
+        }
+
+        return $calendar_id;
+
+    }
+
     public static function getCalendarBySessionIdAndMonth(string $session_id, int $month) {
         $calendarDb = Calendar::query()
             ->select('created_at', 'id')
@@ -58,7 +83,7 @@ class Calendar extends Model
         } else {
             $program = null;
         }
-      
+
 
         // Составляем список дней недели, которые входят в программу
         if($program) {

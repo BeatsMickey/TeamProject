@@ -71,7 +71,12 @@ class TrainingController extends Controller
 
         $session_id = $request->session()->getId();
 
-        $calendar_id = Calendar::getCalendarIdBySessionAndDay($session_id, $day);
+        if(Auth::user()) {
+            $calendar_id = Calendar::getCalendarIdByUserAndDay(Auth::user()->id, $day);
+        } else {
+            $calendar_id = Calendar::getCalendarIdBySessionAndDay($session_id, $day);
+        }
+
 
         $calendar_exercises = CalendarExercises::getCalendarExercisesByCalendarId($calendar_id);
 
