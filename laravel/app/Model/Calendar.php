@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Auth;
 class Calendar extends Model
 {
     protected $fillable = [
-        'session_id'
+        'session_id',
+        'user_id'
     ];
     protected $table = 'calendar';
 
@@ -39,6 +40,30 @@ class Calendar extends Model
         return $calendar_id;
     }
 
+    public static function getCalendarIdByUserAndDay(int $user_id, int $day) {
+        $calendar = Calendar::query()
+            ->select('id')
+            ->whereDay('created_at', '=', $day)
+            ->where('user_id', '=', $user_id)
+            ->get();
+
+        if (isset($calendar['0'])) {
+            $calendar_id = $calendar['0']->id;
+        } else {
+            $calendar = new Calendar();
+            $calendar->fill(['user_id' => $user_id]);
+            $calendar->save();
+            $calendar_id = (Calendar::query()
+                ->select('id')
+                ->whereDay('created_at', '=', $day)
+                ->where('user_id', '=', $user_id)
+                ->get())['0']->id;
+        }
+
+        return $calendar_id;
+
+    }
+
     public static function getCalendarBySessionIdAndMonth(string $session_id, int $month) {
         $calendarDb = Calendar::query()
             ->select('created_at', 'id')
@@ -51,6 +76,16 @@ class Calendar extends Model
         return $calendar;
     }
 
+    public static function getCalendarByUserIdAndMonth(string $user_id, int $month) {
+        $calendarDb = Calendar::query()
+            ->select('created_at', 'id')
+            ->where('user_id','=', $user_id)
+            ->whereMonth('created_at', '=', $month)
+            ->get();
+        $calendar = Calendar::prepareCalendar($calendarDb, $month);
+        return $calendar;
+    }
+
     private static function prepareCalendar(Collection $calendarDb, int $month) {
         // Закреплённая за пользователем программа упражнений
         if (Auth::user()) {
@@ -58,7 +93,7 @@ class Calendar extends Model
         } else {
             $program = null;
         }
-      
+
 
         // Составляем список дней недели, которые входят в программу
         if($program) {
@@ -67,20 +102,7 @@ class Calendar extends Model
             $days_of_program = [];
             foreach ($sets as $set) {
                 $day_number = $set->pivot['day_of_program'];
-
                 $days_of_program[$day_number] = $day_number;
-
-
-//                foreach ($sets as $set) {
-//                    $day_number = $set->pivot['day_of_program'];
-//                    $days_of_program[$day_number] = $day_number;
-//
-//                    $today_exercises = [];
-//                    foreach ($set->exercises()->get() as $exercise) {
-//                        array_push($today_exercises, $exercise->name);
-//                    }
-//                }
-
             }
         }
 

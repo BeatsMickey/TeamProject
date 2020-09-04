@@ -145,7 +145,8 @@ class ProgramController extends Controller
                 }
             }
 
-            return redirect()->route('program.index')->with('message', 'Программа успешно изменена.');
+            return redirect()->back();
+//            return redirect()->route('program.index')->with('message', 'Программа успешно изменена.');
 
         }
 
