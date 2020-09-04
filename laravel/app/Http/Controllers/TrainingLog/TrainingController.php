@@ -28,7 +28,13 @@ class TrainingController extends Controller
             $month = date('n', time());
         }
 
-        $calendar = Calendar::getCalendarBySessionIdAndMonth($session_id, $month);
+        if (Auth::user()) {
+            $user_id = Auth::user()->id;
+            $calendar = Calendar::getCalendarByUserIdAndMonth($user_id, $month);
+        } else {
+            $calendar = Calendar::getCalendarBySessionIdAndMonth($session_id, $month);
+        }
+
         $months = MyApp::MONTHSNAME;
 
         return view('calendar', [
@@ -102,7 +108,12 @@ class TrainingController extends Controller
 //        $session_id = $request->session()->getId();
         $session_id = session()->getId();
 
-        $calendar_id = Calendar::getCalendarIdBySessionAndDay($session_id, $day);
+        if (Auth::user()) {
+            $user_id = Auth::user()->id;
+            $calendar_id = Calendar::getCalendarIdByUserAndDay($user_id, $day);
+        } else {
+            $calendar_id = Calendar::getCalendarIdBySessionAndDay($session_id, $day);
+        }
 
         $calendar_exercises = new CalendarExercises();
         $calendar_exercises->fill($request->all());

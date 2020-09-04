@@ -76,6 +76,16 @@ class Calendar extends Model
         return $calendar;
     }
 
+    public static function getCalendarByUserIdAndMonth(string $user_id, int $month) {
+        $calendarDb = Calendar::query()
+            ->select('created_at', 'id')
+            ->where('user_id','=', $user_id)
+            ->whereMonth('created_at', '=', $month)
+            ->get();
+        $calendar = Calendar::prepareCalendar($calendarDb, $month);
+        return $calendar;
+    }
+
     private static function prepareCalendar(Collection $calendarDb, int $month) {
         // Закреплённая за пользователем программа упражнений
         if (Auth::user()) {
@@ -92,20 +102,7 @@ class Calendar extends Model
             $days_of_program = [];
             foreach ($sets as $set) {
                 $day_number = $set->pivot['day_of_program'];
-
                 $days_of_program[$day_number] = $day_number;
-
-
-//                foreach ($sets as $set) {
-//                    $day_number = $set->pivot['day_of_program'];
-//                    $days_of_program[$day_number] = $day_number;
-//
-//                    $today_exercises = [];
-//                    foreach ($set->exercises()->get() as $exercise) {
-//                        array_push($today_exercises, $exercise->name);
-//                    }
-//                }
-
             }
         }
 
