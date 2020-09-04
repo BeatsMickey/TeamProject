@@ -68,22 +68,30 @@ class SetController extends Controller
     public function update(Request $request, $id)
     {
         $set = Sets::find($id);
-        $exercises = [];
+        $all_exercises = Exercises::getAllExercises();
+        $set_exercises = [];
         foreach ($set->exercises()->get() as $exercise) {
-            array_push($exercises, $exercise);
+            array_push($set_exercises, $exercise);
         }
 
-//        dd($exercises);
+//        dd($set_exercises);
         if ($request->method() === "POST") {
             if ($request->input('name')) {
                 $set->name = $request->input('name');
                 $set->save();
             }
+
+            if ($request->input('exercise_id')) {
+                $set->exercises()->attach($request->input('exercise_id'));
+            }
+
+            return redirect()->back();
         }
 
         return view('set.update', [
             'set' => $set,
-            'exercises' => $exercises
+            'set_exercises' => $set_exercises,
+            'all_exercises' => $all_exercises
         ]);
     }
 
