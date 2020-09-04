@@ -28,6 +28,10 @@
                         <a class="calendar__link" :class="{ calendar__link_weekend: checkCurrentMonthWeekend(n) }"
                            :href="prepareLink(n)"><span>{{ n }}</span></a>
                     </div>
+                    <div v-else-if="checkPassedDate(n)">
+                        <a class="calendar__link" :class="{ calendar__link_weekend: checkCurrentMonthWeekend(n) }"
+                           :href="prepareLink(n)"><span>{{ n }}</span></a>
+                    </div>
                     <div v-else>
                         <a class="calendar__link" :class="{ calendar__link_weekend: checkCurrentMonthWeekend(n) }"
                            href="#"><span>{{ n }}</span></a>
@@ -35,14 +39,11 @@
                 </div>
                 <div class="calendar__day calendar__day_inactive"
                      v-for="(n, index) in (43 - (currentMonthsDays + firstMonthDay))"
-                     :key="'next' + index"><a class="calendar__link calendar__link_inactive" href="#"><span>{{ n }}</span></a>
+                     :key="'next' + index"><a class="calendar__link calendar__link_inactive"
+                                              href="#"><span>{{ n }}</span></a>
                 </div>
             </div>
         </div>
-      <!-- <div v-for="(day, index) in urldata" :key="index">{{ day }} = {{ index }}</div>
-        <div>{{ programDays }}</div>-->
-        <!-- <div>{{currentDate}}</div>
-        <div>{{urldata}}</div>-->
     </section>
 </template>
 
@@ -65,7 +66,8 @@
                     year: 0,
                     weekday: 0
                 },
-                programDays: []
+                programDays: [],
+                isActiveDays: []
             }
         },
         computed: {
@@ -106,14 +108,6 @@
                 let checkedDay = new Date(this.currentDate.year, this.currentDate.month, day).getDay();
                 if (checkedDay === 0 || checkedDay === 6) return true;
             },
-            /* checkFutureMonthWeekend(day) {
-                 let checkedDay = new Date(this.currentDate.year, this.currentDate.month + 1, day).getDay();
-                 if (checkedDay === 0 || checkedDay === 6) return true;
-             },
-             checkPastMonthWeekend(day) {
-                 let checkedDay = new Date(this.currentDate.year, this.currentDate.month - 1, day).getDay();
-                 if (checkedDay === 0 || checkedDay === 6) return true;
-             },*/
             checkProgramData(n) {
                 let month = new Date().getMonth();
                 if (this.programDays.includes(n) && this.serverDate.month === month && this.currentDate.month === this.serverDate.month) return true;
@@ -121,6 +115,10 @@
             checkActualDate(n) {
                 let month = new Date().getMonth();
                 if (n === this.serverDate.date && this.serverDate.month === month && this.currentDate.month === this.serverDate.month) return true;
+            },
+            checkPassedDate(n) {
+                let month = new Date().getMonth();
+                if (this.isActiveDays.includes(n) && this.serverDate.month === month && this.currentDate.month === this.serverDate.month) return true;
             },
             prepareLink(n) {
                 let link = 'view_day/' + (this.serverDate.month + 1) + '/' + n + '/1?weekday=' + this.serverDate.weekday;
@@ -138,8 +136,10 @@
                     if (day[1].program_day === true) {
                         this.programDays.push(+day[0])
                     }
+                    if (day[1].is_active === 'active') {
+                        this.isActiveDays.push(+day[0])
+                    }
                 }
-
             }
         },
         beforeMount() {
