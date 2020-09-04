@@ -14,7 +14,10 @@ class AddUserIdToCalendarTable extends Migration
     public function up()
     {
         Schema::table('calendar', function (Blueprint $table) {
-            $table->foreignId('user_id')->default(0)->constrained();
+            $table->integer('user_id')->default(0);
+
+//            $table->foreignId('user_id')->constrained();
+//            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
