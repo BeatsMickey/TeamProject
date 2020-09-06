@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Model\Exercises;
 use App\Model\Sets;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SetController extends Controller
 {
@@ -54,6 +55,7 @@ class SetController extends Controller
                 }
             }
 
+            $set->created_by = Auth::user()->id;
             $set->save();
             $set->exercises()->attach($exercises);
 
@@ -97,9 +99,14 @@ class SetController extends Controller
 
     public function destroy(Sets $set)
     {
-        $set->exercises()->detach();
-        $set->delete();
-        return redirect()->route('set.index')->with('message', 'Набор упражнений успешно удален.');
+        $user = Auth::user();
+        if($user->id === $set->created_by || $user->is_admin) {
+            $set->exercises()->detach();
+            $set->delete();
+            return redirect()->route('set.index')->with('message', 'Набор упражнений успешно удален.');
+        }
+
+        return redirect()->route('set.index')->with('message', 'У Вас не достаточно прав для удаления данного набора упражнений.');
     }
 
     public function deleteExercise(Sets $set, $exercise_id) {

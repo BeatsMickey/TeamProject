@@ -8,6 +8,7 @@ class Sets extends Model
 {
     protected $fillable = [
         'name',
+        'created_by'
     ];
 
     public static function rules() {
