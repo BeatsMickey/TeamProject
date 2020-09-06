@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Program;
 
 use App\Http\Controllers\Controller;
 use App\Model\Exercises;
+use App\Model\Programs;
 use App\Model\Sets;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use function GuzzleHttp\Promise\is_fulfilled;
 
 class SetController extends Controller
 {
@@ -99,6 +102,11 @@ class SetController extends Controller
 
     public function destroy(Sets $set)
     {
+        $set_is_used = DB::table('programs_sets')->where('sets_id', $set->id)->get();
+
+        if(isset($set_is_used[0]))
+            return redirect()->back()->with(["message" => 'Ошибка: набор нельзя удалить, так как он задействован в одной из программ']);
+
         $user = Auth::user();
         if($user->id === $set->created_by || $user->is_admin) {
             $set->exercises()->detach();
