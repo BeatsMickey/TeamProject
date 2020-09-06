@@ -14,7 +14,7 @@ class AddColumnCreatedByToProgramsTable extends Migration
     public function up()
     {
         Schema::table('programs', function (Blueprint $table) {
-            $table->unsignedBigInteger('created_by');
+            $table->unsignedBigInteger('created_by')->default(0);
         });
     }
 
