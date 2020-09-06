@@ -79,8 +79,11 @@ class SetController extends Controller
             array_push($set_exercises, $exercise);
         }
 
-//        dd($set_exercises);
         if ($request->method() === "POST") {
+            $user = Auth::user();
+            if($user->id !== $set->created_by && !$user->is_admin)
+                return redirect()->back()->with('message', 'У Вас не достаточно прав для изменения данного набора упражнений.');
+
             if ($request->input('name')) {
                 $set->name = $request->input('name');
                 $set->save();
@@ -118,6 +121,11 @@ class SetController extends Controller
     }
 
     public function deleteExercise(Sets $set, $exercise_id) {
+        $user = Auth::user();
+
+        if($user->id !== $set->created_by && !$user->is_admin)
+            return redirect()->back()->with('message', 'У Вас не достаточно прав для изменения данного набора упражнений.');
+
         $set->exercises()->detach($exercise_id);
         return redirect()->back();
     }
