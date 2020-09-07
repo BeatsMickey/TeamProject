@@ -6,6 +6,9 @@
 @endsection
 
 @section('content')
+    @if(session('message'))
+        <h3>{{ session('message') }}</h3>
+    @endif
     <form action="{{ route('set.update', $set->id) }}" method="post">
         @csrf
         <div>
