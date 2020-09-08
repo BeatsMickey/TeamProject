@@ -14,8 +14,9 @@ Vue.use(axios);
 
 Vue.component('registration', require('./components/auth/Registration.vue').default);
 Vue.component('login', require('./components/auth/Login.vue').default);
+Vue.component('login-text', require('./components/ui-elements/Login.vue').default);
 
-
+Vue.component('logo', require('./components/ui-elements/Logo.vue').default);
 Vue.component('input-vue', require('./components/ui-elements/InputVue.vue').default);
 Vue.component('modal', require('./components/ui-elements/Modal.vue').default);
 Vue.component('calendar', require('./components/ui-elements/Calendar.vue').default);

@@ -18,16 +18,17 @@
     @section('header')
         <section class="section_marginBottom">
             <div class="section__container">
-                <div class="section__container__text">
-                    <a href="/"><h6>Workout table</h6></a>
-                    <p>онлайн дневник для тренировок</p>
-                </div>
+                <header class="header">
+                    <logo></logo>
+                    <login-text csrf="{{ csrf_token() }}" url="{{ route('login') }}" logouturl="{{ route('logout') }}" redirect="{{ route('home') }}" admin="{{ $admin }}" @guest user="guest" @else user="user"@endguest></login-text>
+                </header>
+
                 <ul class="section__container menu">
-                    @if($admin)
+                    {{--@if($admin)
                         <li><a class="menu__link" href="{{ route('admin.main') }}">Редактирование данных</a></li>
-                    @else
+                    @else--}}
                         <li><a class="menu__link" href="{{ route('exercises.index') }}">База упражнений</a></li>
-                    @endif
+                   {{-- @endif
 
                     @guest
                         <li><a class="menu__link" href="{{ route('login') }}">Войти</a></li>
@@ -48,7 +49,7 @@
                                 @csrf
                             </form>
                         </li>
-                    @endguest
+                    @endguest--}}
                 </ul>
                 <div class="hr"></div>
             </div>
@@ -58,6 +59,7 @@
     @yield('content')
 
     </div>
+    <script src="https://use.fontawesome.com/6b99932d68.js"></script>
     <script src="{{ asset('js/app.js') }}"></script>
 {{--    <script src="{{ asset('js/script.js') }}"></script>--}}
 </body>

@@ -57,8 +57,6 @@ class ProgramController extends Controller
         $sets = Sets::getAll();
 
         if ($request->method() === "POST") {
-
-            //Проверка: если все дни программы пустые - выдать ошибку
             $days_filled_with_training = 0;
             for($day_of_program = 1; $day_of_program <=7; $day_of_program++) {
                 if($request->input('day_' . $day_of_program)) {
@@ -75,8 +73,7 @@ class ProgramController extends Controller
 
             $program = new Programs();
             $request->validate(Programs::rules());
-
-            $program->fill(['name' => $request->input('name')]);
+            $program->fill(['name' => $request->input('name'), 'created_by' => Auth::user()->id]);
             $program->save();
 
             for($day_of_program = 1; $day_of_program <=7; $day_of_program++) {
@@ -97,6 +94,11 @@ class ProgramController extends Controller
 
 
     public function update(Request $request, $id) {
+        $user = Auth::user();
+        if($user->id !== $id && !$user->is_admin) {
+            return redirect()->route('program.index')->with(['message' => 'У Вас недостаточно прав для изменения этой программы']);
+        }
+
         $program = Programs::find($id);
         $sets = Sets::getAll();
         $program_sets_unsorted = $program->sets()->orderBy('day_of_program')->get();
@@ -106,7 +108,7 @@ class ProgramController extends Controller
         }
 
         if ($request->method() === "POST") {
-            //Проверка: если все дни программы пустые - выдать ошибку
+            /* TODO  делать рроверку: если все дни программы пустые - выдать ошибку */
             $days_filled_with_training = 0;
             for($day_of_program = 1; $day_of_program <=7; $day_of_program++) {
                 if($request->input('day_' . $day_of_program)) {
@@ -157,9 +159,14 @@ class ProgramController extends Controller
         ]);
     }
 
-//    public function destroy(Category $category) {
-//        $category->news()->delete();
-//        $category->delete();
-//        return redirect()->route('admin.category.index')->with('success', 'Категория успешно удалена.');
-//    }
+    public function destroy(Programs $program) {
+        $user = Auth::user();
+        if($user->id === $program->created_by || $user->is_admin) {
+            $program->sets()->detach();
+            $program->delete();
+            return redirect()->route('program.index')->with('message', 'Категория успешно удалена.');
+        }
+
+        return redirect()->route('program.index')->with('message', 'У Вас не хватает прав для удаления данной программы.');
+    }
 }

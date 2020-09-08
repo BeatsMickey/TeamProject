@@ -25,6 +25,7 @@
         @foreach($programs as $program)
             <p>
                 <a href="{{ route('program.show', $program['id']) }}">{{ $program['name'] }}</a>
+                <a href="{{ route('program.destroy', $program) }}"> [X]</a>
             </p>
         @endforeach
     </div>

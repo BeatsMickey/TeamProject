@@ -4,8 +4,12 @@ namespace App\Http\Controllers\Program;
 
 use App\Http\Controllers\Controller;
 use App\Model\Exercises;
+use App\Model\Programs;
 use App\Model\Sets;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use function GuzzleHttp\Promise\is_fulfilled;
 
 class SetController extends Controller
 {
@@ -54,6 +58,7 @@ class SetController extends Controller
                 }
             }
 
+            $set->created_by = Auth::user()->id;
             $set->save();
             $set->exercises()->attach($exercises);
 
@@ -74,8 +79,11 @@ class SetController extends Controller
             array_push($set_exercises, $exercise);
         }
 
-//        dd($set_exercises);
         if ($request->method() === "POST") {
+            $user = Auth::user();
+            if($user->id !== $set->created_by && !$user->is_admin)
+                return redirect()->back()->with('message', 'У Вас не достаточно прав для изменения данного набора упражнений.');
+
             if ($request->input('name')) {
                 $set->name = $request->input('name');
                 $set->save();
@@ -97,12 +105,27 @@ class SetController extends Controller
 
     public function destroy(Sets $set)
     {
-        $set->exercises()->detach();
-        $set->delete();
-        return redirect()->route('set.index')->with('message', 'Набор упражнений успешно удален.');
+        $set_is_used = DB::table('programs_sets')->where('sets_id', $set->id)->get();
+
+        if(isset($set_is_used[0]))
+            return redirect()->back()->with(["message" => 'Ошибка: набор нельзя удалить, так как он задействован в одной из программ']);
+
+        $user = Auth::user();
+        if($user->id === $set->created_by || $user->is_admin) {
+            $set->exercises()->detach();
+            $set->delete();
+            return redirect()->route('set.index')->with('message', 'Набор упражнений успешно удален.');
+        }
+
+        return redirect()->route('set.index')->with('message', 'У Вас не достаточно прав для удаления данного набора упражнений.');
     }
 
     public function deleteExercise(Sets $set, $exercise_id) {
+        $user = Auth::user();
+
+        if($user->id !== $set->created_by && !$user->is_admin)
+            return redirect()->back()->with('message', 'У Вас не достаточно прав для изменения данного набора упражнений.');
+
         $set->exercises()->detach($exercise_id);
         return redirect()->back();
     }
