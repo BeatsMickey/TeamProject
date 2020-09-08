@@ -95,11 +95,12 @@ class ProgramController extends Controller
 
     public function update(Request $request, $id) {
         $user = Auth::user();
-        if($user->id !== $id && !$user->is_admin) {
+        $program = Programs::find($id);
+
+        if($user->id !== $program->created_by && !$user->is_admin) {
             return redirect()->route('program.index')->with(['message' => 'У Вас недостаточно прав для изменения этой программы']);
         }
 
-        $program = Programs::find($id);
         $sets = Sets::getAll();
         $program_sets_unsorted = $program->sets()->orderBy('day_of_program')->get();
         $program_sets = [];
