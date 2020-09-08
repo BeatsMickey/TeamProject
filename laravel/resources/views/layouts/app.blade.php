@@ -24,11 +24,11 @@
                 </header>
 
                 <ul class="section__container menu">
-                    @if($admin)
+                    {{--@if($admin)
                         <li><a class="menu__link" href="{{ route('admin.main') }}">Редактирование данных</a></li>
-                    @else
+                    @else--}}
                         <li><a class="menu__link" href="{{ route('exercises.index') }}">База упражнений</a></li>
-                    @endif
+                   {{-- @endif
 
                     @guest
                         <li><a class="menu__link" href="{{ route('login') }}">Войти</a></li>
@@ -48,7 +48,7 @@
                                 @csrf
                             </form>
                         </li>
-                    @endguest
+                    @endguest--}}
                 </ul>
                 <div class="hr"></div>
             </div>

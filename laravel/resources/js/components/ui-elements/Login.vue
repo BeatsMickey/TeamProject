@@ -79,8 +79,6 @@
                                 } else {
                                     this.errors.push(key)
                                 }
-                                console.log(this.errors);
-
                             }
                         }
                     });
