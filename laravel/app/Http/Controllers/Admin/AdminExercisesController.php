@@ -71,6 +71,8 @@ class AdminExercisesController extends Controller
 
 
     public function saveCategoryForExercise(Request $request, int $id) {
+        dd($id);
+
         if($id) {
 
         } else {

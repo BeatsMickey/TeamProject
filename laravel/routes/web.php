@@ -131,6 +131,9 @@ Route::group([
         Route::match(['get','post'],'/update/{id}', 'ProgramController@update')->name('update');
     });
 
+/*
+ * Роуты к программам
+ */
 Route::group([
     'prefix' => 'set/',
     'namespace' => 'Program',
@@ -144,6 +147,19 @@ Route::group([
         Route::get('/delete_exercise/{set}/{exercise_id}', 'SetController@deleteExercise')->name('delete_exercise');
     });
 
+/*
+ * Роуты к замерам пользователя
+ */
 
+Route::group([
+    'prefix' => 'measurements/',
+    'namespace' => 'Measurements',
+    'as' => 'measurements.',
+    'middleware' => 'auth.check'],
+    function () {
+        Route::get('/all', 'MeasurementsController@index')->name('index');
+        Route::post('/add', 'MeasurementsController@addMeasurements')->name('add');
+        Route::post('/del/{id}', 'MeasurementsController@delMeasurements')->name('del');
+    });
 
 
