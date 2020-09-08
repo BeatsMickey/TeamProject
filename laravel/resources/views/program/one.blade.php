@@ -6,19 +6,15 @@
 @endsection
 
 @section('content')
-    <h3>{{ $program->name }}</h3>
-    @foreach($sets as $key => $set)
-        <h2>День {{ $set->pivot->day_of_program }} - {{ $set->name }}</h2>
-        @foreach($set->exercises as $exercise)
-            <p>{{ $exercise->name }}</p>
+    <div class="section__container">
+        <h3>{{ $program->name }}</h3>
+        @foreach($sets as $key => $set)
+            <h2>День {{ $set->pivot->day_of_program }} - {{ $set->name }}</h2>
+            @foreach($set->exercises as $exercise)
+                <p>{{ $exercise->name }}</p>
+            @endforeach
         @endforeach
-    @endforeach
-    <a href="{{ route('program.choose', $program->id) }}">Выбрать эту программу</a>
-    <a href="{{ route('program.update', $program->id) }}">Изменить эту программу</a>
+        <a href="{{ route('program.choose', $program->id) }}">Выбрать эту программу</a>
+        <a href="{{ route('program.update', $program->id) }}">Изменить эту программу</a>
+    </div>
 @endsection
-
-
-
-
-
-

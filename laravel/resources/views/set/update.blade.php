@@ -6,41 +6,43 @@
 @endsection
 
 @section('content')
-    @if(session('message'))
-        <h3>{{ session('message') }}</h3>
-    @endif
-    <form action="{{ route('set.update', $set->id) }}" method="post">
-        @csrf
-        <div>
-            <label>
-                Название набора упражнений
-                <input type="text" name="name" value="{{ $set->name }}">
-            </label>
-        </div>
-        <button>Сохранить новое имя</button>
-    </form>
-    <h3> Список упражнений набора </h3>
+    <div class="section__container">
+        @if(session('message'))
+            <h3>{{ session('message') }}</h3>
+        @endif
+        <form action="{{ route('set.update', $set->id) }}" method="post">
+            @csrf
+            <div>
+                <label>
+                    Название набора упражнений
+                    <input type="text" name="name" value="{{ $set->name }}">
+                </label>
+            </div>
+            <button>Сохранить новое имя</button>
+        </form>
+        <h3> Список упражнений набора </h3>
         <ul>
-           @foreach($set_exercises as $exercise)
-               <li>{{ $exercise->name }} <a href="{{ route('set.delete_exercise', [$set, $exercise->id]) }}">[ X ]</a></li>
-           @endforeach
+            @foreach($set_exercises as $exercise)
+                <li>{{ $exercise->name }} <a href="{{ route('set.delete_exercise', [$set, $exercise->id]) }}">[ X ]</a>
+                </li>
+            @endforeach
         </ul>
 
-    <h3>Добавить упражнение</h3>
-    <form action="{{ route('set.update', $set->id) }}" method="post">
-        @csrf
-        <div>
-            <label>
-                <select name="exercise_id" id="exercise_id">
-                    @foreach($all_exercises as $exercise)
-                        <option value="{{ $exercise->id }}">{{ $exercise->name }}</option>
-                    @endforeach
-                </select>
-            </label>
-        </div>
-        <button>Добавить упражнение</button>
-    </form>
-
+        <h3>Добавить упражнение</h3>
+        <form action="{{ route('set.update', $set->id) }}" method="post">
+            @csrf
+            <div>
+                <label>
+                    <select name="exercise_id" id="exercise_id">
+                        @foreach($all_exercises as $exercise)
+                            <option value="{{ $exercise->id }}">{{ $exercise->name }}</option>
+                        @endforeach
+                    </select>
+                </label>
+            </div>
+            <button>Добавить упражнение</button>
+        </form>
+    </div>
 @endsection
 
 
