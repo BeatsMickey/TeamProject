@@ -7,6 +7,7 @@ use App\Model\Exercises;
 use App\Model\Programs;
 use App\Model\Sets;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use function GuzzleHttp\Promise\is_fulfilled;
@@ -54,7 +55,8 @@ class SetController extends Controller
                 if ($key == 'name') {
                     $set->name = $value;
                 } elseif ($key !== "_token" && $value) {
-                    array_push($exercises, $value);
+                    // Так упражения в наборе не будут повторяться
+                    $exercises[$value] = $value;
                 }
             }
 
@@ -75,8 +77,10 @@ class SetController extends Controller
         $set = Sets::find($id);
         $all_exercises = Exercises::getAllExercises();
         $set_exercises = [];
+        $set_exercises_ids = [];
         foreach ($set->exercises()->get() as $exercise) {
             array_push($set_exercises, $exercise);
+            $set_exercises_ids[$exercise->id] = $exercise->id;
         }
 
         if ($request->method() === "POST") {
@@ -90,7 +94,14 @@ class SetController extends Controller
             }
 
             if ($request->input('exercise_id')) {
-                $set->exercises()->attach($request->input('exercise_id'));
+                $id = $request->input('exercise_id');
+
+                // Проверка: упражения в наборе не должны повторяться
+                if(!Arr::exists($set_exercises_ids, $id)) {
+                    $set->exercises()->attach($id);
+                }
+
+                return redirect()->back()->with('message', 'Такое упражнение уже есть в наборе.');
             }
 
             return redirect()->back();
