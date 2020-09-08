@@ -13,6 +13,8 @@
                                                     href="/personal/area">Мой кабинет</a></li>
                     <li class="login_full__item"><a class="login_full__text login_full__text_menulink"
                                                     href="/program/all">Мои упражнения</a></li>
+                    <li class="login_full__item"><a class="login_full__text login_full__text_menulink"
+                                                    href="/measurements/all">Мои измерения</a></li>
                     <li class="login_full__item" v-if="isAdmin()"><a class="login_full__text login_full__text_menulink"
                                                                      href="/admin">Редактирование данных</a></li>
                     <li class="login_full__item"><a class="login_full__text login_full__text_menulink" @click="logout"
