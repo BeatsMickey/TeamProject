@@ -18,10 +18,11 @@
     @section('header')
         <section class="section_marginBottom">
             <div class="section__container">
-                <div class="section__container__text">
-                    <a href="/"><h6>Workout table</h6></a>
-                    <p>онлайн дневник для тренировок</p>
-                </div>
+                <header class="header">
+                    <logo></logo>
+                    <login-text csrf="{{ csrf_token() }}" url="{{ route('login') }}" redirect="{{ route('home') }}"></login-text>
+                </header>
+
                 <ul class="section__container menu">
                     @if($admin)
                         <li><a class="menu__link" href="{{ route('admin.main') }}">Редактирование данных</a></li>
@@ -57,6 +58,7 @@
     @yield('content')
 
     </div>
+    <script src="https://use.fontawesome.com/6b99932d68.js"></script>
     <script src="{{ asset('js/app.js') }}"></script>
 {{--    <script src="{{ asset('js/script.js') }}"></script>--}}
 </body>

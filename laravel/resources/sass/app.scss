@@ -27,12 +27,18 @@ a:hover {
     text-decoration: none;
 }
 
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 body {
     font-family: "Roboto", sans-serif;
 }
 
 .container {
-    max-width: 768px;
+    max-width: 1440px;
     margin: 0 auto;
 }
 
@@ -49,7 +55,7 @@ body {
 }
 
 .section__container {
-    width: 768px;
+    width: 1440px;
     margin: 0 auto;
     padding-top: 20px;
 }

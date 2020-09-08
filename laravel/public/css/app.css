@@ -21,7 +21,7 @@ body {
 }
 
 .section__container {
-  width: 728px;
+  width: 1440px;
   margin: 0 auto;
   padding-top: 20px;
 }
@@ -326,7 +326,7 @@ body {
   font-size: 16px;
   font-family: "Roboto", sans-serif;
   font-weight: bold;
-  width: 402px;
+  width: 380px;
   height: 60px;
   border: 1px solid #DADADA;
   padding-left: 21px;
@@ -405,12 +405,18 @@ a:hover {
   text-decoration: none;
 }
 
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 body {
   font-family: "Roboto", sans-serif;
 }
 
 .container {
-  max-width: 768px;
+  max-width: 1440px;
   margin: 0 auto;
 }
 
@@ -427,7 +433,7 @@ body {
 }
 
 .section__container {
-  width: 768px;
+  width: 1440px;
   margin: 0 auto;
   padding-top: 20px;
 }
