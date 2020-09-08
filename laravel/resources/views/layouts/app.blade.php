@@ -20,7 +20,7 @@
             <div class="section__container">
                 <header class="header">
                     <logo></logo>
-                    <login-text csrf="{{ csrf_token() }}" url="{{ route('login') }}" redirect="{{ route('home') }}"></login-text>
+                    <login-text csrf="{{ csrf_token() }}" url="{{ route('login') }}" logouturl="{{ route('logout') }}" redirect="{{ route('home') }}" admin="{{ $admin }}" @guest user="guest" @else user="user"@endguest></login-text>
                 </header>
 
                 <ul class="section__container menu">

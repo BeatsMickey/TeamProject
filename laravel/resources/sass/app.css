@@ -77,6 +77,10 @@ a:hover {
   text-decoration: none;
 }
 
+ul > li {
+  list-style-type: none;
+}
+
 .header {
   display: flex;
   justify-content: space-between;
