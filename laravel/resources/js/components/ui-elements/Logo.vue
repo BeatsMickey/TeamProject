@@ -1,7 +1,7 @@
 <template>
     <div class="logo">
         <div class="logo__box">
-            <a class="logo__link" href="/"><span class="logo__text_big">Workout&nbsp;table</span>
+            <a class="logo__link" href="/traininglog/calendar"><span class="logo__text_big">Workout&nbsp;table</span>
                 <span class="logo__text">Онлайн дневник для тренировок</span></a>
         </div>
     </div>

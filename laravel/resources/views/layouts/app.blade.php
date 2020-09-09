@@ -29,6 +29,7 @@
 
                 <ul class="section__container menu">
                     <li><a class="menu__link" href="{{ route('exercises.index') }}">База упражнений</a></li>
+                    <li><a class="menu__link" href="{{ route('home') }}">О программе</a></li>
                 </ul>
                 <div class="hr"></div>
             </div>
