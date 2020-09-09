@@ -2,7 +2,7 @@
     <div class="login">
         <div class="login__box" v-on:click="showLogin">
             <p v-if="isAdmin()" class="login__text">Admin</p>
-            <p v-else-if="isUser()" class="login__text">UserName</p>
+            <p v-else-if="isUser()" class="login__text">{{ user_name }}</p>
             <p v-else class="login__text">Войти</p>
             <p class="login__icon login-icon"><i class="icon fa fa-user" aria-hidden="true"></i></p>
         </div>
@@ -38,7 +38,6 @@
             </div>
         </div>
     </div>
-
 </template>
 
 <script>
@@ -54,7 +53,7 @@
                 errors: []
             }
         },
-        props: ['url', 'csrf', 'redirect', 'logouturl', 'admin', 'user'],
+        props: ['url', 'csrf', 'redirect', 'logouturl', 'admin', 'user', 'user_name'],
         methods: {
             showLogin() {
                 this.loginActive = !this.loginActive;

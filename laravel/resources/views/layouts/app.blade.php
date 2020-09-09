@@ -1,3 +1,9 @@
+<?php
+//    dd(App\Http\Controllers\Auth::user());
+//    if (Illuminate\Auth::user())
+    $user = Illuminate\Support\Facades\Auth::user()->name;
+//    dd($user);
+?>
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -20,36 +26,11 @@
             <div class="section__container">
                 <header class="header">
                     <logo></logo>
-                    <login-text csrf="{{ csrf_token() }}" url="{{ route('login') }}" logouturl="{{ route('logout') }}" redirect="{{ route('home') }}" admin="{{ $admin }}" @guest user="guest" @else user="user"@endguest></login-text>
+                    <login-text csrf="{{ csrf_token() }}" url="{{ route('login') }}" logouturl="{{ route('logout') }}" redirect="{{ route('home') }}" admin="{{ $admin }}" @guest user="guest" @else user="user" user_name="{{ $user }}" @endguest></login-text>
                 </header>
 
                 <ul class="section__container menu">
-                    {{--@if($admin)
-                        <li><a class="menu__link" href="{{ route('admin.main') }}">Редактирование данных</a></li>
-                    @else--}}
-                        <li><a class="menu__link" href="{{ route('exercises.index') }}">База упражнений</a></li>
-                   {{-- @endif
-
-                    @guest
-                        <li><a class="menu__link" href="{{ route('login') }}">Войти</a></li>
-                        @if (Route::has('register'))
-                            <li><a class="menu__link" href="{{ route('register') }}">Зарегестрироваться</a></li>
-                        @endif
-                    @else
-                        <li><a class="menu__link" href="{{ route('program.index') }}">Мои упражнения</a></li>
-                        <li><a class="menu__link" href="{{ route('measurements.index') }}">Мои замеры</a></li>
-                        <li><a class="menu__link" href="{{ route('personal.area') }}">Личный кабинет</a></li>
-                        <li>
-                            <a class="menu__link" href="{{ route('logout') }}"
-                               onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-                                Выйти
-                            </a>
-
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                @csrf
-                            </form>
-                        </li>
-                    @endguest--}}
+                    <li><a class="menu__link" href="{{ route('exercises.index') }}">База упражнений</a></li>
                 </ul>
                 <div class="hr"></div>
             </div>

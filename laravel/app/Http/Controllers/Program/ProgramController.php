@@ -19,6 +19,7 @@ class ProgramController extends Controller
 
         return view('program.index', [
 //            'sets' => $sets,
+//            'user' => Auth::user(),
             'programs' => $programs,
             'current_program' => $current_program,
         ]);
