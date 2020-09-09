@@ -7,6 +7,7 @@
 
 @section('content')
     <div class="section__container">
+        <a href="{{ route('exercises.all') }}">Вернуться на страницу упражнений</a>
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>

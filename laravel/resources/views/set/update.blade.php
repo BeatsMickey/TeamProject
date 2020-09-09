@@ -7,6 +7,7 @@
 
 @section('content')
     <div class="section__container">
+        <a href="{{ route('set.index') }}">Вернуться на страницу наборов упражнений</a>
         @if(session('message'))
             <h3>{{ session('message') }}</h3>
         @endif

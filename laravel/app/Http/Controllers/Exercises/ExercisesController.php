@@ -37,7 +37,7 @@ class ExercisesController extends Controller
             $exercise->fill($request->all());
             $exercise->created_by = Auth::user()->id;
             $exercise->save();
-            return redirect()->route('set.index');
+            return redirect()->route('exercises.all');
         }
 
         return view('exercises.create');
@@ -53,5 +53,18 @@ class ExercisesController extends Controller
         }
 
         return redirect()->back()->with('message', 'У Вас не достаточно прав для удаления данного упражнения.');
+    }
+
+    public function all() {
+        $exercises = Exercises::getAllExercises();
+
+        return view("exercises.index", [
+           'exercises' => $exercises
+        ]);
+    }
+
+    public function update(Exercises $exercise) {
+        return view();
+        dd($exercise);
     }
 }
