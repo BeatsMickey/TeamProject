@@ -1,8 +1,6 @@
 <?php
-//    dd(App\Http\Controllers\Auth::user());
-//    if (Illuminate\Auth::user())
-    $user = Illuminate\Support\Facades\Auth::user()->name;
-//    dd($user);
+    if (Illuminate\Support\Facades\Auth::user())
+        $user = Illuminate\Support\Facades\Auth::user()->name;
 ?>
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
