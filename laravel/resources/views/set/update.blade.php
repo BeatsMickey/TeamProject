@@ -42,6 +42,7 @@
             </div>
             <button>Добавить упражнение</button>
         </form>
+            <a href="{{ route('exercises.create') }}">Создать новое упражнение</a>
     </div>
 @endsection
 

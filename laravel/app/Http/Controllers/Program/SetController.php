@@ -76,6 +76,7 @@ class SetController extends Controller
     {
         $set = Sets::find($id);
         $all_exercises = Exercises::getAllExercises();
+//        dd($all_exercises);
         $set_exercises = [];
         $set_exercises_ids = [];
         foreach ($set->exercises()->get() as $exercise) {

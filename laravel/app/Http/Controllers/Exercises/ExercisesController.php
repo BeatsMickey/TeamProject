@@ -9,19 +9,35 @@ use Illuminate\Http\Request;
 
 class ExercisesController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         $categories = CategoriesExercises::getCategoriesActive(5);
         return view('exercises.categories', ['categories' => $categories]);
     }
 
-    public function categories($id) {
+    public function categories($id)
+    {
         $exercises = Exercises::getExercisesByCategoriesIdActive($id, 5);
         $category = CategoriesExercises::find($id);
         return view('exercises.exercises_by_category', ['exercises' => $exercises, 'category' => $category]);
     }
 
-    public function card($id) {
+    public function card($id)
+    {
         $exercise = Exercises::find($id);
         return view('exercises.exercises_card', ['exercise' => $exercise]);
+    }
+
+    public function create(Request $request)
+    {
+
+        if ($request->method() === "POST") {
+            $exercise = new Exercises;
+            $exercise->fill($request->all());
+            $exercise->save();
+            return redirect()->back();
+        }
+
+        return view('exercises.create');
     }
 }

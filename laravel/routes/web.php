@@ -46,6 +46,7 @@ Route::group([
     Route::get('/categories', 'ExercisesController@index')->name('index');
     Route::get('/exercises/{id}', 'ExercisesController@categories')->name('categories');
     Route::get('/exercises_card/{id}', 'ExercisesController@card')->name('card');
+    Route::match(['get','post'],'/create', 'ExercisesController@create')->name('create');
 });
 
 /*
