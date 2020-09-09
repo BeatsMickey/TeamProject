@@ -11,52 +11,15 @@
         @if(session('message'))
             <h3>{{ session('message') }}</h3>
         @endif
-        <form action="{{ route('set.update', $set->id) }}" method="post">
+        <form action="{{ route('exercises.update', $exercise) }}" method="post">
             @csrf
             <div>
-                <label>
-                    Название набора упражнений
-                    <input type="text" name="name" value="{{ $set->name }}">
-                </label>
+                <input type="text" name="name" value="{{ $exercise->name }}" placeholder="Имя упражнения">
             </div>
-            <button>Сохранить новое имя</button>
-        </form>
-        <h3> Список упражнений набора </h3>
-        <ul>
-            @foreach($set_exercises as $exercise)
-                <li>{{ $exercise->name }} <a href="{{ route('set.delete_exercise', [$set, $exercise->id]) }}">[ X ]</a>
-                </li>
-            @endforeach
-        </ul>
-
-        <h3>Добавить упражнение</h3>
-        <form action="{{ route('set.update', $set->id) }}" method="post">
-            @csrf
             <div>
-                <label>
-                    <select name="exercise_id" id="exercise_id">
-                        @foreach($all_exercises as $exercise)
-                            <option value="{{ $exercise->id }}">{{ $exercise->name }}</option>
-                        @endforeach
-                    </select>
-                </label>
+                <textarea name="description" cols="30" rows="10" placeholder="Описание упражнения">{{ $exercise->description }}</textarea>
             </div>
-            <button>Добавить упражнение</button>
-        </form>
-
-        <h3>Удалить упражнение</h3>
-        <form action="{{ route('exercises.destroy') }}" method="post">
-            @csrf
-            <div>
-                <label>
-                    <select name="exercise_id" id="exercise_id">
-                        @foreach($all_exercises as $exercise)
-                            <option value="{{ $exercise->id }}">{{ $exercise->name }}</option>
-                        @endforeach
-                    </select>
-                </label>
-            </div>
-            <button>Стереть упражнение из базы упражнений</button>
+            <button>Сохранить</button>
         </form>
     </div>
 @endsection

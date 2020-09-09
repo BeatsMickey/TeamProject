@@ -28,5 +28,6 @@
         <div class="hr"></div>
         <div><a href="{{ route('exercises.create') }}">Создать новое упражнение</a></div>
         <div><a href="{{ route('program.index') }}">Перейти на страницу программ упражнений</a></div>
+        <div><a href="{{ route('set.index') }}">Перейти на страницу наборов упражнений</a></div>
     </div>
 @endsection

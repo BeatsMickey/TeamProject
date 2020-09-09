@@ -41,24 +41,8 @@
                     </select>
                 </label>
             </div>
-            <button>Добавить упражнение</button>
+            <button>Добавить упражнение в набор</button>
         </form>
-
-        <h3>Удалить упражнение</h3>
-        <form action="{{ route('exercises.destroy') }}" method="post">
-            @csrf
-            <div>
-                <label>
-                    <select name="exercise_id" id="exercise_id">
-                        @foreach($all_exercises as $exercise)
-                            <option value="{{ $exercise->id }}">{{ $exercise->name }}</option>
-                        @endforeach
-                    </select>
-                </label>
-            </div>
-            <button>Стереть упражнение из базы упражнений</button>
-        </form>
-        <a href="{{ route('exercises.create') }}">Создать новое упражнение</a>
     </div>
 @endsection
 
