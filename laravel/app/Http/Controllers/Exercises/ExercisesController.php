@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Model\CategoriesExercises;
 use App\Model\Exercises;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ExercisesController extends Controller
 {
@@ -34,8 +35,9 @@ class ExercisesController extends Controller
         if ($request->method() === "POST") {
             $exercise = new Exercises;
             $exercise->fill($request->all());
+            $exercise->created_by = Auth::user()->id;
             $exercise->save();
-            return redirect()->back();
+            return redirect()->route('set.index');
         }
 
         return view('exercises.create');
