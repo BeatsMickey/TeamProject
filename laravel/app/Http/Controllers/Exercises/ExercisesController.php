@@ -42,4 +42,16 @@ class ExercisesController extends Controller
 
         return view('exercises.create');
     }
+
+    public function destroy(Request $request) {
+        $user = Auth::user();
+        $exercise_id = $request->input('exercise_id');
+        $exercise = Exercises::find($exercise_id);
+        if($user->id === $exercise->created_by || $user->is_admin) {
+            $exercise->delete();
+            return redirect()->back()->with('message', 'Упражнение успешно удалено.');
+        }
+
+        return redirect()->back()->with('message', 'У Вас не достаточно прав для удаления данного упражнения.');
+    }
 }
