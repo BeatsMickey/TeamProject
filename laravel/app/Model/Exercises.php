@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Exercises extends Model
 {
@@ -13,13 +14,21 @@ class Exercises extends Model
         'is_active'
     ];
 
+    public static function rules() {
+        return [
+            'name' => ['required', 'min:3', 'max:100'],
+        ];
+    }
+
     public static function getAllExercises() {
-        return Exercises::query()
-            ->rightJoin('relations_exercise-category',
-                'exercises.id',
-                '=',
-                'relations_exercise-category.exercise_id')
-            ->get();
+        return Exercises::query()->get();
+
+//        return Exercises::query()
+//            ->rightJoin('relations_exercise-category',
+//                'exercises.id',
+//                '=',
+//                'relations_exercise-category.exercise_id')
+//            ->get();
     }
 
     public static function getExercisesByCategoriesIdActive(int $id, int $numberPerPage, bool $is_active = true) {
