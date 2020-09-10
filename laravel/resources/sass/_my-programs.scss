@@ -1,3 +1,42 @@
 .my-program_message {
     color: red;
 }
+
+.my-program_section {
+    background-color: red;
+}
+
+.my-program_header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.my-program_selected-item {
+    color: #00cc66;
+}
+
+.my-program_list-item {
+    background-color: beige;
+    font-size: 30px;
+    /*color: #0C9A9A;*/
+    /*color: red;*/
+    padding: 5px;
+    margin: 5px;
+}
+
+.my-program_list-link {
+    color: darkorange;
+}
+
+.my-program_create_btn {
+    border-radius: 5px;
+    display: inline-block;
+    padding: 10px;
+    margin: 5px;
+    background-color: limegreen;
+    color: white;
+}
+
+.my-program_create_btn:hover {
+    filter: brightness(1.2);
+}
