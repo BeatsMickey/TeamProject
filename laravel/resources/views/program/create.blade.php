@@ -7,6 +7,7 @@
 
 @section('content')
     <div class="section__container">
+        <a href="{{ route('program.index') }}">Вернуться на страницу программ</a>
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>

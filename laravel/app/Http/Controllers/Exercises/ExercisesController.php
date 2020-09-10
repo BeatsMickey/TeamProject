@@ -37,21 +37,56 @@ class ExercisesController extends Controller
             $exercise->fill($request->all());
             $exercise->created_by = Auth::user()->id;
             $exercise->save();
-            return redirect()->route('set.index');
+            return redirect()->route('exercises.all');
         }
 
         return view('exercises.create');
     }
 
-    public function destroy(Request $request) {
+    public function destroy(Exercises $exercise)
+    {
         $user = Auth::user();
-        $exercise_id = $request->input('exercise_id');
-        $exercise = Exercises::find($exercise_id);
-        if($user->id === $exercise->created_by || $user->is_admin) {
+
+        if ($user->id === $exercise->created_by || $user->is_admin) {
             $exercise->delete();
             return redirect()->back()->with('message', 'Упражнение успешно удалено.');
         }
 
         return redirect()->back()->with('message', 'У Вас не достаточно прав для удаления данного упражнения.');
+    }
+
+    public function all()
+    {
+        $exercises = Exercises::getAllExercises();
+
+        return view("exercises.index", [
+            'exercises' => $exercises
+        ]);
+    }
+
+    public function update(Request $request, Exercises $exercise)
+    {
+        if ($request->method() === "POST") {
+            $user = Auth::user();
+
+            if ($user->id !== $exercise->created_by && !$user->is_admin)
+                return redirect()->back()->with([
+                    'exercise' => $exercise,
+                    'message' => 'У Вас не достаточно прав для изменения данного упражнения.'
+                ]);
+
+            $request->validate(Exercises::rules());
+            $exercise->fill($request->all());
+            $exercise->save();
+
+            return redirect()->back()->with([
+                'exercise' => $exercise,
+                'message' => 'Упражнение успешно изменено']);
+        }
+
+
+        return view('exercises.update', [
+            'exercise' => $exercise
+        ]);
     }
 }

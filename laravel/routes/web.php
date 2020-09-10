@@ -47,7 +47,9 @@ Route::group([
     Route::get('/exercises/{id}', 'ExercisesController@categories')->name('categories');
     Route::get('/exercises_card/{id}', 'ExercisesController@card')->name('card');
     Route::match(['get','post'],'/create', 'ExercisesController@create')->name('create');
-    Route::post('/destroy/', 'ExercisesController@destroy')->name('destroy');
+    Route::get('/destroy/{exercise}', 'ExercisesController@destroy')->name('destroy');
+    Route::get('/all', 'ExercisesController@all')->name('all');
+    Route::match(['get','post'],'/update/{exercise}', 'ExercisesController@update')->name('update');
 });
 
 /*
