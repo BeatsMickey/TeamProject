@@ -1,10 +1,11 @@
 .my-program_message {
-    color: red;
+    color: blueviolet;
+    margin-bottom: 10px;
+    width: 500px;
+    height: 30px;
+    /*border: solid 1px #0C9A9A;*/
 }
 
-.my-program_section {
-    background-color: red;
-}
 
 .my-program_header {
     text-align: center;
@@ -16,20 +17,35 @@
 }
 
 .my-program_list-item {
-    background-color: beige;
     font-size: 30px;
-    /*color: #0C9A9A;*/
-    /*color: red;*/
     padding: 5px;
     margin: 5px;
 }
 
-.my-program_list-link {
-    color: darkorange;
+.my-program_list-item_name {
+    display: inline-block;
+    background-color: deepskyblue;
+    font-size: 30px;
+    /*color: #0C9A9A;*/
+    color: white;
+    padding: 5px;
+    margin: 5px;
 }
 
-.my-program_create_btn {
-    border-radius: 5px;
+.my-program_link {
+    color: blue;
+    /*margin: 10px;*/
+    /*color: white;*/
+}
+
+.my-program_link:hover {
+    filter: brightness(.4);
+}
+
+.my-program_btn {
+    font-size: 20px;
+    border: none;
+    border-radius: 10px;
     display: inline-block;
     padding: 10px;
     margin: 5px;
@@ -37,6 +53,13 @@
     color: white;
 }
 
-.my-program_create_btn:hover {
+.my-program_btn:hover {
     filter: brightness(1.2);
+}
+
+.my-program_input {
+    font-size: 20px;
+    /*height: 40px;*/
+    padding: 5px 10px;
+    margin: 5px;
 }
