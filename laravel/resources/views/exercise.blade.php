@@ -8,11 +8,42 @@
 @section('content')
     <section class="section_marginBottom4">
         <div class="section__container">
-            <div class="section__container__text section__container__text_marginLeft">
-                <h6>{{ $day }}, {{ $month }}</h6>
-            </div>
+            <calendar-day :month="{{ json_encode($month) }}" :day="{{ json_encode($day) }}"></calendar-day>
 
-            <div class="hr"></div>
+
+            <section class="section_marginBottom4">
+                <div class="section__container">
+                    <div class="exercises__header">
+                        <p class="exercises__heading">Мои УПРАЖНЕНИЯ</p>
+                    </div>
+                    <div class="exercises-table">
+                        <ul class="exercises-table__labels-box exercises-table__labels-box_noborder">
+                            <li class="exercises-table__text exercises-table__labels">Название упражнения</li>
+                            <li class="exercises-table__text exercises-table__labels">Повторы</li>
+                            <li class="exercises-table__text exercises-table__labels">Масса, кг</li>
+                            <li class="exercises-table__text exercises-table__labels"></li>
+                        </ul>
+                        @forelse($calendar_exercises as $value)
+                            <div>
+                                <ul class="exercises-table__labels-box">
+                                    <li class="exercises-table__text">{{$value->name}}</li>
+                                    <li class="exercises-table__text">{{$value->repetitions}}</li>
+                                    <li class="exercises-table__text">{{$value->weight }}</li>
+                                    <li><a class="exercises-table__del-btn"
+                                           href="{{ route('trainingLog.del_exercises', ['day' => $day, 'month' => $month, 'id' => $value->id, 'today' => 1, 'weekday' => $weekday]) }}"></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        @empty
+                            <div>
+                                <h6 class="exercises-table__text">Упражнений пока что нет!</h6>
+                            </div>
+                        @endforelse
+                    </div>
+                </div>
+            </section>
+
+
             <div class="section__container__form">
                 <form
                         action="{{ route('trainingLog.add_exercises', ['day' => $day, 'month' => $month, 'today' => 1, 'weekday' => $weekday]) }}"
@@ -64,58 +95,5 @@
             </div>
         </section>
     @endif
-
-    <section class="section_marginBottom4">
-        <div class="section__container">
-            <div class="section__container__text section__container__text_marginLeft">
-                <h6>ВЫПОЛНЕННЫЕ УПРАЖНЕНИЯ</h6>
-            </div>
-
-            <div class="hr"></div>
-
-            <div class="section__container__exercise">
-                <div class="section__container__exercise__content">
-                    <div style="display: grid;
-    grid-gap: 5px;
-    grid-template-columns: 310px 90px 50px 65px;">
-                        <h6>Упражнение</h6>
-                        <h6>Повторения</h6>
-                        <h6>Масса</h6>
-                        <h6>Удалить</h6>
-                    </div>
-                </div>
-
-                <div class="section__container__exercise__content">
-                    @forelse($calendar_exercises as $value)
-                        <div style="display: grid;
-    grid-gap: 5px;
-    grid-template-columns: 310px 50px 50px 30px;">
-                            <h6>{{ $value->name }}</h6>
-                            <h6>{{ $value->repetitions }}</h6>
-                            <h6>{{ $value->weight }}</h6>
-
-                            <a href="{{ route('trainingLog.del_exercises', ['day' => $day, 'month' => $month, 'id' => $value->id, 'today' => 1, 'weekday' => $weekday]) }}">
-                                <svg width="32" height="32" viewBox="0 0 32 32" fill="none"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M24 8L8 24" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M8 8L24 24" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </a>
-                        </div>
-
-                        {{--                        <button>--}}
-                        {{--                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">--}}
-                        {{--                                <path d="M24 8L8 24" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>--}}
-                        {{--                                <path d="M8 8L24 24" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>--}}
-                        {{--                            </svg>--}}
-                        {{--                        </button>--}}
-
-                    @empty
-                        <h6>Нет упражнений</h6>
-                    @endforelse
-                </div>
-            </div>
-        </div>
-    </section>
 @endsection
 
