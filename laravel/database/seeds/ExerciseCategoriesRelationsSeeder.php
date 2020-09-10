@@ -12,22 +12,22 @@ class ExerciseCategoriesRelationsSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('relations_exercise-category')->insert($this->getData());
+        DB::table('categories_exercises')->insert($this->getData());
     }
 
     private function getData() {
         $data = [
-            ['exercise_id' => '1', 'category_id' => 1],
-            ['exercise_id' => '2', 'category_id' => 1],
-            ['exercise_id' => '3', 'category_id' => 1],
-            ['exercise_id' => '4', 'category_id' => 2],
-            ['exercise_id' => '5', 'category_id' => 2],
-            ['exercise_id' => '6', 'category_id' => 2],
-            ['exercise_id' => '7', 'category_id' => 3],
-            ['exercise_id' => '7', 'category_id' => 1],
-            ['exercise_id' => '8', 'category_id' => 3],
-            ['exercise_id' => '9', 'category_id' => 3],
-            ['exercise_id' => '9', 'category_id' => 2],
+            ['exercises_id' => '2', 'categories_id' => 1],
+            ['exercises_id' => '1', 'categories_id' => 1],
+            ['exercises_id' => '3', 'categories_id' => 1],
+            ['exercises_id' => '4', 'categories_id' => 2],
+            ['exercises_id' => '5', 'categories_id' => 2],
+            ['exercises_id' => '6', 'categories_id' => 2],
+            ['exercises_id' => '7', 'categories_id' => 3],
+            ['exercises_id' => '7', 'categories_id' => 1],
+            ['exercises_id' => '8', 'categories_id' => 3],
+            ['exercises_id' => '9', 'categories_id' => 3],
+            ['exercises_id' => '9', 'categories_id' => 2],
         ];
 
         return $data;

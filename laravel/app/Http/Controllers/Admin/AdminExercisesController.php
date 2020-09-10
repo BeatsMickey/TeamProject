@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Model\CategoriesExercises;
+use App\Model\Categories;
 use App\Model\Exercises;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -11,26 +11,34 @@ use Illuminate\Http\Request;
 class AdminExercisesController extends Controller
 {
     public function index() {
-        $categories = CategoriesExercises::getAll(5);
+        $categories = Categories::getAll(5);
         return view('admin.categories', ['categories' => $categories]);
     }
 
     public function changeActiveCategories(int $id) {
-        $category = CategoriesExercises::find($id);
+        $category = Categories::find($id);
         $category->is_active = !($category->is_active);
         $category->save();
         return redirect()->route('admin.exercises.index');
     }
 
     public function addCategories(Request $request) {
-        $category = new CategoriesExercises(['name'=> $request->get('name'), 'is_active' => $request->get('is_active') ]);
+//        $category = new Categories(['name'=> $request->get('name'), 'is_active' => $request->get('is_active') ]);
+        $category = new Categories();
+        $category['name'] = $request->get('name');
+        if ($request->input('is_active')) {
+            $category['is_active'] = $request->input('is_active');
+        } else {
+            $category['is_active'] = 0;
+        }
+
         $category->save();
         return redirect()->route('admin.exercises.index');
     }
 
     public function exercises(int $id) {
         $exercises = Exercises::getExercisesByCategoriesIdAll($id, 5);
-        $category = CategoriesExercises::find($id);
+        $category = Categories::find($id);
         return view('admin.exercises_by_category', ['exercises' => $exercises, 'category' => $category]);
     }
 
@@ -42,14 +50,14 @@ class AdminExercisesController extends Controller
     }
 
     public function exerciseCard() {
-        $categories = CategoriesExercises::all();
+        $categories = Categories::all();
         return view('admin.exercises_card_edit', ['exercise' => (new Exercises()), 'categories' => $categories]);
     }
 
     public function updateCard(int $id) {
-        $categoriesForExercise = CategoriesExercises::getAllActiveCategoriesForExercises($id);
+        $categoriesForExercise = Categories::getAllActiveCategoriesForExercises($id);
         $exercise = Exercises::find($id);
-        $categories = CategoriesExercises::all();
+        $categories = Categories::all();
         return view('admin.exercises_card_edit', ['exercise' => $exercise, 'categories' => $categories, 'categoriesForExercise' => $categoriesForExercise]);
     }
 

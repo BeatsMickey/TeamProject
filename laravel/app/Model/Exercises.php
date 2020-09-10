@@ -23,28 +23,15 @@ class Exercises extends Model
     public static function getAllExercises() {
         return Exercises::query()->get();
 
-        return Exercises::query()
-            ->join('relations_exercise-category',
-                'exercises.id',
-                '=',
-                'relations_exercise-category.exercise_id')
-            ->get();
-
-//        return Exercises::query()
-//            ->rightJoin('relations_exercise-category',
-//                'exercises.id',
-//                '=',
-//                'relations_exercise-category.exercise_id')
-//            ->get();
     }
 
     public static function getExercisesByCategoriesIdActive(int $id, int $numberPerPage, bool $is_active = true) {
             return Exercises::query()
-                ->rightJoin('relations_exercise-category',
+                ->rightJoin('categories_exercises',
                     'exercises.id',
                     '=',
-                    'relations_exercise-category.exercise_id')
-                ->where('category_id', '=', $id)
+                    'categories_exercises.exercises_id')
+                ->where('categories_id', '=', $id)
                 ->where('is_active', '=', $is_active)
                 ->paginate($numberPerPage);
     }
@@ -63,5 +50,9 @@ class Exercises extends Model
     public function sets()
     {
         return $this->belongsToMany('App\Model\Sets');
+    }
+
+    public function categories() {
+        return $this->belongsToMany('App\Model\Categories');
     }
 }

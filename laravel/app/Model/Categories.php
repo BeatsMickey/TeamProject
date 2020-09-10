@@ -4,9 +4,8 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CategoriesExercises extends Model
+class Categories extends Model
 {
-
 
     protected $fillable = [
         'name',
@@ -15,14 +14,14 @@ class CategoriesExercises extends Model
 
     public static function getCategoriesActive(int $numberPerPage, bool $is_active = true)
     {
-        return CategoriesExercises::query()
+        return Categories::query()
             ->select('id', 'name', 'is_active')
             ->where('is_active', '=', $is_active)
             ->paginate($numberPerPage);
     }
 
     public static function getAllActiveCategoriesForExercises(int $exercise_id) {
-        return CategoriesExercises::query()
+        return Categories::query()
             ->select('categories_exercises.id', 'name')
             ->rightJoin('relations_exercise-category',
                 'categories_exercises.id',
@@ -36,7 +35,13 @@ class CategoriesExercises extends Model
 
     public static function getAll($numberPerPage = 3)
     {
-        return CategoriesExercises::query()->paginate($numberPerPage);
+        $categories = Categories::query()->paginate($numberPerPage);
+
+        return Categories::query()->paginate($numberPerPage);
+    }
+
+    public function exercises() {
+        return $this->belongsToMany('App\Model\Exercises');
     }
 
 }

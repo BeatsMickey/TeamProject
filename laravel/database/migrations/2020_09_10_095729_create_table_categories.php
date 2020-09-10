@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddIsactiveToCategoriesExercisesTable extends Migration
+class CreateTableCategories extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,11 @@ class AddIsactiveToCategoriesExercisesTable extends Migration
      */
     public function up()
     {
-        Schema::table('categories_exercises', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
+            $table->id();
+            $table->string('name', '100');
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
             $table->boolean('is_active')->default(true);
         });
     }
@@ -25,8 +29,6 @@ class AddIsactiveToCategoriesExercisesTable extends Migration
      */
     public function down()
     {
-        Schema::table('categories_exercises', function (Blueprint $table) {
-            $table->dropColumn('is_active');
-        });
+        Schema::dropIfExists('categories');
     }
 }

@@ -19,28 +19,6 @@
                         method="post">
                     @csrf
 
-                    {{--                    <div class="select">--}}
-                    {{--                        <div class="select__header">--}}
-                    {{--                            <span class="select__current">Выберите упражнение</span>--}}
-                    {{--                            <div class="select__icon">--}}
-                    {{--                                <svg width="15" height="8" viewBox="0 0 15 8" fill="none"--}}
-                    {{--                                     xmlns="http://www.w3.org/2000/svg">--}}
-                    {{--                                    <path d="M1.26318 1L7.61055 7L13.9579 1" stroke="black" stroke-linecap="round"--}}
-                    {{--                                          stroke-linejoin="round"/>--}}
-                    {{--                                </svg>--}}
-                    {{--                            </div>--}}
-                    {{--                        </div>--}}
-
-                    {{--                        <div class="select__body">--}}
-                    {{--                            <div class="select__item">Value 1</div>--}}
-                    {{--                            <div class="select__item">Value 2</div>--}}
-                    {{--                            <div class="select__item">Value 3</div>--}}
-                    {{--                            <div class="select__item">Value 4</div>--}}
-                    {{--                            <div class="select__item">Value 5</div>--}}
-                    {{--                        </div>--}}
-                    {{--                    </div>--}}
-
-
                     <div>
                         <div class="bg-success btn category selected-category" id="all">
                             Все категории
@@ -49,7 +27,6 @@
                             <div class="bg-success btn category" id="{{ $category->id }}">{{ $category->name }}</div>
                         @endforeach
                     </div>
-
                     <select class="content_form mt-2" id="choose-exercises" name="exercises_id">
                         @foreach($allExercises as $value)
                             <option class="exercise" value="{{ $value->id }}" data-category="{{ $value->category_id }}">
@@ -58,8 +35,8 @@
                         @endforeach
                     </select><br>
 
-                    <input type="text" name="weight" placeholder="Масса снаряда"><br>
-                    <input type="text" name="repetitions" placeholder="Количество подходов"><br>
+                    <input type="text" name="weight" placeholder="Масса снаряда" required><br>
+                    <input type="text" name="repetitions" placeholder="Количество подходов" required><br>
                     <input type="submit" value="ДОБАВИТЬ">
                 </form>
             </div>
@@ -77,8 +54,8 @@
                         @csrf
                         <p>{{ $exercise->name }}</p>
                         <input type="text" name="exercises_id" value="{{ $exercise->id }}" hidden>
-                        <input type="text" name="weight" placeholder="Масса снаряда"><br>
-                        <input type="text" name="repetitions" placeholder="Количество подходов"><br>
+                        <input type="text" name="weight" placeholder="Масса снаряда" required><br>
+                        <input type="text" name="repetitions" placeholder="Количество подходов" required><br>
                         <input type="submit" value="ДОБАВИТЬ">
                     </form>
                 @empty

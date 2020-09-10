@@ -5,6 +5,7 @@ namespace App\Http\Controllers\TrainingLog;
 use App\Http\Controllers\Controller;
 use App\Model\Calendar;
 use App\Model\CalendarExercises;
+use App\Model\Categories;
 use App\Model\CategoriesExercises;
 use App\Model\Exercises;
 use App\Model\Programs;
@@ -75,10 +76,13 @@ class TrainingController extends Controller
             $routename = 'alreadyDoneExercises';
         }
 
-        $categories = CategoriesExercises::getAll();
+        $categories = Categories::getAll();
+        $categories_exercises = [];
+        foreach ($categories as $category) {
+            $categories_exercises[$category->id] = $category->exercises->keyBy('id');
+        }
 
         $allExercises = Exercises::getAllExercises();
-
 
         $session_id = $request->session()->getId();
 
@@ -101,7 +105,8 @@ class TrainingController extends Controller
                 'allExercises' => $allExercises,
                 'program' => $program,
                 'today_exercises' => $today_exercises,
-                'weekday' => $weekday
+                'weekday' => $weekday,
+                'categories_exercises' => $categories_exercises,
             ]
         );
     }
