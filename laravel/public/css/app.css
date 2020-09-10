@@ -385,6 +385,100 @@ body {
   padding-bottom: 10px;
 }
 
+.exercises__header {
+  margin: 12px 0 48px 0;
+  text-transform: uppercase;
+}
+
+.exercises__heading {
+  font-style: italic;
+  font-weight: 800;
+  font-size: 48px;
+  line-height: 62px;
+  letter-spacing: 1px;
+  color: #1C1C1C;
+}
+
+.exercises-table {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.exercises-table__labels-box {
+  display: grid;
+  grid-template-columns: 50% 20% 20% 10%;
+  padding: 15px 0 15px 0;
+  border-bottom: 2px solid #EEEEEE;
+}
+
+.exercises-table__labels-box_noborder {
+  border: 0;
+}
+
+.exercises-table__text {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 26px;
+  letter-spacing: 2px;
+  color: #1C1C1C;
+  text-align: center;
+}
+
+.exercises-table__text:first-child {
+  text-align: left;
+}
+
+.exercises-table__labels {
+  color: #CCCCCC;
+}
+
+.exercises-table__labels:first-child {
+  text-align: center;
+}
+
+.exercises-table__del-btn {
+  width: 26px;
+  height: 26px;
+  background: #ffffff;
+  border-radius: 50%;
+  position: relative;
+  margin: 0 0 0 70%;
+  display: block;
+}
+
+.exercises-table__del-btn:after {
+  content: "";
+  height: 3px;
+  width: 18px;
+  background: #000000;
+  position: absolute;
+  top: 12px;
+  left: 4px;
+  transform: rotate(45deg);
+}
+
+.exercises-table__del-btn:before {
+  content: "";
+  height: 18px;
+  width: 3px;
+  background: #000000;
+  position: absolute;
+  left: 12px;
+  top: 4px;
+  transform: rotate(45deg);
+}
+
+.exercises-table__del-btn:hover {
+  background: #CE1A4D;
+}
+
+.exercises-table__del-btn:hover:before,
+.exercises-table__del-btn:hover:after {
+  background: #ffffff;
+}
+
 * {
   padding: 0;
   margin: 0;
