@@ -368,10 +368,10 @@ body {
 
 
 
-/*.my-program_section {*/
-/*    background-color: limegreen;*/
-/*    border: solid 1px #00cc66;*/
-/*}*/
+.my-program_message {
+    color: blueviolet;
+}
+
 
 .my-program_header {
     text-align: center;
@@ -383,7 +383,7 @@ body {
 }
 
 .my-program_list-item {
-    background-color: beige;
+    /*background-color: deepskyblue;*/
     font-size: 30px;
     /*color: #0C9A9A;*/
     /*color: red;*/
@@ -391,8 +391,18 @@ body {
     margin: 5px;
 }
 
+.my-program_list-item_name {
+    display: inline-block;
+    background-color: deepskyblue;
+    font-size: 30px;
+    /*color: #0C9A9A;*/
+    color: white;
+    padding: 5px;
+    margin: 5px;
+}
+
 .my-program_list-link {
-    color: darkorange;
+    /*color: white;*/
 }
 
 .my-program_btn {

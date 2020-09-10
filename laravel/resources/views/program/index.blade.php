@@ -27,13 +27,15 @@
                 @foreach($programs as $program)
                     <li class="my-program_list-item">
                         @if($current_program && $current_program->id === $program->id)
-                            <a class="my-program_list-link" href="{{ route('program.show', $program['id']) }}">{{ $program['name'] }}
-                                <span class="my-program_selected-item" >(Активная программа)</span>
-                            </a>
-                            <a class="my-program_list-link" href="{{ route('program.reset', $current_program->id) }}">Сбросить программу</a>
+                            <a class="my-program_list-link" href="#">{{ $program['name'] }}</a>
+                            <a class="my-program_list-link" href="{{ route('program.show', $program['id']) }}">[Просмотреть]</a>
+                            <a class="my-program_list-link" href="{{ route('program.reset', $current_program->id) }}">[Сбросить]</a>
+                            <small class="my-program_selected-item" >(Активная программа)</small>
                         @else
-                            <a class="my-program_list-link" href="{{ route('program.show', $program['id']) }}">{{ $program['name'] }}</a>
-                            <a class="my-program_list-link" href="{{ route('program.choose', $program->id) }}">(Выбрать эту программу)</a>
+                            <a class="my-program_list-link" href="{{ route('program.choose', $program['id']) }}">{{ $program['name'] }}</a>
+{{--                            <a class="my-program_list-link" href="{{ route('program.choose', $program->id) }}">(Выбрать эту программу)</a>--}}
+                            <a class="my-program_list-link" href="{{ route('program.show', $program['id']) }}">[Просмотреть]</a>
+                            <a class="my-program_list-link" href="{{ route('program.update', $program->id) }}">[Редактировать]</a>
                             <a class="my-program_list-link" href="{{ route('program.destroy', $program) }}"> [X]</a>
                         @endif
                     </li>
