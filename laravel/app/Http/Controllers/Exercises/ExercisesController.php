@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Exercises;
 
 use App\Http\Controllers\Controller;
-use App\Model\CategoriesExercises;
+use App\Model\Categories;
 use App\Model\Exercises;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,14 +12,14 @@ class ExercisesController extends Controller
 {
     public function index()
     {
-        $categories = CategoriesExercises::getCategoriesActive(5);
+        $categories = Categories::getCategoriesActive(5);
         return view('exercises.categories', ['categories' => $categories]);
     }
 
     public function categories($id)
     {
         $exercises = Exercises::getExercisesByCategoriesIdActive($id, 5);
-        $category = CategoriesExercises::find($id);
+        $category = Categories::find($id);
         return view('exercises.exercises_by_category', ['exercises' => $exercises, 'category' => $category]);
     }
 
