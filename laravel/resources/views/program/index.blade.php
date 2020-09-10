@@ -8,9 +8,9 @@
 @section('content')
     <div class="section__container">
         @if(session('message'))
-            <h3>{{ session('message') }}</h3>
+            <h3 class="my-program_message">{{ session('message') }}</h3>
         @endif
-        <h2>Старница программы занятий</h2>
+        <h2 class="">Страница программы занятий</h2>
 
         @if($current_program)
             <div>
