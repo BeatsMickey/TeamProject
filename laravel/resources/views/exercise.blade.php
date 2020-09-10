@@ -35,8 +35,8 @@
                         @endforeach
                     </select><br>
 
-                    <input type="text" name="weight" placeholder="Масса снаряда"><br>
-                    <input type="text" name="repetitions" placeholder="Количество подходов"><br>
+                    <input type="text" name="weight" placeholder="Масса снаряда" required><br>
+                    <input type="text" name="repetitions" placeholder="Количество подходов" required><br>
                     <input type="submit" value="ДОБАВИТЬ">
                 </form>
             </div>
@@ -54,8 +54,8 @@
                         @csrf
                         <p>{{ $exercise->name }}</p>
                         <input type="text" name="exercises_id" value="{{ $exercise->id }}" hidden>
-                        <input type="text" name="weight" placeholder="Масса снаряда"><br>
-                        <input type="text" name="repetitions" placeholder="Количество подходов"><br>
+                        <input type="text" name="weight" placeholder="Масса снаряда" required><br>
+                        <input type="text" name="repetitions" placeholder="Количество подходов" required><br>
                         <input type="submit" value="ДОБАВИТЬ">
                     </form>
                 @empty
