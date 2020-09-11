@@ -9,22 +9,23 @@
     <div class="section__container">
         <a href="{{ route('set.index') }}">Вернуться на страницу наборов упражнений</a>
         @if(session('message'))
-            <h3>{{ session('message') }}</h3>
+            <h3 class="my-program_message">{{ session('message') }}</h3>
         @endif
         <form action="{{ route('set.update', $set->id) }}" method="post">
             @csrf
             <div>
                 <label>
-                    Название набора упражнений
-                    <input type="text" name="name" value="{{ $set->name }}">
+                    <input class="my-program_input" type="text" name="name" value="{{ $set->name }}">
                 </label>
+                <button class="my-program_btn">Сохранить новое имя</button>
             </div>
-            <button>Сохранить новое имя</button>
         </form>
         <h3> Список упражнений набора </h3>
         <ul>
             @foreach($set_exercises as $exercise)
-                <li>{{ $exercise->name }} <a href="{{ route('set.delete_exercise', [$set, $exercise->id]) }}">[ X ]</a>
+                <li class="my-program_list-item">
+                    <a href="{{ route('exercises.update', $exercise) }}">{{ $exercise->name }}</a>
+                    <a href="{{ route('set.delete_exercise', [$set, $exercise->id]) }}">[ X ]</a>
                 </li>
             @endforeach
         </ul>
@@ -34,14 +35,14 @@
             @csrf
             <div>
                 <label>
-                    <select name="exercise_id" id="exercise_id">
+                    <select class="my-program_input" name="exercise_id" id="exercise_id">
                         @foreach($all_exercises as $exercise)
                             <option value="{{ $exercise->id }}">{{ $exercise->name }}</option>
                         @endforeach
                     </select>
                 </label>
+                <button class="my-program_btn">Добавить упражнение в набор</button>
             </div>
-            <button>Добавить упражнение в набор</button>
         </form>
     </div>
 @endsection

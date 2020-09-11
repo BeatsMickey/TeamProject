@@ -558,6 +558,73 @@ body {
   line-height: 30px;
   letter-spacing: 1px;
   color: #1C1C1C;
+
+.my-program_message {
+  color: blueviolet;
+  margin-bottom: 10px;
+  width: 500px;
+  height: 30px;
+  /*border: solid 1px #0C9A9A;*/
+}
+
+.my-program_header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.my-program_selected-item {
+  color: #00cc66;
+}
+
+.my-program_list-item {
+  font-size: 30px;
+  padding: 5px;
+  margin: 5px;
+}
+
+.my-program_list-item_name {
+  display: inline-block;
+  background-color: deepskyblue;
+  font-size: 30px;
+  /*color: #0C9A9A;*/
+  color: white;
+  padding: 5px;
+  margin: 5px;
+}
+
+.my-program_link {
+  color: blue;
+  /*margin: 10px;*/
+  /*color: white;*/
+}
+
+.my-program_link:hover {
+  -webkit-filter: brightness(0.4);
+          filter: brightness(0.4);
+}
+
+.my-program_btn {
+  font-size: 20px;
+  border: none;
+  border-radius: 10px;
+  display: inline-block;
+  padding: 10px;
+  margin: 5px;
+  background-color: limegreen;
+  color: white;
+}
+
+.my-program_btn:hover {
+  -webkit-filter: brightness(1.2);
+          filter: brightness(1.2);
+}
+
+.my-program_input {
+  font-size: 20px;
+  /*height: 40px;*/
+  padding: 5px 10px;
+  margin: 5px;
+
 }
 
 * {

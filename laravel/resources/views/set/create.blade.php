@@ -12,7 +12,7 @@
             <div class="alert alert-danger">
                 <ul>
                     @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
+                        <li class="my-program_message">{{ $error }}</li>
                     @endforeach
                 </ul>
             </div>
@@ -22,12 +22,12 @@
         <form action="{{ route('set.create') }}" method="post">
             @csrf
             <div>
-                <input type="text" name="name" placeholder="Название набора">
+                <input class="my-program_input" type="text" name="name" placeholder="Название набора">
             </div>
 
             @for ($i = 1; $i <= 4; $i++)
                 <div>
-                    <select name="exercise_{{ $i }}" id="day_one">
+                    <select class="my-program_input" name="exercise_{{ $i }}" id="day_one">
                         <option value=""></option>
                         @foreach($exercises as $exercise)
                             <option value="{{ $exercise->id }}">{{ $exercise->name }}</option>
@@ -37,7 +37,7 @@
             @endfor
 
 
-            <button>Создать набор упражнений</button>
+            <button class="my-program_btn">Создать набор упражнений</button>
         </form>
     </div>
 @endsection

@@ -7,6 +7,7 @@ use App\Model\Categories;
 use App\Model\Exercises;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ExercisesController extends Controller
 {
@@ -45,6 +46,12 @@ class ExercisesController extends Controller
 
     public function destroy(Exercises $exercise)
     {
+        $exercise_is_used = DB::table('exercises_sets')->where('exercises_id', $exercise->id)->get();
+
+        if(isset($exercise_is_used[0]))
+            return redirect()->back()->with(["message" => 'Ошибка: упражнение нельзя удалить, так как оно задействован в одном из наборов']);
+
+
         $user = Auth::user();
 
         if ($user->id === $exercise->created_by || $user->is_admin) {
