@@ -21,5 +21,6 @@ class DatabaseSeeder extends Seeder
         $this->call(SetProgramsRelationsSeeder::class);
         $this->call(UserDetailsSeeder::class);
         $this->call(CalendarSeeder::class);
+        $this->call(CalendarExercisesSeeder::class);
     }
 }
