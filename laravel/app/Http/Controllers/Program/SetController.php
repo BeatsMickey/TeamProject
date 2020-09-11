@@ -138,6 +138,6 @@ class SetController extends Controller
             return redirect()->back()->with('message', 'У Вас не достаточно прав для изменения данного набора упражнений.');
 
         $set->exercises()->detach($exercise_id);
-        return redirect()->back();
+        return redirect()->back()->with('message', 'Упражнение удалено из набора.');
     }
 }
