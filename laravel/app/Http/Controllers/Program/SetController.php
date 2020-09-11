@@ -4,13 +4,11 @@ namespace App\Http\Controllers\Program;
 
 use App\Http\Controllers\Controller;
 use App\Model\Exercises;
-use App\Model\Programs;
 use App\Model\Sets;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use function GuzzleHttp\Promise\is_fulfilled;
 
 class SetController extends Controller
 {
