@@ -83,6 +83,7 @@ class TrainingController extends Controller
         }
 
         $allExercises = Exercises::getAllExercises();
+        $categories_exercises_ids = DB::table('categories_exercises')->get();
 
         $session_id = $request->session()->getId();
 
@@ -107,6 +108,7 @@ class TrainingController extends Controller
                 'today_exercises' => $today_exercises,
                 'weekday' => $weekday,
                 'categories_exercises' => $categories_exercises,
+                'categories_exercises_ids' => $categories_exercises_ids,
             ]
         );
     }
