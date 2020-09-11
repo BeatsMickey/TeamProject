@@ -12,7 +12,7 @@
         @foreach($sets as $key => $set)
             <h2>День {{ $set->pivot->day_of_program }} - {{ $set->name }}</h2>
             @foreach($set->exercises as $exercise)
-                <p>{{ $exercise->name }}</p>
+                <p><a href="{{ route('set.update', $set->id) }}">{{ $exercise->name }}</a></p>
             @endforeach
         @endforeach
     </div>

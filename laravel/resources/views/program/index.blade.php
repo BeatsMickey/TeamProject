@@ -12,7 +12,7 @@
         @endif
 
         <div>
-            <h3>Выберете программу занятий:</h3>
+            <h3>Выберите программу занятий:</h3>
             <ul>
                 @foreach($programs as $program)
                     <li class="my-program_list-item">
