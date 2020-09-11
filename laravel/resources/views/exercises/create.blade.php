@@ -12,7 +12,7 @@
             <div class="alert alert-danger">
                 <ul>
                     @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
+                        <li class="my-program_message">{{ $error }}</li>
                     @endforeach
                 </ul>
             </div>
@@ -22,15 +22,15 @@
         <form action="{{ route('exercises.create') }}" method="post">
             @csrf
             <div>
-                <input type="text" name="name" placeholder="Название упражнения">
+                <input class="my-program_input" type="text" name="name" placeholder="Название упражнения">
             </div>
 
             <div>
-                <textarea name="description" id="" cols="30" rows="10" placeholder="Описание упражнения"></textarea>
+                <textarea class="my-program_input" name="description" id="" cols="30" rows="10" placeholder="Описание упражнения"></textarea>
             </div>
 
 
-            <button>Создать упражнение</button>
+            <button class="my-program_btn">Создать упражнение</button>
         </form>
     </div>
 @endsection

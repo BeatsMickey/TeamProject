@@ -14,12 +14,12 @@
         <form action="{{ route('exercises.update', $exercise) }}" method="post">
             @csrf
             <div>
-                <input type="text" name="name" value="{{ $exercise->name }}" placeholder="Имя упражнения">
+                <input class="my-program_input" type="text" name="name" value="{{ $exercise->name }}" placeholder="Имя упражнения">
             </div>
             <div>
-                <textarea name="description" cols="30" rows="10" placeholder="Описание упражнения">{{ $exercise->description }}</textarea>
+                <textarea class="my-program_input" name="description" cols="30" rows="10" placeholder="Описание упражнения">{{ $exercise->description }}</textarea>
             </div>
-            <button>Сохранить</button>
+            <button class="my-program_btn">Сохранить</button>
         </form>
     </div>
 @endsection

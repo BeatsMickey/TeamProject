@@ -8,32 +8,34 @@
 @section('content')
     <div class="section__container">
         @if(session('message'))
-            <h3>{{ session('message') }}</h3>
-        @endif
-        <h2>Старница программы занятий</h2>
-
-        @if($current_program)
-            <div>
-                <h3>Активная программа</h3>
-                <a href="{{ route('program.show', $current_program['id']) }}">{{ $current_program['name'] }}</a><br>
-                <a href="{{ route('program.reset', $current_program->id) }}">Сбросить программу</a>
-            </div>
-            <div class="hr"></div>
+            <h3 class="my-program_message">{{ session('message') }}</h3>
         @endif
 
         <div>
-            <h3>Перечень программ</h3>
-            @foreach($programs as $program)
-                <p>
-                    <a href="{{ route('program.show', $program['id']) }}">{{ $program['name'] }}</a>
-                    <a href="{{ route('program.destroy', $program) }}"> [X]</a>
-                </p>
-            @endforeach
+            <h3>Выберите программу занятий:</h3>
+            <ul>
+                @foreach($programs as $program)
+                    <li class="my-program_list-item">
+                        @if($current_program && $current_program->id === $program->id)
+                            <a class="my-program_link" href="#">{{ $program['name'] }}</a>
+                            <a class="my-program_link" href="{{ route('program.show', $program['id']) }}">[Просмотреть]</a>
+                            <a class="my-program_link" href="{{ route('program.update', $program->id) }}">[Редактировать]</a>
+                            <a class="my-program_link" href="{{ route('program.reset', $current_program->id) }}">[Сбросить]</a>
+                            <small class="my-program_selected-item" >(Активная программа)</small>
+                        @else
+                            <a class="my-program_link" href="{{ route('program.choose', $program['id']) }}">{{ $program['name'] }}</a>
+                            <a class="my-program_link" href="{{ route('program.show', $program['id']) }}">[Просмотреть]</a>
+                            <a class="my-program_link" href="{{ route('program.update', $program->id) }}">[Редактировать]</a>
+                            <a class="my-program_link" href="{{ route('program.destroy', $program) }}"> [X]</a>
+                        @endif
+                    </li>
+                @endforeach
+            </ul>
         </div>
+        <a class="my-program_btn" href="{{ route('program.create') }}">Создать новую программу</a>
         <div class="hr"></div>
-        <div><a href="{{ route('program.create') }}">Создать новую программу</a></div>
-        <div><a href="{{ route('set.index') }}">Перейти на страницу наборов упражнений</a></div>
-        <div><a href="{{ route('exercises.all') }}">Перейти на страницу упражнений</a></div>
+        <div class="my-program_link"><a href="{{ route('set.index') }}">Перейти на страницу наборов упражнений</a></div>
+        <div class="my-program_link"><a href="{{ route('exercises.all') }}">Перейти на страницу упражнений</a></div>
     </div>
 
 @endsection
