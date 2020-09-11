@@ -98,6 +98,7 @@ class SetController extends Controller
                 // Проверка: упражения в наборе не должны повторяться
                 if(!Arr::exists($set_exercises_ids, $id)) {
                     $set->exercises()->attach($id);
+                    return redirect()->back()->with('message', 'Упражнение добавлено в набор.');
                 }
 
                 return redirect()->back()->with('message', 'Такое упражнение уже есть в наборе.');
