@@ -24,6 +24,7 @@ Vue.component('categories', require('./components/ui-elements/Categories').defau
 Vue.component('exercise-categories', require('./components/ui-elements/ExerciseCategories').default);
 /*Вывод календаря на отдельную дату*/
 Vue.component('calendar-day', require('./components/ui-elements/day-one-elems/CurrentDate.vue').default);
+Vue.component('add-exercise', require('./components/ui-elements/day-one-elems/AddExercise').default);
 
 const app = new Vue({
     el: '#app',
