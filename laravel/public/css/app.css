@@ -627,6 +627,10 @@ body {
   margin: 5px;
 }
 
+.my-program_details {
+  font-size: 16px;
+}
+
 * {
   padding: 0;
   margin: 0;
