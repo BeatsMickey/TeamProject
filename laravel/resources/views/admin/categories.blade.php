@@ -22,9 +22,9 @@
                        onclick="event.preventDefault(); document.getElementById('del').submit();"
                     >
                         @if($category->is_active)
-                            Сделать не аквтиной
+                            Сделать не активной
                         @else
-                            Сделать авктивной
+                            Сделать активной
                         @endif
                     </a>
                     <form id="del" action="{{ route('admin.exercises.change.categories', $category->id) }}" method="POST" style="display: none;">
