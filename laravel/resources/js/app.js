@@ -26,6 +26,9 @@ Vue.component('exercise-categories', require('./components/ui-elements/ExerciseC
 Vue.component('calendar-day', require('./components/ui-elements/day-one-elems/CurrentDate.vue').default);
 Vue.component('add-exercise', require('./components/ui-elements/day-one-elems/AddExercise').default);
 
+/*Блок "Мои программы"*/
+Vue.component('my-programs-index', require('./components/ui-elements/my-programs/MyProgramsIndex').default);
+
 const app = new Vue({
     el: '#app',
 });
