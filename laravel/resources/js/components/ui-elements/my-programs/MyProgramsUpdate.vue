@@ -9,11 +9,9 @@
                     <input class="my-program_input" type="text" name="name" :value="program.name">
                 </li>
 
-                <li v-for="weekday in ['1', '2', '3', '4', '5', '6', '7']" class="my-program_list-item">
-                    {{weekday}}
-
-                    <label for="day_one">{{ getDayName(weekday) }}</label>
-                    <select class="my-program_input" :name="'day_' + weekday" id="day_one">
+                <li v-for="weekday in [1, 2, 3, 4, 5, 6, 7]" class="my-program_list-item">
+                    <label :for="'day_' + weekday">{{ getDayName(weekday) }}</label>
+                    <select class="my-program_input" :name="'day_' + weekday" :id="'day_' + weekday">
                         <option value=""></option>
                         <option v-for="set in sets" :value="set.id"
                             :selected="isset(program_sets[weekday]) && set.id === program_sets[weekday].id"
