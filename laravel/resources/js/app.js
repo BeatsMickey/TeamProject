@@ -28,6 +28,7 @@ Vue.component('add-exercise', require('./components/ui-elements/day-one-elems/Ad
 
 /*Блок "Мои программы"*/
 Vue.component('my-programs-index', require('./components/ui-elements/my-programs/MyProgramsIndex').default);
+Vue.component('my-programs-one', require('./components/ui-elements/my-programs/MyProgramsOne').default);
 
 const app = new Vue({
     el: '#app',
