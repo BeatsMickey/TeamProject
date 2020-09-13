@@ -1,12 +1,23 @@
 <template>
     <section class="calendar">
+        <div class="calendar__legend">
+            <h3 class="calendar__legend_header">Легенда</h3>
+            <div class="calendar__legend_element">
+                <i class="fa fa-circle calendar__legend_icon calendar__legend_icon--darkgreen" aria-hidden="true"></i>
+                Завершённая тренировка
+            </div>
+            <div class="calendar__legend_element calendar__legend_element--second">
+                <i class="fa fa-circle calendar__legend_icon calendar__legend_icon--lightgreen" aria-hidden="true"></i>
+                День занятий по выбранной программе
+            </div>
+        </div>
         <div class="calendar__box">
             <div class="calendar__chooseMonth">
                 <div class="calendar__Month-btn" @click="decreaseMonth()">
                     <div class="arrow left"></div>
                 </div>
                 <div class="calendar__currentMonth"><h2 class="calendar__heading">{{
-                    month[currentDate.month].toUpperCase() }}</h2></div>
+                    month[currentDate.month].toUpperCase()}}</h2></div>
                 <div class="calendar__Month-btn" @click="increaseMonth()">
                     <div class="arrow right"></div>
                 </div>
@@ -22,14 +33,19 @@
                 </div>
                 <div class="calendar__day"
                      v-for="(n, index) in currentMonthsDays"
-                     :class="{ calendar__day_active: checkActualDate(n), calendar__day_weekend: checkCurrentMonthWeekend(n), calendar__day_programDay: checkProgramData(n) }"
+                     :class="{
+                        calendar__day_active: checkActualDate(n), calendar__day_weekend: checkCurrentMonthWeekend(n),
+                        calendar__day_programDay: checkProgramData(n) && !checkPassedDate(n),
+                        calendar__day_is_passed: checkDayIsPassed(n)
+                        }"
                      :key="'day' + index">
                     <div v-if="checkActualDate(n)">
                         <a class="calendar__link" :class="{ calendar__link_weekend: checkCurrentMonthWeekend(n) }"
                            :href="prepareLink(n)"><span>{{ n }}</span></a>
                     </div>
                     <div v-else-if="checkPassedDate(n)">
-                        <a class="calendar__link" :class="{ calendar__link_weekend: checkCurrentMonthWeekend(n) }"
+                        <a class="calendar__link calendar__completed_training"
+                           :class="{ calendar__link_weekend: checkCurrentMonthWeekend(n) }"
                            :href="prepareLink(n)"><span>{{ n }}</span></a>
                     </div>
                     <div v-else>
@@ -119,6 +135,16 @@
             checkPassedDate(n) {
                 let month = new Date().getMonth();
                 if (this.isActiveDays.includes(n) && this.serverDate.month === month && this.currentDate.month === this.serverDate.month) return true;
+            },
+            checkDayIsPassed(n) {
+                if (this.currentDate.month < this.serverDate.month)
+                    return true;
+
+                if (this.urldata[n] && this.currentDate.month === this.serverDate.month)
+                    return this.urldata[n]['day_passed'];
+
+                if (this.currentDate.month > this.serverDate.month)
+                    return false;
             },
             prepareLink(n) {
                 let link = 'view_day/' + (this.serverDate.month + 1) + '/' + n + '/1?weekday=' + this.serverDate.weekday;
@@ -306,4 +332,61 @@
     .calendar__day:hover .calendar__link {
         color: #ffffff;
     }
+
+    .calendar__completed_training {
+        color: antiquewhite;
+        background-color: forestgreen;
+        /*border: 4px solid forestgreen;*/
+    }
+
+    .calendar__completed_training:hover {
+        background: #7543F8;
+    }
+
+    .calendar__day_is_passed {
+        filter: grayscale(.5);
+    }
+
+    .calendar__legend {
+        margin: auto;
+        float: right;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        align-content: flex-start;
+        height: 300px;
+        background-color: #b8daff;
+        padding: 10px;
+    }
+
+    .calendar__legend_header {
+        align-self: center;
+        font-size: 25px;
+    }
+
+    .calendar__legend_element {
+        font-size: 30px;
+        width: 500px;
+        height: 200px;
+        display: flex;
+
+        align-items: center;
+        /*align-items: stretch;*/
+        /*justify-content: left;*/
+        /*flex-wrap: nowrap;*/
+    }
+
+    .calendar__legend_icon {
+        margin-right: 20px;
+    }
+
+    .calendar__legend_icon--darkgreen {
+        color: green;
+        /*font-size: 30px;*/
+    }
+
+    .calendar__legend_icon--lightgreen {
+        color: #BAF500;
+    }
+
 </style>
