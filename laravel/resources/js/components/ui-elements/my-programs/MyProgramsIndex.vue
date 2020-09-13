@@ -7,7 +7,7 @@
                     <a class="my-program_link" href="#">{{ program.name }}</a>
                     <a class="my-program_link" :href="'/program/show/' + program.id">[Просмотреть]</a>
                     <a class="my-program_link" :href="'/program/update/' + program.id">[Редактировать]</a>
-                    <a class="my-program_link" :href="'/program/reset/' + program.id">[Сбросить]</a>
+                    <a class="my-program_link" :href="'/program/reset/'">[Сбросить]</a>
                     <small class="my-program_selected-item" >(Активная программа)</small>
                 </div>
 
