@@ -13,11 +13,6 @@
         @endif
 
         <my-programs-index :programs="{{json_encode($programs)}}" :current_program="{{json_encode($current_program)}}"></my-programs-index>
-
+    </div>
 @endsection
-<script>
-    import MyProgramsIndex from "../../js/components/ui-elements/MyProgramsIndex";
-    export default {
-        components: {MyProgramsIndex}
-    }
-</script>
+
