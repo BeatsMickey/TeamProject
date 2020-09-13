@@ -185,6 +185,7 @@ class Calendar extends Model
             $calendar[intval($today)]['is_active'] = 'today';
         }
 
+
         foreach ($calendar as $key => $value) {
             if($month < $monthnow || ($key < $today && $month == $monthnow)) {
                 $calendar[$key]['day_passed'] = true;

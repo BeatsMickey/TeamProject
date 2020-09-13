@@ -6,7 +6,7 @@
                     <div class="arrow left"></div>
                 </div>
                 <div class="calendar__currentMonth"><h2 class="calendar__heading">{{
-                    month[currentDate.month].toUpperCase() }}</h2></div>
+                    month[currentDate.month].toUpperCase()}}</h2></div>
                 <div class="calendar__Month-btn" @click="increaseMonth()">
                     <div class="arrow right"></div>
                 </div>
@@ -22,14 +22,18 @@
                 </div>
                 <div class="calendar__day"
                      v-for="(n, index) in currentMonthsDays"
-                     :class="{ calendar__day_active: checkActualDate(n), calendar__day_weekend: checkCurrentMonthWeekend(n), calendar__day_programDay: checkProgramData(n) }"
+                     :class="{
+                        calendar__day_active: checkActualDate(n), calendar__day_weekend: checkCurrentMonthWeekend(n),
+                        calendar__day_programDay: checkProgramData(n) && !checkPassedDate(n),
+                        calendar__day_is_passed: checkDayIsPassed(n)
+                        }"
                      :key="'day' + index">
                     <div v-if="checkActualDate(n)">
                         <a class="calendar__link" :class="{ calendar__link_weekend: checkCurrentMonthWeekend(n) }"
                            :href="prepareLink(n)"><span>{{ n }}</span></a>
                     </div>
                     <div v-else-if="checkPassedDate(n)">
-                        <a class="calendar__link" :class="{ calendar__link_weekend: checkCurrentMonthWeekend(n) }"
+                        <a class="calendar__link calendar__completed_training" :class="{ calendar__link_weekend: checkCurrentMonthWeekend(n) }"
                            :href="prepareLink(n)"><span>{{ n }}</span></a>
                     </div>
                     <div v-else>
@@ -119,6 +123,17 @@
             checkPassedDate(n) {
                 let month = new Date().getMonth();
                 if (this.isActiveDays.includes(n) && this.serverDate.month === month && this.currentDate.month === this.serverDate.month) return true;
+            },
+            checkDayIsPassed(n) {
+                console.log(this.urldata[n]);
+                if (this.currentDate.month < this.serverDate.month)
+                    return true;
+
+                if(this.urldata[n] && this.currentDate.month === this.serverDate.month)
+                    return this.urldata[n]['day_passed'];
+
+                if (this.currentDate.month > this.serverDate.month)
+                    return false;
             },
             prepareLink(n) {
                 let link = 'view_day/' + (this.serverDate.month + 1) + '/' + n + '/1?weekday=' + this.serverDate.weekday;
@@ -305,5 +320,15 @@
 
     .calendar__day:hover .calendar__link {
         color: #ffffff;
+    }
+
+    .calendar__completed_training {
+        /*color: forestgreen;*/
+        border: 4px solid forestgreen;
+    }
+
+    .calendar__day_is_passed {
+        color: red;
+        filter: grayscale(.5);
     }
 </style>
