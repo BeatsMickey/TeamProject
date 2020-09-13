@@ -125,7 +125,6 @@
                 if (this.isActiveDays.includes(n) && this.serverDate.month === month && this.currentDate.month === this.serverDate.month) return true;
             },
             checkDayIsPassed(n) {
-                console.log(this.urldata[n]);
                 if (this.currentDate.month < this.serverDate.month)
                     return true;
 
