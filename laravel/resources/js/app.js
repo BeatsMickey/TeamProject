@@ -26,6 +26,12 @@ Vue.component('exercise-categories', require('./components/ui-elements/ExerciseC
 Vue.component('calendar-day', require('./components/ui-elements/day-one-elems/CurrentDate.vue').default);
 Vue.component('add-exercise', require('./components/ui-elements/day-one-elems/AddExercise').default);
 
+/*Блок "Мои программы"*/
+Vue.component('my-programs-index', require('./components/ui-elements/my-programs/MyProgramsIndex').default);
+Vue.component('my-programs-one', require('./components/ui-elements/my-programs/MyProgramsOne').default);
+Vue.component('my-programs-update', require('./components/ui-elements/my-programs/MyProgramsUpdate').default);
+Vue.component('my-programs-create', require('./components/ui-elements/my-programs/MyProgramsCreate').default);
+
 const app = new Vue({
     el: '#app',
 });

@@ -18,32 +18,7 @@
             </div>
         @endif
 
-        <h3>Создать новую программу</h3>
-        <form action="{{ route('program.create') }}" method="post">
-            @csrf
-            <div>
-                <input class="my-program_input" type="text" name="name" placeholder="Название программы">
-            </div>
-
-            <ul>
-                @for ($i = 1; $i <= 7; $i++)
-                    <li class="my-program_list-item">
-                        <label for="day_{{ $i }}">{{ $i }}-й день тренировки</label>
-                        <select class="my-program_input" name="day_{{ $i }}" id="day_{{ $i }}">
-                            <option value=""></option>
-                            @foreach($sets as $key => $set)
-                                <option value="{{ $set->id }}">{{ $set->name }}</option>
-                            @endforeach
-                        </select>
-                    </li>
-                @endfor
-            </ul>
-
-
-            <button class="my-program_btn">Создать программу</button>
-        </form>
+        <my-programs-create :sets="{{ json_encode($sets) }}"></my-programs-create>
     </div>
 @endsection
-
-
 
