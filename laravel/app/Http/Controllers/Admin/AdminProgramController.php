@@ -8,6 +8,6 @@ use Illuminate\Http\Request;
 class AdminProgramController extends Controller
 {
     function index() {
-        return 'work in progress';
+        return redirect(route('program.index'));
     }
 }
